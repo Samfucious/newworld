@@ -53,7 +53,7 @@ public class Avatar extends UpdatingNode {
     Vector3f left = Vector3f.UNIT_X.negate();
     
     Vector3f movementDirection = new Vector3f();
-    float movementSpeed = 5.0f;
+    float movementSpeed = 0.1f;
     
     Set<Movements> movements = new HashSet();
     static final HashMap<Movements, Vector3f> movementVectors = new HashMap();
@@ -124,7 +124,7 @@ public class Avatar extends UpdatingNode {
         if (isMoving()) {
             Vector3f movement = lookat.mult(-movementDirection.z)
                     .add(left.mult(-movementDirection.x)).normalize();
-            characterControl.setWalkDirection(movement.mult(t * movementSpeed));
+            characterControl.setWalkDirection(movement.mult(movementSpeed));
             characterControl.update(t);
         }
         else {
