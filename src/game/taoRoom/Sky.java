@@ -5,8 +5,8 @@
  */
 package game.taoRoom;
 
-import Helpers.Materials;
-import Helpers.Textures;
+import helpers.Materials;
+import helpers.Textures;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;

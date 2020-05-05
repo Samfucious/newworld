@@ -5,8 +5,8 @@
  */
 package game.taoRoom;
 
-import Helpers.Materials;
-import Helpers.Textures.TexturePaths;
+import helpers.Materials;
+import helpers.Textures.TexturePaths;
 import com.jme3.material.Material;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;

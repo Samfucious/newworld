@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.networking.messages.Chat;
+package game.networking.messages.chat;
 
 import game.networking.BaseMessage;
 

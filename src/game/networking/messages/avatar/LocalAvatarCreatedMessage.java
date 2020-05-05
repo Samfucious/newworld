@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.networking.messages.Avatar;
+package game.networking.messages.avatar;
 
-import game.App.Application;
+import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
 

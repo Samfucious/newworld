@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.networking.messages.Avatar;
+package game.networking.messages.avatar;
 
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
-import game.App.Application;
-import game.entities.Avatar;
+import game.application.Application;
 import game.networking.BaseMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,17 +20,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class AvatarCreatedMessage extends BaseMessage {
+public class AvatarJumpMessage extends BaseMessage {
     private int sourceId;
     private int clientId;
-    private Vector3f position;
-    private Quaternion rotation;
-
+    
     @Override
     public void processMessage() {
-        Application.getApplication().addAvatar(new Avatar(clientId, position, rotation));
+        Application.getApplication().getAvatar(clientId).jump();
     }
-    
+
     @Override
     public BaseMessage serverCloneMessage() {
         return this;

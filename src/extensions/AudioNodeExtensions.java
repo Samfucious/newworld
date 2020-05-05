@@ -7,7 +7,7 @@ package extensions;
 
 import com.jme3.audio.AudioData.DataType;
 import com.jme3.audio.AudioNode;
-import game.App.Application;
+import game.application.Application;
 
 /**
  *

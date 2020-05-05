@@ -10,7 +10,7 @@ import com.jme3.audio.AudioNode;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import game.App.Application;
+import game.application.Application;
 import game.entities.UpdatingNode;
 
 /**

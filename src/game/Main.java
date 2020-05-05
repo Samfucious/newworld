@@ -5,10 +5,10 @@
  */
 package game;
 
-import game.App.LocalApp;
-import game.App.ClientApp;
-import game.App.Application;
-import game.App.ServerApp;
+import game.application.LocalApp;
+import game.application.ClientApp;
+import game.application.Application;
+import game.application.ServerApp;
 
 /**
  *

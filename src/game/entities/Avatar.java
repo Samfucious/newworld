@@ -14,7 +14,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Cylinder;
-import game.App.Application;
+import game.application.Application;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;

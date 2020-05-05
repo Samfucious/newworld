@@ -5,15 +5,15 @@
  */
 package game.taoRoom;
 
-import Helpers.Materials;
-import Helpers.Textures;
+import helpers.Materials;
+import helpers.Textures;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Sphere;
-import game.App.Application;
+import game.application.Application;
 
 /**
  *
