@@ -14,7 +14,7 @@ import game.networking.messages.Avatar.LocalAvatarCreatedMessage;
  *
  * @author gyrep
  */
-public class LocalApp extends ConnectedApp {
+public class LocalApp extends ClientApp {
     @Override
     public void run() {
         this.start();

@@ -6,7 +6,7 @@
 package game;
 
 import game.App.LocalApp;
-import game.App.ConnectedApp;
+import game.App.ClientApp;
 import game.App.Application;
 import game.App.ServerApp;
 
@@ -33,7 +33,7 @@ public class Main {
             Application.initApplication(new ServerApp()).run();
         }
         else if (Configuration.hasConfiguration(Configuration.Configurations.CONNECT)) {
-            Application.initApplication(new ConnectedApp()).run();
+            Application.initApplication(new ClientApp()).run();
         }
         else {
             Application.initApplication(new LocalApp()).run();

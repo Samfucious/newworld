@@ -25,7 +25,7 @@ import game.networking.BaseMessage;
  *
  * @author gyrep
  */
-public class ConnectedApp extends BaseApp implements ActionListener {
+public class ClientApp extends BaseApp implements ActionListener {
     protected Avatar getLocalAvatar() {
         if (Connection.getNetworkInitiaized())
         {
