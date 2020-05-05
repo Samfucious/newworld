@@ -1,0 +1,1663 @@
+{
+    "__info__": {
+        "group_order": [
+            "CrackedAsphaltRoad",
+            "main"
+        ],
+        "node_tree_name": "CrackedAsphaltRoad",
+        "node_tree_id": "ShaderNodeTree",
+        "version": [
+            0,
+            6,
+            0
+        ],
+        "render_engine": "CYCLES",
+        "path_type": "relative",
+        "number_of_nodes": 17,
+        "date_created": "6/19/2018 at 11:39:50 in Central Standard Time",
+        "dependencies": [
+            [
+                "image",
+                "CrackedAsphaltRoad_basecolor.png",
+                "\\CrackedAsphaltRoad_basecolor.png"
+            ],
+            [
+                "image",
+                "CrackedAsphaltRoad_metallic.png",
+                "\\CrackedAsphaltRoad_metallic.png"
+            ],
+            [
+                "image",
+                "CrackedAsphaltRoad_roughness.png",
+                "\\CrackedAsphaltRoad_roughness.png"
+            ],
+            [
+                "image",
+                "CrackedAsphaltRoad_normal.png",
+                "\\CrackedAsphaltRoad_normal.png"
+            ],
+            [
+                "image",
+                "CrackedAsphaltRoad_height.png",
+                "\\CrackedAsphaltRoad_height.png"
+            ]
+        ]
+    },
+    "CrackedAsphaltRoad": {
+        "links": [
+            [
+                "Base Color",
+                0,
+                "Hue Saturation Value",
+                4
+            ],
+            [
+                "Metallic",
+                0,
+                "Bright/Contrast.001",
+                0
+            ],
+            [
+                "Normal Map",
+                0,
+                "Principled BSDF",
+                17
+            ],
+            [
+                "Principled BSDF",
+                0,
+                "Output",
+                0
+            ],
+            [
+                "Hue Saturation Value",
+                0,
+                "Gamma",
+                0
+            ],
+            [
+                "Controls",
+                3,
+                "Gamma",
+                1
+            ],
+            [
+                "Roughness",
+                0,
+                "Bright/Contrast",
+                0
+            ],
+            [
+                "Controls",
+                4,
+                "Bright/Contrast",
+                1
+            ],
+            [
+                "Controls",
+                5,
+                "Bright/Contrast",
+                2
+            ],
+            [
+                "Bright/Contrast.001",
+                0,
+                "Principled BSDF",
+                4
+            ],
+            [
+                "Controls",
+                6,
+                "Bright/Contrast.001",
+                1
+            ],
+            [
+                "Controls",
+                7,
+                "Bright/Contrast.001",
+                2
+            ],
+            [
+                "Height",
+                0,
+                "Output",
+                1
+            ],
+            [
+                "Bright/Contrast",
+                0,
+                "Principled BSDF",
+                7
+            ],
+            [
+                "Gamma",
+                0,
+                "Principled BSDF",
+                0
+            ],
+            [
+                "Controls",
+                0,
+                "Hue Saturation Value",
+                0
+            ],
+            [
+                "Controls",
+                1,
+                "Hue Saturation Value",
+                1
+            ],
+            [
+                "Controls",
+                2,
+                "Hue Saturation Value",
+                2
+            ],
+            [
+                "Normal",
+                0,
+                "Normal Map",
+                1
+            ],
+            [
+                "Controls",
+                8,
+                "Normal Map",
+                0
+            ],
+            [
+                "Controls",
+                9,
+                "Base Color",
+                0
+            ],
+            [
+                "Controls",
+                9,
+                "Metallic",
+                0
+            ],
+            [
+                "Controls",
+                9,
+                "Roughness",
+                0
+            ],
+            [
+                "Controls",
+                9,
+                "Normal",
+                0
+            ],
+            [
+                "Controls",
+                9,
+                "Height",
+                0
+            ]
+        ],
+        "nodes": [
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                1,
+                                1,
+                                1,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatUnsigned",
+                        "index": 1,
+                        "values": {
+                            "default_value": 1
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeGamma",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        573.5876,
+                        367.093
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Gamma",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                1,
+                                1,
+                                1,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 2,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeBrightContrast",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        475.4446,
+                        193.5647
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Bright/Contrast.001",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0.8,
+                                0.8,
+                                0.8,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 2,
+                        "values": {
+                            "default_value": [
+                                1,
+                                1,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 3,
+                        "values": {
+                            "default_value": [
+                                0.7,
+                                0.1,
+                                0.1,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 4,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 5,
+                        "values": {
+                            "default_value": 0.5
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 6,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 7,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 8,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 9,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 10,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 11,
+                        "values": {
+                            "default_value": 0.5
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 12,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 13,
+                        "values": {
+                            "default_value": 0.03
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 14,
+                        "values": {
+                            "default_value": 1.45
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 15,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 16,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 17,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 18,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 19,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [],
+                "bl_idname": "ShaderNodeBsdfPrincipled",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "distribution",
+                    "MULTI_GGX",
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        907.5918,
+                        376.8928
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Principled BSDF",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    258.3522
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                1,
+                                1,
+                                1,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 2,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeBrightContrast",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        475.4446,
+                        63.8446
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Bright/Contrast",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 0,
+                        "values": {
+                            "default_value": 0.5
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 2,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloatFactor",
+                        "index": 3,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 4,
+                        "values": {
+                            "default_value": [
+                                0.8,
+                                0.8,
+                                0.8,
+                                1
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeHueSaturation",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        230.3699,
+                        481.3423
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Hue Saturation Value",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    150
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 0,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 1,
+                        "values": {
+                            "default_value": [
+                                0.5,
+                                0.5,
+                                1,
+                                1
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeNormalMap",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    true,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        584.7008,
+                        -148.9083
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Normal Map",
+                    "select",
+                    false,
+                    "space",
+                    "TANGENT",
+                    "use_custom_color",
+                    false,
+                    "uv_map",
+                    "",
+                    "width",
+                    150
+                ]
+            },
+            {
+                "inputs": [],
+                "outputs": [],
+                "bl_idname": "NodeGroupOutput",
+                "node_specific": [
+                    "group_output",
+                    [
+                        "NodeSocketShader",
+                        "Material Output",
+                        "NodeSocketFloat",
+                        "Height Map Output"
+                    ],
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "is_active_output",
+                    true,
+                    "label",
+                    "Output",
+                    "location",
+                    [
+                        1553.6871,
+                        238.448
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Output",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeTexImage",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "color_space",
+                    "COLOR",
+                    "extension",
+                    "REPEAT",
+                    "height",
+                    100,
+                    "hide",
+                    true,
+                    "image",
+                    "CrackedAsphaltRoad_basecolor.png",
+                    "interpolation",
+                    "Linear",
+                    "label",
+                    "Base Color",
+                    "location",
+                    [
+                        146.4219,
+                        216.0697
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Base Color",
+                    "projection",
+                    "FLAT",
+                    "projection_blend",
+                    0,
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    290.966
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeTexImage",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "color_space",
+                    "NONE",
+                    "extension",
+                    "REPEAT",
+                    "height",
+                    100,
+                    "hide",
+                    true,
+                    "image",
+                    "CrackedAsphaltRoad_metallic.png",
+                    "interpolation",
+                    "Linear",
+                    "label",
+                    "Metallic",
+                    "location",
+                    [
+                        204.6678,
+                        102.0974
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Metallic",
+                    "projection",
+                    "FLAT",
+                    "projection_blend",
+                    0,
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeTexImage",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "color_space",
+                    "NONE",
+                    "extension",
+                    "REPEAT",
+                    "height",
+                    100,
+                    "hide",
+                    true,
+                    "image",
+                    "CrackedAsphaltRoad_roughness.png",
+                    "interpolation",
+                    "Linear",
+                    "label",
+                    "Roughness",
+                    "location",
+                    [
+                        249.5366,
+                        47.1381
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Roughness",
+                    "projection",
+                    "FLAT",
+                    "projection_blend",
+                    0,
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeTexImage",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "color_space",
+                    "NONE",
+                    "extension",
+                    "REPEAT",
+                    "height",
+                    100,
+                    "hide",
+                    true,
+                    "image",
+                    "CrackedAsphaltRoad_normal.png",
+                    "interpolation",
+                    "Linear",
+                    "label",
+                    "Normal",
+                    "location",
+                    [
+                        222.5059,
+                        -240.6845
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Normal",
+                    "projection",
+                    "FLAT",
+                    "projection_blend",
+                    0,
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketColor",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeTexImage",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "color_space",
+                    "NONE",
+                    "extension",
+                    "REPEAT",
+                    "height",
+                    100,
+                    "hide",
+                    true,
+                    "image",
+                    "CrackedAsphaltRoad_height.png",
+                    "interpolation",
+                    "Linear",
+                    "label",
+                    "Height",
+                    "location",
+                    [
+                        147.8741,
+                        -303.259
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Height",
+                    "projection",
+                    "FLAT",
+                    "projection_blend",
+                    0,
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [],
+                "outputs": [],
+                "bl_idname": "NodeGroupInput",
+                "node_specific": [
+                    "group_input",
+                    [
+                        "NodeSocketFloat",
+                        "Hue",
+                        "NodeSocketFloat",
+                        "Saturation",
+                        "NodeSocketFloat",
+                        "Value",
+                        "NodeSocketFloat",
+                        "Gamma",
+                        "NodeSocketFloat",
+                        "Roughness Adjust",
+                        "NodeSocketFloat",
+                        "Roughness Contrast",
+                        "NodeSocketFloat",
+                        "Metallic Adjust",
+                        "NodeSocketFloat",
+                        "Metallic Contrast",
+                        "NodeSocketFloat",
+                        "Normal Strength",
+                        "NodeSocketVector",
+                        "UV"
+                    ],
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "Controls",
+                    "location",
+                    [
+                        -712.418,
+                        356.2501
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Controls",
+                    "select",
+                    true,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            }
+        ]
+    },
+    "main": {
+        "links": [
+            [
+                "Texture Coordinate",
+                2,
+                "Mapping",
+                0
+            ],
+            [
+                "Mapping",
+                0,
+                "CrackedAsphaltRoad",
+                9
+            ],
+            [
+                "CrackedAsphaltRoad",
+                0,
+                "Material Output",
+                0
+            ]
+        ],
+        "nodes": [
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 2,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "outputs": [],
+                "bl_idname": "ShaderNodeOutputMaterial",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "is_active_output",
+                    true,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        -308.3198,
+                        275.1309
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Material Output",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 1,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 2,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 3,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 4,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 5,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 6,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeTexCoord",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "from_dupli",
+                    false,
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        -1204.0045,
+                        223.0559
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Texture Coordinate",
+                    "select",
+                    false,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    140
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 0,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeMapping",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "",
+                    "location",
+                    [
+                        -1010.1219,
+                        240.4691
+                    ],
+                    "max",
+                    [
+                        1,
+                        1,
+                        1
+                    ],
+                    "min",
+                    [
+                        0,
+                        0,
+                        0
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "Mapping",
+                    "rotation",
+                    [
+                        0,
+                        0,
+                        0
+                    ],
+                    "scale",
+                    [
+                        1,
+                        1,
+                        1
+                    ],
+                    "select",
+                    false,
+                    "translation",
+                    [
+                        0,
+                        0,
+                        0
+                    ],
+                    "use_custom_color",
+                    false,
+                    "use_max",
+                    false,
+                    "use_min",
+                    false,
+                    "vector_type",
+                    "POINT",
+                    "width",
+                    320
+                ]
+            },
+            {
+                "inputs": [
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 0,
+                        "values": {
+                            "default_value": 0.5
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 2,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 3,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 4,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 5,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 6,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 7,
+                        "values": {
+                            "default_value": 0
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 8,
+                        "values": {
+                            "default_value": 1
+                        }
+                    },
+                    {
+                        "bl_idname": "NodeSocketVector",
+                        "index": 9,
+                        "values": {
+                            "default_value": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "bl_idname": "NodeSocketFloat",
+                        "index": 1,
+                        "values": {
+                            "default_value": 0
+                        }
+                    }
+                ],
+                "bl_idname": "ShaderNodeGroup",
+                "node_specific": [
+                    "color",
+                    [
+                        0.608,
+                        0.608,
+                        0.608
+                    ],
+                    "height",
+                    100,
+                    "hide",
+                    false,
+                    "label",
+                    "CrackedAsphaltRoad",
+                    "location",
+                    [
+                        -592.4975,
+                        274.7616
+                    ],
+                    "mute",
+                    false,
+                    "name",
+                    "CrackedAsphaltRoad",
+                    "node_tree.name",
+                    "CrackedAsphaltRoad",
+                    "select",
+                    true,
+                    "use_custom_color",
+                    false,
+                    "width",
+                    207.1904
+                ]
+            }
+        ]
+    }
+}
