@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.taoRoom;
+package game.entities.taoRoom;
 
 import Helpers.Materials;
 import Helpers.Textures.TexturePaths;
@@ -23,18 +23,8 @@ import lombok.experimental.ExtensionMethod;
  * @author gyrep
  */
 @ExtensionMethod({ GeometryExtensions.class })
-public class Floor extends Node {
-    private static Mesh mesh;
-    
+public class Floor extends Node { 
     private final float outradius;
-    
-    private Mesh getMesh() {
-        return null != mesh ? mesh : (mesh = createMesh());
-    }
-    
-    private Mesh createMesh() {
-        return new Cylinder(2, 8, this.outradius, 0.5f, true);
-    }
     
     public Floor(float outradius) {
         this.outradius = outradius;
@@ -46,7 +36,8 @@ public class Floor extends Node {
     }
     
     private void initGeometry(Material material) {
-        Geometry geometry = new Geometry("floor", getMesh());
+        Mesh mesh = new Cylinder(2, 8, this.outradius, 0.5f, true);
+        Geometry geometry = new Geometry("floor", mesh);
         geometry.setMaterial(material);
         TangentBinormalGenerator.generate(geometry);
         

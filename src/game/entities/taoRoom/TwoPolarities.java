@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.taoRoom;
+package game.entities.taoRoom;
 
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
@@ -21,14 +21,15 @@ import game.entities.UpdatingNode;
  */
 @ExtensionMethod({ NodeExtensions.class })
 public class TwoPolarities extends UpdatingNode {
+    
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;
     
     AmbientLight yangLight;
     DirectionalLight yinLight;
         
     private final Polarity[] polarities = {
-        new Polarity(Polarity.Polarities.Yin),
-        new Polarity(Polarity.Polarities.Yang)
+        new Polarity(Polarities.Polarity.Yin),
+        new Polarity(Polarities.Polarity.Yang)
     };
     private float rotation = 0.0f;
     

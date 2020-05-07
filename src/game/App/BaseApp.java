@@ -11,7 +11,7 @@ import game.entities.IUpdateable;
 import game.networking.BaseMessage;
 import java.util.ArrayList;
 import java.util.List;
-import game.taoRoom.Room;
+import game.entities.taoRoom.Room;
 import java.util.HashMap;
 
 /**

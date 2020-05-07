@@ -17,6 +17,7 @@ import game.App.Application;
 public class Materials {
     public enum MatDefs {
         Lighting("MatDefs/Light/Lighting.j3md"),
+        Emitter("Common/MatDefs/Misc/Particle.j3md"),
         Unshaded("Common/MatDefs/Misc/Unshaded.j3md");
         
         private final String matDef;
@@ -73,6 +74,13 @@ public class Materials {
         Material material = new Material(Application.getAssetManager(), MatDefs.Unshaded.getMatDef());
         material.setColor("Color", color);
         material.setColor("GlowColor", color.mult(5.0f));
+        return material;
+    }
+    
+    public static Material newEmitterMaterial() {
+        Material material = new Material(Application.getAssetManager(), MatDefs.Emitter.getMatDef());
+        material.setTexture("Texture", Application.getAssetManager().loadTexture(
+            Textures.TexturePaths.Emitter.getTexturePath()));
         return material;
     }
 }

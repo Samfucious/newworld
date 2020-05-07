@@ -3,39 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.taoRoom;
+package game.entities.taoRoom;
 
 import Helpers.Materials;
-import Helpers.Textures;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Sphere;
-import game.App.Application;
 
 /**
  *
  * @author gyrep
  */
 public class Polarity extends Node {
-    
-    public enum Polarities {
-        Yin (0),
-        Yang (1);
         
-        private final int polarity;
-        
-        Polarities(int polarity) {
-            this.polarity = polarity;
-        }
-        
-        public int getPolarity() {
-            return this.polarity;
-        }
-    }
-    
     Material material;
     
     private static Mesh mesh;
@@ -48,7 +30,7 @@ public class Polarity extends Node {
         return new Sphere(40, 40, 0.5f);
     }
     
-    public Polarity(Polarities polarity) {
+    public Polarity(Polarities.Polarity polarity) {
         this.material = initMaterial(polarity);
         initGeometry();
     }
@@ -59,17 +41,10 @@ public class Polarity extends Node {
         this.attachChild(geometry);
     }
     
-    private Material initMaterial(Polarities polarity) {
-        if (Polarities.Yin.equals(polarity)) {
-            return Materials.newMaterial(
-                    Textures.TexturePaths.Yin.getTexturePath(), 
-                    Textures.TexturePaths.YinNorm.getTexturePath()
-            );
-        }
-        
+    private Material initMaterial(Polarities.Polarity polarity) {
         return Materials.newMaterial(
-                Textures.TexturePaths.Yang.getTexturePath(), 
-                Textures.TexturePaths.YangNorm.getTexturePath()
+                Polarities.getTexturePath(polarity), 
+                Polarities.getNormalTexturePath(polarity)
         );
     }
 }

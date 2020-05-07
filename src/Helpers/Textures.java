@@ -19,7 +19,8 @@ public class Textures {
         FloorNorm("Textures/Stone/BrokenLimestoneBrickPath_normal.png"),
         Wall("Textures/Wood/wood02.png"),
         WallNorm("Textures/Wood/wood02_normal.png"),
-        Sky("Textures/Sky/Bright/FullskiesBlueClear03.dds");
+        Sky("Textures/Sky/Bright/FullskiesBlueClear03.dds"),
+        Emitter("Textures/Emitter/emitter.png");
         
         private final String texturePath;
         
