@@ -11,29 +11,33 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class AvatarWalkMessage extends BaseMessage {
-    private int sourceId;
-    private int clientId;
-    private Vector3f position;
-    private Quaternion rotation;
-    private boolean isForward;
-    private boolean startMovement;
+    private final Vector3f position;
+    private final Quaternion rotation;
+    private final boolean isForward;
+    private final boolean startMovement;
 
+    public AvatarWalkMessage(int sourceId, int clientId,
+            Vector3f position, Quaternion rotation,
+            boolean isForward, boolean startMovement) {
+        super(sourceId, clientId);
+        this.position = position;
+        this.rotation = rotation;
+        this.isForward = isForward;
+        this.startMovement = startMovement;
+    }
+    
     @Override
     public void processMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(clientId);
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
         avatar.setLocalTranslation(position);
         avatar.setLocalRotation(rotation);
         
@@ -46,7 +50,7 @@ public class AvatarWalkMessage extends BaseMessage {
 
     @Override
     public BaseMessage serverCloneMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(clientId);
-        return new AvatarWalkMessage(sourceId, clientId, avatar.getLocalTranslation(), avatar.getLocalRotation(), isForward, startMovement);
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        return new AvatarWalkMessage(this.getSourceId(), this.getClientId(), avatar.getLocalTranslation(), avatar.getLocalRotation(), isForward, startMovement);
     }
 }

@@ -6,14 +6,20 @@
 package game.networking.messages.chat;
 
 import game.networking.BaseMessage;
+import lombok.Getter;
 
 /**
  *
  * @author gyrep
  */
+@Getter
 public class ChatMessage extends BaseMessage{
-    int sourceId;
     String message;
+    
+    public ChatMessage(int sourceId, int clientId, String message) {
+        super(sourceId, clientId);
+        this.message = message;
+    }
 
     @Override
     public void processMessage() {

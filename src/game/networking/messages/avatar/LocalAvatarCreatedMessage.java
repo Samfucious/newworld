@@ -17,6 +17,7 @@ public class LocalAvatarCreatedMessage extends BaseMessage {
     Avatar avatar;
     
     public LocalAvatarCreatedMessage(Avatar avatar) {
+        super(0, 0);
         this.avatar = avatar;
     }
 

@@ -12,8 +12,12 @@ import game.networking.BaseMessage;
  * @author gyrep
  */
 public class NameChangeChatMessage extends BaseMessage {
-    int sourceId;
     String newName;
+    
+    public NameChangeChatMessage(int sourceId, int clientId, String newName) {
+        super(sourceId, clientId);
+        this.newName = newName;
+    }
 
     @Override
     public void processMessage() {

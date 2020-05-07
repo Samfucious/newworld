@@ -12,9 +12,11 @@ import game.networking.BaseMessage;
  * @author gyrep
  */
 public class AvatarDestroyedMessage extends BaseMessage {
-    private int sourceId;
-    private int clientId;
 
+    public AvatarDestroyedMessage(int sourceId, int clientId) {
+        super(sourceId, clientId);
+    }
+    
     @Override
     public void processMessage() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

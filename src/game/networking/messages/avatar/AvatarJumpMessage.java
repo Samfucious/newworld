@@ -8,25 +8,23 @@ package game.networking.messages.avatar;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.networking.BaseMessage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class AvatarJumpMessage extends BaseMessage {
-    private int sourceId;
-    private int clientId;
+
+    public AvatarJumpMessage(int sourceId, int clientId) {
+        super(sourceId, clientId);
+    }
     
     @Override
     public void processMessage() {
-        Application.getApplication().getAvatar(clientId).jump();
+        Application.getApplication().getAvatar(this.getClientId()).jump();
     }
 
     @Override

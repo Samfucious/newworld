@@ -11,27 +11,27 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class AvatarCreatedMessage extends BaseMessage {
-    private int sourceId;
-    private int clientId;
-    private Vector3f position;
-    private Quaternion rotation;
+    private final Vector3f position;
+    private final Quaternion rotation;
+    
+    public AvatarCreatedMessage(int sourceId, int clientId, Vector3f position, Quaternion rotation) {
+        super(sourceId, clientId);
+        this.position = position;
+        this.rotation = rotation;
+    }
 
     @Override
     public void processMessage() {
-        Application.getApplication().addAvatar(new Avatar(clientId, position, rotation));
+        Application.getApplication().addAvatar(new Avatar(this.getClientId(), position, rotation));
     }
     
     @Override

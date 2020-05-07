@@ -11,29 +11,32 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class AvatarStrafeMessage extends BaseMessage {
-    private int sourceId;
-    private int clientId;
-    private Vector3f position;
-    private Quaternion rotation;
-    private boolean isLeft;
-    private boolean startMovement;
+    private final Vector3f position;
+    private final Quaternion rotation;
+    private final boolean isLeft;
+    private final boolean startMovement;
+    
+    public AvatarStrafeMessage(int sourceId, int clientId, 
+            Vector3f position, Quaternion rotation, boolean isLeft, boolean startMovement) {
+        super(sourceId, clientId);
+        this.position = position;
+        this.rotation = rotation;
+        this.isLeft = isLeft;
+        this.startMovement = startMovement;
+    }
 
     @Override
     public void processMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(clientId);
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
         avatar.setLocalTranslation(position);
         avatar.setLocalRotation(rotation);
         
@@ -46,7 +49,7 @@ public class AvatarStrafeMessage extends BaseMessage {
 
     @Override
     public BaseMessage serverCloneMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(clientId);
-        return new AvatarStrafeMessage(sourceId, clientId, avatar.getLocalTranslation(), rotation, isLeft, startMovement);
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        return new AvatarStrafeMessage(this.getSourceId(), this.getClientId(), avatar.getLocalTranslation(), rotation, isLeft, startMovement);
     }
 }

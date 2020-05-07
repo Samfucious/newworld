@@ -11,30 +11,37 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class AvatarPositionMessage extends BaseMessage {
-    private int sourceId;
-    private int clientId;
-    private Vector3f position;
-    private Quaternion rotation;
-    private Vector3f direction;
-    private Vector3f left;
-    private Avatar.Movements[] movements;
+    private final Vector3f position;
+    private final Quaternion rotation;
+    private final Vector3f direction;
+    private final Vector3f left;
+    private final Avatar.Movements[] movements;
+    
+    public AvatarPositionMessage(int sourceId, int clientId,
+            Vector3f position, Quaternion rotation,
+            Vector3f direction, Vector3f left,
+            Avatar.Movements[] movements
+            ) {
+        super(sourceId, clientId);
+        this.position = position;
+        this.rotation = rotation;
+        this.direction = direction;
+        this.left = left;
+        this.movements = movements;
+    }
 
     @Override
     public void processMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(clientId);
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
         if(avatar != null) {
             avatar.setLocalTranslation(position);
             avatar.setLocalRotation(rotation);
@@ -45,11 +52,11 @@ public class AvatarPositionMessage extends BaseMessage {
 
     @Override
     public BaseMessage serverCloneMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(clientId);
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
         if(avatar != null) {
             return new AvatarPositionMessage(
-                    sourceId,
-                    clientId,
+                    this.getSourceId(),
+                    this.getClientId(),
                     avatar.getLocalTranslation(),
                     rotation,
                     direction,
