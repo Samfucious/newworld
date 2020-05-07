@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.App;
+package game.application;
 
+import helpers.Textures;
 import com.jme3.app.state.ScreenshotAppState;
+import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.math.ColorRGBA;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.system.JmeContext;
@@ -16,16 +19,16 @@ import com.jme3.util.SkyFactory;
 import game.Configuration;
 import game.networking.Connection;
 import game.entities.Avatar;
-import game.networking.messages.Avatar.AvatarJumpMessage;
-import game.networking.messages.Avatar.AvatarWalkMessage;
-import game.networking.messages.Avatar.AvatarStrafeMessage;
+import game.networking.messages.avatar.AvatarJumpMessage;
+import game.networking.messages.avatar.AvatarWalkMessage;
+import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.BaseMessage;
 
 /**
  *
  * @author gyrep
  */
-public class ConnectedApp extends BaseApp implements ActionListener {
+public class ClientApp extends BaseApp implements ActionListener {
     protected Avatar getLocalAvatar() {
         if (Connection.getNetworkInitiaized())
         {
@@ -47,8 +50,9 @@ public class ConnectedApp extends BaseApp implements ActionListener {
     public void simpleInitApp() {    
         super.simpleInitApp();
         initBloomFilter();
-        // initSky();
+        initSky();
         setUpKeys();
+        initHud();
         
         ScreenshotAppState screenShotState = new ScreenshotAppState();
         this.stateManager.attach(screenShotState);
@@ -66,7 +70,7 @@ public class ConnectedApp extends BaseApp implements ActionListener {
     }
     
     private void initSky() {
-        getRootNode().attachChild(SkyFactory.createSky(getAssetManager(), "Textures/Sky/Bright/BrightSky.dds", SkyFactory.EnvMapType.CubeMap));
+        getRootNode().attachChild(SkyFactory.createSky(getAssetManager(), Textures.TexturePaths.Sky.getTexturePath(), SkyFactory.EnvMapType.CubeMap));
     }
     
     /** We over-write some navigational key mappings here, so we can
@@ -134,6 +138,17 @@ public class ConnectedApp extends BaseApp implements ActionListener {
                 Connection.getClient().send(message);
             }
         }
+    }
+    
+    private void initHud() {
+        setDisplayStatView(false); setDisplayFps(false);
+        
+        BitmapText hudText = new BitmapText(guiFont, false);
+        hudText.setSize(guiFont.getCharSet().getRenderedSize());      // font size
+        hudText.setColor(ColorRGBA.Blue);                             // font color
+        hudText.setText("You can write any string here\n and here\n   And hererererere");             // the text
+        hudText.setLocalTranslation(300, hudText.getLineHeight() * 3, 0); // position
+        guiNode.attachChild(hudText);
     }
     
     @Override

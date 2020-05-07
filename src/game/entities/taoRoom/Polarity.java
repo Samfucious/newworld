@@ -5,12 +5,13 @@
  */
 package game.entities.taoRoom;
 
-import Helpers.Materials;
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Sphere;
+import helpers.Materials;
+
 
 /**
  *

@@ -8,7 +8,7 @@ package game.entities.taoRoom;
 import com.jme3.audio.AudioData;
 import com.jme3.audio.AudioNode;
 import com.jme3.math.ColorRGBA;
-import game.App.Application;
+import game.application.Application;
 
 /**
  *

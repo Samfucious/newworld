@@ -26,31 +26,31 @@ public class Polarities {
     }
     
     public enum Textures {
-        Yin (Helpers.Textures.TexturePaths.Yin),
-        Yang (Helpers.Textures.TexturePaths.Yang);
+        Yin (helpers.Textures.TexturePaths.Yin),
+        Yang (helpers.Textures.TexturePaths.Yang);
         
-        private final Helpers.Textures.TexturePaths texture;
+        private final helpers.Textures.TexturePaths texture;
         
-        Textures(Helpers.Textures.TexturePaths texture) {
+        Textures(helpers.Textures.TexturePaths texture) {
             this.texture = texture;
         }
         
-        public Helpers.Textures.TexturePaths getTexture() {
+        public helpers.Textures.TexturePaths getTexture() {
             return this.texture;
         }
     }
     
     public enum NormalTextures {
-        Yin (Helpers.Textures.TexturePaths.YinNorm),
-        Yang (Helpers.Textures.TexturePaths.YangNorm);
+        Yin (helpers.Textures.TexturePaths.YinNorm),
+        Yang (helpers.Textures.TexturePaths.YangNorm);
         
-        private final Helpers.Textures.TexturePaths texture;
+        private final helpers.Textures.TexturePaths texture;
         
-        NormalTextures(Helpers.Textures.TexturePaths texture) {
+        NormalTextures(helpers.Textures.TexturePaths texture) {
             this.texture = texture;
         }
         
-        public Helpers.Textures.TexturePaths getTexture() {
+        public helpers.Textures.TexturePaths getTexture() {
             return this.texture;
         }
     }

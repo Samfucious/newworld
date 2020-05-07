@@ -5,7 +5,7 @@
  */
 package game.networking;
 
-import game.App.Application;
+import game.application.Application;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.Client;
@@ -18,11 +18,11 @@ import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
-import game.networking.messages.Avatar.AvatarCreatedMessage;
-import game.networking.messages.Avatar.AvatarJumpMessage;
-import game.networking.messages.Avatar.AvatarPositionMessage;
-import game.networking.messages.Avatar.AvatarStrafeMessage;
-import game.networking.messages.Avatar.AvatarWalkMessage;
+import game.networking.messages.avatar.AvatarCreatedMessage;
+import game.networking.messages.avatar.AvatarJumpMessage;
+import game.networking.messages.avatar.AvatarPositionMessage;
+import game.networking.messages.avatar.AvatarStrafeMessage;
+import game.networking.messages.avatar.AvatarWalkMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

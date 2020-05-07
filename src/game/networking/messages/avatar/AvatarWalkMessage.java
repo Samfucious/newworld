@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.networking.messages.Avatar;
+package game.networking.messages.avatar;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
-import game.App.Application;
+import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
 import lombok.AllArgsConstructor;

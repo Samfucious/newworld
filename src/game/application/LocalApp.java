@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.App;
+package game.application;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import game.entities.Avatar;
-import game.networking.messages.Avatar.LocalAvatarCreatedMessage;
+import game.networking.messages.avatar.LocalAvatarCreatedMessage;
 
 /**
  *
  * @author gyrep
  */
-public class LocalApp extends ConnectedApp {
+public class LocalApp extends ClientApp {
     @Override
     public void run() {
         this.start();

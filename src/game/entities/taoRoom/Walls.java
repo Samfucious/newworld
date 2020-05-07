@@ -5,8 +5,8 @@
  */
 package game.entities.taoRoom;
 
-import Helpers.Materials;
-import Helpers.Textures.TexturePaths;
+import helpers.Materials;
+import helpers.Textures.TexturePaths;
 import com.jme3.material.Material;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;

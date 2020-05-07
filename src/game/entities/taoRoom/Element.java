@@ -5,7 +5,7 @@
  */
 package game.entities.taoRoom;
 
-import Helpers.Materials;
+import helpers.Materials;
 import com.jme3.audio.AudioNode;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
@@ -19,7 +19,7 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.LightControl;
 import com.jme3.scene.shape.Sphere;
-import game.App.Application;
+import game.application.Application;
 
 /**
  *

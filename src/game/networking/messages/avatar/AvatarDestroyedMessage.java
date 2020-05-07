@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game.networking.messages.Chat;
+package game.networking.messages.avatar;
 
 import game.networking.BaseMessage;
 
@@ -11,9 +11,9 @@ import game.networking.BaseMessage;
  *
  * @author gyrep
  */
-public class ChatMessage extends BaseMessage{
-    int sourceId;
-    String message;
+public class AvatarDestroyedMessage extends BaseMessage {
+    private int sourceId;
+    private int clientId;
 
     @Override
     public void processMessage() {

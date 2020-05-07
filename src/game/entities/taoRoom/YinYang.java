@@ -5,8 +5,8 @@
  */
 package game.entities.taoRoom;
 
-import Helpers.Materials;
-import Helpers.Textures.TexturePaths;
+import helpers.Materials;
+import helpers.Textures.TexturePaths;
 import com.jme3.material.Material;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -20,7 +20,6 @@ import com.jme3.scene.shape.Cylinder;
 import com.jme3.util.TangentBinormalGenerator;
 import extensions.GeometryExtensions;
 import extensions.NodeExtensions;
-import lombok.experimental.ExtensionMethod;
 import game.entities.UpdatingNode;
 import net.wcomohundro.jme3.csg.CSGGeonode;
 import net.wcomohundro.jme3.csg.CSGShape;
@@ -29,7 +28,6 @@ import net.wcomohundro.jme3.csg.CSGShape;
  *
  * @author gyrep
  */
-@ExtensionMethod({ NodeExtensions.class, GeometryExtensions.class })
 public class YinYang extends UpdatingNode {
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;
     private static final float THICKNESS = 1.0f;
@@ -73,7 +71,7 @@ public class YinYang extends UpdatingNode {
         
         this.attachChild(yinNode);
         this.attachChild(yangNode);
-        this.setRotation(rotationX);
+        NodeExtensions.setRotation(this, rotationX);
     }
     
     private static Geometry createGeometry(String name, Mesh mesh, Material material) {        
@@ -92,7 +90,7 @@ public class YinYang extends UpdatingNode {
         geometry.setMaterial(material);
         geometry.setLocalTranslation(translation);
         TangentBinormalGenerator.generate(geometry);
-        geometry.setUVPlanaerProject(Vector3f.UNIT_Z);
+        GeometryExtensions.setUVPlanaerProject(geometry, Vector3f.UNIT_Z);
         return geometry;
     }
     
@@ -129,7 +127,7 @@ public class YinYang extends UpdatingNode {
     private static Mesh newTaoMesh(int radialSamples, float radius, float thickness) {
         Cylinder cylinder = new Cylinder(2, radialSamples, radius, thickness, true);
         Geometry geometry = new Geometry("remapuv", cylinder);
-        geometry.setUVPlanaerProject(Vector3f.UNIT_Z);
+        GeometryExtensions.setUVPlanaerProject(geometry, Vector3f.UNIT_Z);
         return geometry.getMesh();
     }
     
@@ -137,6 +135,6 @@ public class YinYang extends UpdatingNode {
     public void update(float t) {
         rotation = (rotation + (ROTATION_RATE * t)) % (FastMath.PI * 2);
         Quaternion rotationZ = new Quaternion().fromAngleAxis(rotation, Vector3f.UNIT_Z);
-        this.setRotation(rotationX.mult(rotationZ));
+        NodeExtensions.setRotation(this, rotationX.mult(rotationZ));
     }
 }
