@@ -14,7 +14,7 @@ import game.networking.ServerNetworkManager;
 
 /**
  *
- * @author samfucious
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ObjectStateRequestMessage extends BaseMessage implements ITargetServer {
     

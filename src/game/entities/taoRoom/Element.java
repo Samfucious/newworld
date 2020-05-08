@@ -22,7 +22,7 @@ import game.application.Application;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Element extends Node {
     private static Mesh mesh;

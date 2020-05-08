@@ -19,7 +19,7 @@ import extensions.GeometryExtensions;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Floor extends Node { 
     private final float outradius;

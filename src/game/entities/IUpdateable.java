@@ -7,7 +7,7 @@ package game.entities;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public interface IUpdateable {
     public void registerAsStateful();

@@ -18,9 +18,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * This is the Main Class of your Game. You should only do initialization here.
- * Move your Logic into AppStates or Controls
- * @author normenhansen
+ * 
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public abstract class BaseApp extends SimpleApplication {
     

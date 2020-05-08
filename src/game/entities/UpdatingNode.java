@@ -9,8 +9,8 @@ import com.jme3.scene.Node;
 import game.application.Application;
 
 /**
- * A Node that processes updates
- * @author gyrep
+ *
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public abstract class UpdatingNode extends Node implements IUpdateable {
     

@@ -12,7 +12,7 @@ import game.application.Application;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Materials {
     public enum MatDefs {

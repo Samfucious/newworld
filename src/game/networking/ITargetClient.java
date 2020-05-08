@@ -7,7 +7,7 @@ package game.networking;
 
 /**
  *
- * @author samfucious
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public interface ITargetClient {
 }

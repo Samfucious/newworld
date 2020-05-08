@@ -9,7 +9,7 @@ import com.jme3.scene.Node;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class TrigramLine extends Node {
     public TrigramLine(boolean closed) {

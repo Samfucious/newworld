@@ -11,7 +11,7 @@ import game.application.Application;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class AudioNodeExtensions {
     public static AudioNode newAudioNode() {

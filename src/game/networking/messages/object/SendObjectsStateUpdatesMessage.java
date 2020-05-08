@@ -17,7 +17,7 @@ import lombok.Setter;
 
 /**
  *
- * @author samfucious
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 @Getter
 @Setter

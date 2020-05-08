@@ -17,7 +17,7 @@ import game.entities.UpdatingNode;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 @ExtensionMethod({ NodeExtensions.class })
 public class TwoPolarities extends UpdatingNode {

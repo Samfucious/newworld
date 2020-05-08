@@ -12,7 +12,7 @@ import game.networking.ITargetClient;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class LocalAvatarCreatedMessage extends BaseMessage implements ITargetClient {
     Avatar avatar;

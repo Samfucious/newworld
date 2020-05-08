@@ -9,7 +9,7 @@ import game.networking.BaseMessage;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class NameChangeChatMessage extends BaseMessage {
     String newName;

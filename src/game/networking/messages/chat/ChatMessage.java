@@ -10,7 +10,7 @@ import lombok.Getter;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 @Getter
 public class ChatMessage extends BaseMessage{

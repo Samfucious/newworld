@@ -7,7 +7,7 @@ package helpers;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Textures {
     public enum TexturePaths {

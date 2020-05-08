@@ -22,7 +22,7 @@ import java.util.Set;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Avatar extends UpdatingNode {
     

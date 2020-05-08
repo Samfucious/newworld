@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Configuration {    
     public enum Configurations {

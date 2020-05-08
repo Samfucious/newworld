@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ClientConnectionManager implements IMessenger {
     

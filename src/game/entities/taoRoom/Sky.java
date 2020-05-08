@@ -18,7 +18,7 @@ import extensions.GeometryExtensions;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Sky extends Node {
     public Sky() {

@@ -27,7 +27,7 @@ import game.networking.ITargetClient;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ClientApp extends BaseApp implements ActionListener {
     

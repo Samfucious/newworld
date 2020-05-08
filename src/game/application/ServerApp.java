@@ -14,7 +14,7 @@ import game.networking.ServerNetworkManager;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ServerApp extends BaseApp {
     private static final String DEFAULT_PORT = "6143";

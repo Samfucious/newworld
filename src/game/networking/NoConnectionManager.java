@@ -9,7 +9,7 @@ import game.application.Application;
 
 /**
  *
- * @author samfucious
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class NoConnectionManager implements IMessenger {
 

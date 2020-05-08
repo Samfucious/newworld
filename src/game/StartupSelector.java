@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class StartupSelector extends JFrame {
     public void start() {

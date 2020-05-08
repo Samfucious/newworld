@@ -12,7 +12,7 @@ import game.entities.UpdatingNode;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class FiveElements extends UpdatingNode {
     private static final float POSITIONING_DELTA = 2.0f * FastMath.PI / 5.0f;

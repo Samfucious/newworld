@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author samfucious
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ServerNetworkManager {
     public static final int SERVER_ID = Integer.MIN_VALUE;

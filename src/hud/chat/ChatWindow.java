@@ -7,7 +7,7 @@ package hud.chat;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ChatWindow {
 }

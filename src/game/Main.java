@@ -12,7 +12,7 @@ import game.application.ServerApp;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Main {
     public static void main(String[] args) {

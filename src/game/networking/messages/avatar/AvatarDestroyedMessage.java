@@ -15,7 +15,7 @@ import lombok.Setter;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 @Serializable
 @NoArgsConstructor

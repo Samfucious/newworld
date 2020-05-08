@@ -26,7 +26,7 @@ import net.wcomohundro.jme3.csg.CSGShape;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class YinYang extends UpdatingNode {
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;

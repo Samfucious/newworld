@@ -7,7 +7,7 @@ package game.entities.taoRoom;
 
 /**
  *
- * @author samfucious
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Polarities {
     public enum Polarity {

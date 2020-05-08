@@ -11,7 +11,7 @@ import com.jme3.scene.VertexBuffer;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class GeometryExtensions {
     public static Geometry setUVPlanaerProject(Geometry geometry, Vector3f projectionNormal) {

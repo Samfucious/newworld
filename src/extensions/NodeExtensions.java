@@ -12,7 +12,7 @@ import com.jme3.scene.Node;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class NodeExtensions {
     public static Node setRotation(Node node, float radians, Vector3f axis) {
