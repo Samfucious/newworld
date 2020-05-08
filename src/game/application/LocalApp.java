@@ -8,6 +8,8 @@ package game.application;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import game.entities.Avatar;
+import game.networking.IMessenger;
+import game.networking.NoConnectionManager;
 import game.networking.messages.avatar.LocalAvatarCreatedMessage;
 
 /**
@@ -38,5 +40,10 @@ public class LocalApp extends ClientApp {
     @Override
     protected Avatar getLocalAvatar() {
         return getAvatar(0);
+    }
+    
+    @Override
+    protected IMessenger initMessageManager() {
+        return new NoConnectionManager();
     }
 }

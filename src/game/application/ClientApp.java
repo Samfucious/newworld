@@ -17,33 +17,29 @@ import com.jme3.post.filters.BloomFilter;
 import com.jme3.system.JmeContext;
 import com.jme3.util.SkyFactory;
 import game.Configuration;
-import game.networking.Connection;
+import game.networking.ClientConnectionManager;
 import game.entities.Avatar;
 import game.networking.messages.avatar.AvatarJumpMessage;
 import game.networking.messages.avatar.AvatarWalkMessage;
 import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.BaseMessage;
+import game.networking.IMessenger;
 
 /**
  *
  * @author gyrep
  */
 public class ClientApp extends BaseApp implements ActionListener {
+    
+    protected IMessenger messenger;
+    
     protected Avatar getLocalAvatar() {
-        if (Connection.getNetworkInitiaized())
-        {
-            return getAvatar(Connection.getClient().getId());
-        }
-        return null;
+        return getAvatar(messenger.getClientId());
     }
     
     @Override
     public void run() {
         this.start(JmeContext.Type.Display);
-        Connection.connectToServer(
-            Configuration.getConfigurationValue(Configuration.Configurations.CONNECT, "localhost"),
-            Integer.parseInt(Configuration.getConfigurationValue(Configuration.Configurations.PORT, "6550"))
-        );
     }
     
     @Override
@@ -53,6 +49,7 @@ public class ClientApp extends BaseApp implements ActionListener {
         initSky();
         setUpKeys();
         initHud();
+        messenger = initMessageManager();
         
         ScreenshotAppState screenShotState = new ScreenshotAppState();
         this.stateManager.attach(screenShotState);
@@ -87,6 +84,12 @@ public class ClientApp extends BaseApp implements ActionListener {
         inputManager.addListener(this, "Up");
         inputManager.addListener(this, "Down");
         inputManager.addListener(this, "Jump");
+    }
+    
+    protected IMessenger initMessageManager() {
+        String address = Configuration.getConfigurationValue(Configuration.Configurations.CONNECT, "localhost");
+        int port = Integer.parseInt(Configuration.getConfigurationValue(Configuration.Configurations.PORT, "6550"));
+        return new ClientConnectionManager(address, port);
     }
     
     @Override
@@ -133,10 +136,7 @@ public class ClientApp extends BaseApp implements ActionListener {
         
         if (message != null)
         {
-            postMessage(message);
-            if(Connection.getNetworkInitiaized()) {
-                Connection.getClient().send(message);
-            }
+            messenger.send(message);
         }
     }
     
@@ -153,9 +153,6 @@ public class ClientApp extends BaseApp implements ActionListener {
     
     @Override
     public int getClientId() {
-        if (Connection.getNetworkInitiaized()) {
-            return Connection.getClient().getId();
-        }
-        return -1;
+        return messenger.getClientId();
     }
 }

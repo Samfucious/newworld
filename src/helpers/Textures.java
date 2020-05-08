@@ -20,7 +20,7 @@ public class Textures {
         Wall("Textures/Wood/wood02.png"),
         WallNorm("Textures/Wood/wood02_normal.png"),
         Sky("Textures/Sky/Bright/FullskiesBlueClear03.dds"),
-        Emitter("Textures/Emitter/emitter.png");
+        Emitter("Textures/Emitter/emitter_grey.png");
         
         private final String texturePath;
         

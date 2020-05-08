@@ -14,7 +14,6 @@ import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.LightControl;
@@ -39,7 +38,6 @@ public class Element extends Node {
     public Element(Elements.Element element) {
         ColorRGBA color = Elements.getColor(element);
         initSpotLight(color);
-        initGeometry(color);
         initEmitter(color);
         initAudio(element);
     }
@@ -53,24 +51,17 @@ public class Element extends Node {
         emitter.setImagesY(4);
         emitter.setEndColor(color);
         emitter.setStartColor(color);
-        emitter.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 2f, 0));
-        emitter.setStartSize(0.5f);
-        emitter.setEndSize(0.01f);
-        emitter.setGravity(0, 2f, 0);
+        emitter.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 0.5f, 0));
+        emitter.setStartSize(1.0f);
+        emitter.setEndSize(0.1f);
+        emitter.setGravity(0, 0, 0);
         emitter.setLowLife(1f);
         emitter.setHighLife(1f);
         emitter.getParticleInfluencer().setVelocityVariation(0.3f);
         
         this.attachChild(emitter);
     }
-    
-    private void initGeometry(ColorRGBA color) {
-        Geometry geometry = new Geometry("sphere", getMesh());
-        Material material = Materials.newMaterial(color, color.mult(5.0f));
-        geometry.setMaterial(material);
-        this.attachChild(geometry);
-    }
-    
+        
     private void initSpotLight(ColorRGBA color) {
         SpotLight light = new SpotLight();
         light.setSpotRange(20f);

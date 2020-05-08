@@ -7,7 +7,7 @@ package game.application;
 
 import com.jme3.system.JmeContext;
 import game.Configuration;
-import game.networking.Connection;
+import game.networking.ServerNetworkManager;
 
 /**
  *
@@ -15,6 +15,7 @@ import game.networking.Connection;
  */
 public class ServerApp extends BaseApp {
     private static final String DEFAULT_PORT = "6143";
+    ServerNetworkManager network;
     
     @Override
     public void run() {
@@ -25,11 +26,11 @@ public class ServerApp extends BaseApp {
     public void simpleInitApp() {
         super.simpleInitApp();
         int port = Integer.parseInt(Configuration.getConfigurationValue(Configuration.Configurations.PORT, DEFAULT_PORT));
-        Connection.startServer(port);
+        network = new ServerNetworkManager(port);
     }
     
     @Override
     public int getClientId() {
-        return Connection.SERVER_ID;
+        return ServerNetworkManager.SERVER_ID;
     }
 }
