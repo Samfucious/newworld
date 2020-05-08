@@ -79,6 +79,6 @@ public class Element extends Node {
     private void initAudio(Elements.Element element) {
         AudioNode audioNode = Elements.getAudioNode(element);
         this.attachChild(audioNode);
-        audioNode.play();
+        Application.getApplication().playAudio(audioNode);        
     }
 }

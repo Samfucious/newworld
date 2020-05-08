@@ -24,6 +24,7 @@ public class ClientConnectionManager implements IMessenger {
     Client client;
     boolean roundTripMessages;
     
+    @Override
     public int getClientId() {
         return client.getId();
     }
@@ -80,6 +81,7 @@ public class ClientConnectionManager implements IMessenger {
         }
     }
     
+    @Override
     public void send(BaseMessage message) {
         client.send(message);
         if(!roundTripMessages) {

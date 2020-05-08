@@ -7,15 +7,19 @@ package game.networking;
 
 import com.jme3.network.AbstractMessage;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author gyrep
  */
+@NoArgsConstructor
 @Getter
+@Setter
 public abstract class BaseMessage extends AbstractMessage {
-    private final int sourceId;
-    private final int clientId;
+    private int sourceId;
+    private int clientId;
     
     public BaseMessage(int sourceId, int clientId) {
         this.sourceId = sourceId;
@@ -23,5 +27,9 @@ public abstract class BaseMessage extends AbstractMessage {
     }
         
     public abstract void processMessage();
+    
+    /**
+     * @return A copy of the message, with any server values, such as object positioning, replacing the original values. 
+     */
     public abstract BaseMessage serverCloneMessage();
 }

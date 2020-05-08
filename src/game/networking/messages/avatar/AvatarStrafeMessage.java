@@ -12,18 +12,22 @@ import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
+@NoArgsConstructor
 @Getter
+@Setter
 public class AvatarStrafeMessage extends BaseMessage {
-    private final Vector3f position;
-    private final Quaternion rotation;
-    private final boolean isLeft;
-    private final boolean startMovement;
+    private Vector3f position;
+    private Quaternion rotation;
+    private boolean isLeft;
+    private boolean startMovement;
     
     public AvatarStrafeMessage(int sourceId, int clientId, 
             Vector3f position, Quaternion rotation, boolean isLeft, boolean startMovement) {

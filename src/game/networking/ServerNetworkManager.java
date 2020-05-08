@@ -17,6 +17,7 @@ import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
 import game.application.Application;
 import game.networking.messages.avatar.AvatarCreatedMessage;
+import game.networking.messages.avatar.AvatarDestroyedMessage;
 import game.networking.messages.avatar.AvatarJumpMessage;
 import game.networking.messages.avatar.AvatarPositionMessage;
 import game.networking.messages.avatar.AvatarStrafeMessage;
@@ -56,6 +57,7 @@ public class ServerNetworkManager {
         Serializer.registerClass(AvatarPositionMessage.class);
         Serializer.registerClass(AvatarStrafeMessage.class);
         Serializer.registerClass(AvatarWalkMessage.class);
+        Serializer.registerClass(AvatarDestroyedMessage.class);
     }
     
     private static class ServerSideConnectionListener implements ConnectionListener {
@@ -75,6 +77,9 @@ public class ServerNetworkManager {
         @Override
         public void connectionRemoved(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO,  String.format("Client disconnected: %s", connection.getId()));
+            AvatarDestroyedMessage message = new AvatarDestroyedMessage(SERVER_ID, connection.getId());
+            Application.getApplication().postMessage(message);
+            server.broadcast(message);
         }
     }
     
@@ -83,8 +88,8 @@ public class ServerNetworkManager {
         public void messageReceived(HostedConnection source, Message message) {
             if(message instanceof BaseMessage) {
                 BaseMessage baseMessage = (BaseMessage) message;
-                Application.getApplication().postMessage((BaseMessage) baseMessage);
                 BaseMessage clone = ((BaseMessage) baseMessage).serverCloneMessage();
+                Application.getApplication().postMessage(clone);
                 if(null != clone) {
                     server.broadcast(Filters.notEqualTo(source.getId()), clone);
                 }

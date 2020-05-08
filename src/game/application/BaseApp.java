@@ -1,6 +1,7 @@
 package game.application;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.audio.AudioNode;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -59,8 +60,8 @@ public abstract class BaseApp extends SimpleApplication {
         avatars.put(avatar.getAvatarId(), avatar);
     }
     
-    public void removeAvatar(Avatar avatar) {
-        avatars.remove(avatar.getAvatarId());
+    public void removeAvatar(int avatarId) {
+        avatars.remove(avatarId);
     }
     
     public Avatar getAvatar(int avatarId) {
@@ -68,4 +69,6 @@ public abstract class BaseApp extends SimpleApplication {
     }
     
     public abstract int getClientId();
+    
+    public abstract void playAudio(AudioNode audioNode);
 }

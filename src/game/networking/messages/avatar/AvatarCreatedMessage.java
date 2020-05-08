@@ -12,16 +12,20 @@ import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
+@NoArgsConstructor
 @Getter
+@Setter
 public class AvatarCreatedMessage extends BaseMessage {
-    private final Vector3f position;
-    private final Quaternion rotation;
+    private Vector3f position;
+    private Quaternion rotation;
     
     public AvatarCreatedMessage(int sourceId, int clientId, Vector3f position, Quaternion rotation) {
         super(sourceId, clientId);

@@ -5,6 +5,7 @@
  */
 package game.application;
 
+import com.jme3.audio.AudioNode;
 import com.jme3.system.JmeContext;
 import game.Configuration;
 import game.networking.ServerNetworkManager;
@@ -32,5 +33,10 @@ public class ServerApp extends BaseApp {
     @Override
     public int getClientId() {
         return ServerNetworkManager.SERVER_ID;
+    }
+
+    @Override
+    public void playAudio(AudioNode audioNode) {
+        // Do nothing
     }
 }

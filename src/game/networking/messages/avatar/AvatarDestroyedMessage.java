@@ -5,12 +5,21 @@
  */
 package game.networking.messages.avatar;
 
+import com.jme3.network.serializing.Serializable;
+import game.application.Application;
 import game.networking.BaseMessage;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author gyrep
  */
+@Serializable
+@NoArgsConstructor
+@Getter
+@Setter
 public class AvatarDestroyedMessage extends BaseMessage {
 
     public AvatarDestroyedMessage(int sourceId, int clientId) {
@@ -19,11 +28,11 @@ public class AvatarDestroyedMessage extends BaseMessage {
     
     @Override
     public void processMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Application.getApplication().removeAvatar(getClientId());
     }
 
     @Override
     public BaseMessage serverCloneMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("This message originates from the server only.");
     }
 }

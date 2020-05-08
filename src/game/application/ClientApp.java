@@ -7,11 +7,10 @@ package game.application;
 
 import helpers.Textures;
 import com.jme3.app.state.ScreenshotAppState;
-import com.jme3.font.BitmapText;
+import com.jme3.audio.AudioNode;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.ColorRGBA;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
 import com.jme3.system.JmeContext;
@@ -48,7 +47,6 @@ public class ClientApp extends BaseApp implements ActionListener {
         initBloomFilter();
         initSky();
         setUpKeys();
-        initHud();
         messenger = initMessageManager();
         
         ScreenshotAppState screenShotState = new ScreenshotAppState();
@@ -140,19 +138,13 @@ public class ClientApp extends BaseApp implements ActionListener {
         }
     }
     
-    private void initHud() {
-        setDisplayStatView(false); setDisplayFps(false);
-        
-        BitmapText hudText = new BitmapText(guiFont, false);
-        hudText.setSize(guiFont.getCharSet().getRenderedSize());      // font size
-        hudText.setColor(ColorRGBA.Blue);                             // font color
-        hudText.setText("You can write any string here\n and here\n   And hererererere");             // the text
-        hudText.setLocalTranslation(300, hudText.getLineHeight() * 3, 0); // position
-        guiNode.attachChild(hudText);
-    }
-    
     @Override
     public int getClientId() {
         return messenger.getClientId();
+    }
+
+    @Override
+    public void playAudio(AudioNode audioNode) {
+        audioNode.play();
     }
 }

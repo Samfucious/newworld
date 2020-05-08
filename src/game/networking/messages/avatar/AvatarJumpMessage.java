@@ -9,13 +9,17 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.networking.BaseMessage;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author gyrep
  */
 @Serializable
+@NoArgsConstructor
 @Getter
+@Setter
 public class AvatarJumpMessage extends BaseMessage {
 
     public AvatarJumpMessage(int sourceId, int clientId) {
