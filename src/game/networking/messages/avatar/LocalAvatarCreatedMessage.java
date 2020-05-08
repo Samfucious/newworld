@@ -8,12 +8,13 @@ package game.networking.messages.avatar;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
+import game.networking.ITargetClient;
 
 /**
  *
  * @author gyrep
  */
-public class LocalAvatarCreatedMessage extends BaseMessage {
+public class LocalAvatarCreatedMessage extends BaseMessage implements ITargetClient {
     Avatar avatar;
     
     public LocalAvatarCreatedMessage(Avatar avatar) {
@@ -28,6 +29,6 @@ public class LocalAvatarCreatedMessage extends BaseMessage {
 
     @Override
     public BaseMessage serverCloneMessage() {
-        throw new UnsupportedOperationException("Not supported on this message type.");
+        return null;
     }
 }

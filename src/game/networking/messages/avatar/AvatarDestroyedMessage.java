@@ -8,6 +8,7 @@ package game.networking.messages.avatar;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.networking.BaseMessage;
+import game.networking.ITargetClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarDestroyedMessage extends BaseMessage {
+public class AvatarDestroyedMessage extends BaseMessage implements ITargetClient {
 
     public AvatarDestroyedMessage(int sourceId, int clientId) {
         super(sourceId, clientId);
@@ -33,6 +34,6 @@ public class AvatarDestroyedMessage extends BaseMessage {
 
     @Override
     public BaseMessage serverCloneMessage() {
-        throw new UnsupportedOperationException("This message originates from the server only.");
+        return null;
     }
 }

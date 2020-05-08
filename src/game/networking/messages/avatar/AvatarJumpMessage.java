@@ -8,6 +8,7 @@ package game.networking.messages.avatar;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.networking.BaseMessage;
+import game.networking.ITargetAny;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarJumpMessage extends BaseMessage {
+public class AvatarJumpMessage extends BaseMessage implements ITargetAny {
 
     public AvatarJumpMessage(int sourceId, int clientId) {
         super(sourceId, clientId);

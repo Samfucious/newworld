@@ -7,12 +7,14 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import game.entities.Avatar;
 import game.entities.IUpdateable;
 import game.networking.BaseMessage;
 import java.util.ArrayList;
 import java.util.List;
 import game.entities.taoRoom.Room;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -25,6 +27,7 @@ public abstract class BaseApp extends SimpleApplication {
     private final BulletAppState bulletAppState = new BulletAppState();
     private final List<IUpdateable> updateables = new ArrayList();
     private final HashMap<Integer, Avatar> avatars = new HashMap();
+    private final HashMap<String, Spatial> statefulObjects = new HashMap();
     
     @Override
     public void simpleInitApp() {
@@ -66,6 +69,26 @@ public abstract class BaseApp extends SimpleApplication {
     
     public Avatar getAvatar(int avatarId) {
         return avatars.get(avatarId);
+    }
+    
+    public Spatial getStatefulObject(String name) {
+        Spatial spatial = statefulObjects.get(name);
+        if (null == spatial) {
+            spatial = getRootNode().getChild(name);
+        }
+        return spatial;
+    }
+    
+    public void addStatefulObject(Spatial spatial) {
+        statefulObjects.put(spatial.getName(), spatial);
+    }
+    
+    public void removeStatefulObject(String name) {
+        statefulObjects.remove(name);
+    }
+    
+    public Collection<Spatial> getStatefulObjects() {
+        return statefulObjects.values();
     }
     
     public abstract int getClientId();

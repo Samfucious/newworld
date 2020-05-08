@@ -23,6 +23,7 @@ import game.networking.messages.avatar.AvatarWalkMessage;
 import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.BaseMessage;
 import game.networking.IMessenger;
+import game.networking.ITargetClient;
 
 /**
  *
@@ -51,6 +52,13 @@ public class ClientApp extends BaseApp implements ActionListener {
         
         ScreenshotAppState screenShotState = new ScreenshotAppState();
         this.stateManager.attach(screenShotState);
+    }
+    
+    @Override
+    public void postMessage(BaseMessage message) {
+        if(message instanceof ITargetClient) {
+            super.postMessage(message);
+        }
     }
     
     private void initBloomFilter() {

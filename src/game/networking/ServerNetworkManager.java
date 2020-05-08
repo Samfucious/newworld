@@ -22,7 +22,9 @@ import game.networking.messages.avatar.AvatarJumpMessage;
 import game.networking.messages.avatar.AvatarPositionMessage;
 import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.messages.avatar.AvatarWalkMessage;
+import game.networking.messages.object.SendObjectsStateUpdatesMessage;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,6 +53,15 @@ public class ServerNetworkManager {
         }
     }
     
+    public void send(BaseMessage message) {
+        server.broadcast(message);
+    }
+    
+    public void send(BaseMessage message, int clientId) {
+        HostedConnection connection = server.getConnection(clientId);
+        connection.send(message);
+    }
+    
     private void initializeSerializables() {
         Serializer.registerClass(AvatarCreatedMessage.class);
         Serializer.registerClass(AvatarJumpMessage.class);
@@ -64,14 +75,26 @@ public class ServerNetworkManager {
         @Override
         public void connectionAdded(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO, String.format("Client connected: %s", connection.getId()));
+            
+            sendAvatarCreatedMessage(server, connection.getId());
+            sendObjectsStateUpdatesMessage(server, connection.getId());
+        }
+        
+        private void sendAvatarCreatedMessage(Server server, int clientId) {
             AvatarCreatedMessage message = new AvatarCreatedMessage(
                     SERVER_ID,
-                    connection.getId(),
+                    clientId,
                     Vector3f.UNIT_Y.mult(10.0f),
                     Quaternion.IDENTITY
             );
             Application.getApplication().postMessage(message);
             server.broadcast(message);
+        }
+        
+        private void sendObjectsStateUpdatesMessage(Server server, int clientId) {
+            SendObjectsStateUpdatesMessage message = new SendObjectsStateUpdatesMessage(SERVER_ID, clientId,
+                    new LinkedList(Application.getApplication().getStatefulObjects()));
+            Application.getApplication().postMessage(message);
         }
 
         @Override

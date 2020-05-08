@@ -10,5 +10,7 @@ package game.entities;
  * @author gyrep
  */
 public interface IUpdateable {
+    public void registerAsStateful();
+    public void deregisterAsStateful();
     public void update(float tpm);
 }

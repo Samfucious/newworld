@@ -11,6 +11,7 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
+import game.networking.ITargetAny;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarWalkMessage extends BaseMessage {
+public class AvatarWalkMessage extends BaseMessage implements ITargetAny {
     private Vector3f position;
     private Quaternion rotation;
     private boolean isForward;

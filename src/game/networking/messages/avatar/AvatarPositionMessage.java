@@ -11,6 +11,7 @@ import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
+import game.networking.ITargetClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarPositionMessage extends BaseMessage {
+public class AvatarPositionMessage extends BaseMessage implements ITargetClient {
     private Vector3f position;
     private Quaternion rotation;
     private Vector3f direction;
@@ -56,18 +57,6 @@ public class AvatarPositionMessage extends BaseMessage {
 
     @Override
     public BaseMessage serverCloneMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
-        if(avatar != null) {
-            return new AvatarPositionMessage(
-                    this.getSourceId(),
-                    this.getClientId(),
-                    avatar.getLocalTranslation(),
-                    rotation,
-                    direction,
-                    left,
-                    movements
-            );
-        }
         return null;
     }
 }

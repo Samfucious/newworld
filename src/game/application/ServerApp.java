@@ -8,6 +8,8 @@ package game.application;
 import com.jme3.audio.AudioNode;
 import com.jme3.system.JmeContext;
 import game.Configuration;
+import game.networking.BaseMessage;
+import game.networking.ITargetServer;
 import game.networking.ServerNetworkManager;
 
 /**
@@ -38,5 +40,20 @@ public class ServerApp extends BaseApp {
     @Override
     public void playAudio(AudioNode audioNode) {
         // Do nothing
+    }
+    
+    @Override
+    public void postMessage(BaseMessage message) {
+        if(message instanceof ITargetServer) {
+            super.postMessage(message);
+        }
+    }
+    
+    public void send(BaseMessage message) {
+        network.send(message);
+    }
+    
+    public void send(BaseMessage message, int clientId) {
+        network.send(message, clientId);
     }
 }
