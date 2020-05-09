@@ -35,6 +35,7 @@ import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.BaseMessage;
 import game.networking.IMessenger;
 import game.networking.ITargetClient;
+import game.networking.PongMessage;
 
 /**
  *
@@ -165,5 +166,9 @@ public class ClientApp extends BaseApp implements ActionListener {
     @Override
     public void playAudio(AudioNode audioNode) {
         audioNode.play();
+    }
+    
+    public long getPing() {
+        return PongMessage.getAverageLag();
     }
 }
