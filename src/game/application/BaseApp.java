@@ -89,6 +89,10 @@ public abstract class BaseApp extends SimpleApplication {
         return avatars.get(avatarId);
     }
     
+    public Collection<Avatar> getAvatars() {
+        return avatars.values();
+    }
+    
     public Spatial getStatefulObject(String name) {
         Spatial spatial = statefulObjects.get(name);
         if (null == spatial) {

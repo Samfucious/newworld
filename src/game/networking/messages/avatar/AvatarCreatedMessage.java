@@ -36,18 +36,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AvatarCreatedMessage extends BaseMessage implements ITargetClient {
+    private int avatarId;
     private Vector3f position;
     private Quaternion rotation;
     
-    public AvatarCreatedMessage(int sourceId, int clientId, Vector3f position, Quaternion rotation) {
+    public AvatarCreatedMessage(int sourceId, int clientId, int avatarId, Vector3f position, Quaternion rotation) {
         super(sourceId, clientId);
+        this.avatarId = avatarId;
         this.position = position;
         this.rotation = rotation;
     }
 
     @Override
     public void processMessage() {
-        Application.getApplication().addAvatar(new Avatar(this.getClientId(), position, rotation));
+        Application.getApplication().addAvatar(new Avatar(avatarId, position, rotation));
     }
     
     @Override

@@ -35,6 +35,7 @@ import game.networking.messages.avatar.AvatarPositionMessage;
 import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.messages.avatar.AvatarWalkMessage;
 import game.networking.messages.avatar.LocalAvatarCreatedMessage;
+import game.networking.messages.avatar.SendAllAvatarsMessage;
 import game.networking.messages.object.ObjectStateMessage;
 import game.networking.messages.object.ObjectStateRequestMessage;
 import game.networking.messages.object.SendObjectsStateUpdatesMessage;
@@ -149,6 +150,7 @@ public class ServerNetworkManager {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO, String.format("Client connected: %s", connection.getId()));
             sendAvatarCreatedMessage(server, connection.getId());
             sendObjectsStateUpdatesMessage(server, connection.getId());
+            sendAllAvatarsMessage(server, connection.getId());
         }
         
         private void sendAvatarCreatedMessage(Server server, int clientId) {
@@ -159,13 +161,19 @@ public class ServerNetworkManager {
                     new LocalAvatarCreatedMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY))
             );
             
-            AvatarCreatedMessage message = new AvatarCreatedMessage(SERVER_ID, clientId, spawnPoint, Quaternion.IDENTITY);
+            AvatarCreatedMessage message = new AvatarCreatedMessage(SERVER_ID, clientId, clientId, spawnPoint, Quaternion.IDENTITY);
             server.broadcast(message);
         }
         
         private void sendObjectsStateUpdatesMessage(Server server, int clientId) {
             SendObjectsStateUpdatesMessage message = new SendObjectsStateUpdatesMessage(SERVER_ID, clientId,
                     new LinkedList(Application.getApplication().getStatefulObjects()));
+            Application.getApplication().postMessage(message);
+        }
+        
+        private void sendAllAvatarsMessage(Server server, int clientId) {
+            SendAllAvatarsMessage message = new SendAllAvatarsMessage(SERVER_ID, clientId,
+                    new LinkedList(Application.getApplication().getAvatars()));
             Application.getApplication().postMessage(message);
         }
 
