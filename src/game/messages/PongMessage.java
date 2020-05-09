@@ -14,11 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking;
+package game.messages;
 
+import game.messages.ITargetClient;
+import game.messages.BaseMessage;
 import com.jme3.network.serializing.Serializable;
-import game.application.Application;
-import game.application.ServerApp;
+import java.util.LinkedList;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,22 +32,45 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PingMessage extends BaseMessage implements ITargetServer {
-    long mark;
+public class PongMessage extends BaseMessage implements ITargetClient {
+    private static final int MAX_DATAPOINTS = 20;
+    private static final LinkedList<PongMessage> pongs = new LinkedList();
+    private static long averageLag = 0;
     
-    public PingMessage(int sourceId, int clientId, long mark) {
-        super(sourceId, clientId);
+    long mark;
+    long lag = 0;
+
+    PongMessage(int sourceId, int clientId, long mark) {
+        super(sourceId, clientId);        
         this.mark = mark;
     }
     
     @Override
     public void processMessage() {
-        PongMessage pongMessage = new PongMessage(ServerNetworkManager.SERVER_ID, getClientId(), getMark());
-        ((ServerApp) Application.getApplication()).send(pongMessage, getClientId());
+        long now = System.currentTimeMillis();
+        setLag(now - mark);
+        pongs.add(this);
+        
+        while(pongs.size() > MAX_DATAPOINTS) {
+            pongs.removeLast();
+        }
+        
+        long totalRoundTrip = 0;
+        for(PongMessage pong : pongs) {
+            totalRoundTrip += pong.getLag();
+        }
+        
+        if (pongs.size() > 0) {
+            averageLag = totalRoundTrip / pongs.size();
+        }
     }
 
     @Override
     public BaseMessage serverCloneMessage() {
         return null;
+    }
+    
+    public static long getAverageLag() {
+        return averageLag;
     }
 }

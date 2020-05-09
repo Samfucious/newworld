@@ -14,33 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking;
+package game.messages.avatar;
 
-import com.jme3.network.AbstractMessage;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import game.application.Application;
+import game.entities.Avatar;
+import game.messages.BaseMessage;
+import game.messages.ITargetAny;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-@NoArgsConstructor
-@Getter
-@Setter
-public abstract class BaseMessage extends AbstractMessage {
-    private int sourceId;
-    private int clientId;
+public class LocalAvatarCreatedMessage extends BaseMessage implements ITargetAny {
+    Avatar avatar;
     
-    public BaseMessage(int sourceId, int clientId) {
-        this.sourceId = sourceId;
-        this.clientId = clientId;
+    public LocalAvatarCreatedMessage(Avatar avatar) {
+        super(0, 0);
+        this.avatar = avatar;
     }
-        
-    public abstract void processMessage();
-    
-    /**
-     * @return A copy of the message, with any server values, such as object positioning, replacing the original values. 
-     */
-    public abstract BaseMessage serverCloneMessage();
+
+    @Override
+    public void processMessage() {
+        Application.getApplication().addAvatar(avatar);
+    }
+
+    @Override
+    public BaseMessage serverCloneMessage() {
+        return null;
+    }
 }

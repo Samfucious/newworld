@@ -14,12 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.avatar;
+package game.messages.avatar;
 
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
-import game.networking.BaseMessage;
-import game.networking.ITargetClient;
+import game.entities.Avatar;
+import game.messages.BaseMessage;
+import game.messages.ITargetClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,15 +35,35 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarDestroyedMessage extends BaseMessage implements ITargetClient {
-
-    public AvatarDestroyedMessage(int sourceId, int clientId) {
-        super(sourceId, clientId);
-    }
+public class AvatarPositionMessage extends BaseMessage implements ITargetClient {
+    private Vector3f position;
+    private Quaternion rotation;
+    private Vector3f direction;
+    private Vector3f left;
+    private Avatar.Movements[] movements;
     
+    public AvatarPositionMessage(int sourceId, int clientId,
+            Vector3f position, Quaternion rotation,
+            Vector3f direction, Vector3f left,
+            Avatar.Movements[] movements
+            ) {
+        super(sourceId, clientId);
+        this.position = position;
+        this.rotation = rotation;
+        this.direction = direction;
+        this.left = left;
+        this.movements = movements;
+    }
+
     @Override
     public void processMessage() {
-        Application.getApplication().removeAvatar(getClientId());
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        if(avatar != null) {
+            avatar.setLocalTranslation(position);
+            avatar.setLocalRotation(rotation);
+            avatar.setMovementVectors(direction, left);
+            avatar.setMovements(movements);
+        }
     }
 
     @Override

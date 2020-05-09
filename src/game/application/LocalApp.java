@@ -19,9 +19,9 @@ package game.application;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import game.entities.Avatar;
-import game.networking.IMessenger;
+import game.messages.IMessenger;
 import game.networking.NoConnectionManager;
-import game.networking.messages.avatar.LocalAvatarCreatedMessage;
+import game.messages.avatar.LocalAvatarCreatedMessage;
 
 /**
  *

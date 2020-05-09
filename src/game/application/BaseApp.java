@@ -26,7 +26,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import game.entities.Avatar;
 import game.entities.IUpdateable;
-import game.networking.BaseMessage;
+import game.messages.BaseMessage;
 import java.util.ArrayList;
 import java.util.List;
 import game.entities.taoRoom.Room;

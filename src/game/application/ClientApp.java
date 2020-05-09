@@ -29,13 +29,13 @@ import com.jme3.util.SkyFactory;
 import game.Configuration;
 import game.networking.ClientConnectionManager;
 import game.entities.Avatar;
-import game.networking.messages.avatar.AvatarJumpMessage;
-import game.networking.messages.avatar.AvatarWalkMessage;
-import game.networking.messages.avatar.AvatarStrafeMessage;
-import game.networking.BaseMessage;
-import game.networking.IMessenger;
-import game.networking.ITargetClient;
-import game.networking.PongMessage;
+import game.messages.avatar.AvatarJumpMessage;
+import game.messages.avatar.AvatarWalkMessage;
+import game.messages.avatar.AvatarStrafeMessage;
+import game.messages.BaseMessage;
+import game.messages.IMessenger;
+import game.messages.ITargetClient;
+import game.messages.PongMessage;
 
 /**
  *

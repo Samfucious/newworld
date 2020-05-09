@@ -14,44 +14,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.object;
+package game.messages;
 
-import com.jme3.scene.Spatial;
+import game.messages.ITargetServer;
+import game.messages.BaseMessage;
+import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.application.ServerApp;
-import game.networking.BaseMessage;
-import game.networking.ITargetServer;
 import game.networking.ServerNetworkManager;
-import java.util.Queue;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
+@Serializable
+@NoArgsConstructor
 @Getter
 @Setter
-public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITargetServer {
-    Queue<Spatial> spatials;
+public class PingMessage extends BaseMessage implements ITargetServer {
+    long mark;
     
-    public SendObjectsStateUpdatesMessage(int sourceId, int clientId, Queue<Spatial> spatials) {
+    public PingMessage(int sourceId, int clientId, long mark) {
         super(sourceId, clientId);
-        this.spatials = spatials;
+        this.mark = mark;
     }
-
+    
     @Override
     public void processMessage() {
-        if (spatials.isEmpty()) return;
-        
-        for (int i = 0; i < 10 && !spatials.isEmpty(); i++) {
-            Spatial spatial = spatials.remove();
-            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, getClientId(),
-                    spatial.getName(), spatial.getLocalTranslation(), spatial.getLocalRotation());
-            ((ServerApp) Application.getApplication()).send(message, getClientId());
-        }
-        
-        Application.getApplication().postMessage(this);
+        PongMessage pongMessage = new PongMessage(ServerNetworkManager.SERVER_ID, getClientId(), getMark());
+        ((ServerApp) Application.getApplication()).send(pongMessage, getClientId());
     }
 
     @Override

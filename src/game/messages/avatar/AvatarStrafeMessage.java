@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.avatar;
+package game.messages.avatar;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
-import game.networking.BaseMessage;
-import game.networking.ITargetAny;
+import game.messages.BaseMessage;
+import game.messages.ITargetAny;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

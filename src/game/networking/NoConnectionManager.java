@@ -16,6 +16,8 @@
  */
 package game.networking;
 
+import game.messages.IMessenger;
+import game.messages.BaseMessage;
 import game.application.Application;
 
 /**

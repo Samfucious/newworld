@@ -19,8 +19,8 @@ package game.application;
 import com.jme3.audio.AudioNode;
 import com.jme3.system.JmeContext;
 import game.Configuration;
-import game.networking.BaseMessage;
-import game.networking.ITargetServer;
+import game.messages.BaseMessage;
+import game.messages.ITargetServer;
 import game.networking.ServerNetworkManager;
 
 /**

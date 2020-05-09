@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.object;
+package game.messages.object;
 
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 import com.jme3.scene.Spatial;
 import game.application.Application;
-import game.application.ServerApp;
-import game.networking.BaseMessage;
-import game.networking.ITargetServer;
-import game.networking.ServerNetworkManager;
+import game.messages.BaseMessage;
+import game.messages.ITargetClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,17 +35,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjectStateRequestMessage extends BaseMessage implements ITargetServer {
-    
+public class ObjectStateMessage extends BaseMessage implements ITargetClient {
     String name;
+    Vector3f position;
+    Quaternion rotation;
+    
+    public ObjectStateMessage(int sourceId, int clientId, String name, Vector3f position, Quaternion rotation) {
+        super(sourceId, clientId);
+        this.name = name;
+        this.position = position;
+        this.rotation = rotation;
+    }
 
     @Override
     public void processMessage() {
         Spatial spatial = Application.getApplication().getStatefulObject(name);
         if(null != spatial) {
-            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, ServerNetworkManager.SERVER_ID, 
-                    name, spatial.getLocalTranslation(), spatial.getLocalRotation());
-            ((ServerApp) Application.getApplication()).send(message, getSourceId());
+            spatial.setLocalTranslation(position);
+            spatial.setLocalRotation(rotation);
         }
     }
 

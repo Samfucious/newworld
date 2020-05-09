@@ -14,12 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking;
+package game.messages;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public interface ITargetServer {
-    
+public interface IMessenger {
+    int getClientId();
+    void send(BaseMessage message);
 }

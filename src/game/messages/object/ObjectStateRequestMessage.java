@@ -14,10 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking;
+package game.messages.object;
 
 import com.jme3.network.serializing.Serializable;
-import java.util.LinkedList;
+import com.jme3.scene.Spatial;
+import game.application.Application;
+import game.application.ServerApp;
+import game.messages.BaseMessage;
+import game.messages.ITargetServer;
+import game.networking.ServerNetworkManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,45 +35,22 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PongMessage extends BaseMessage implements ITargetClient {
-    private static final int MAX_DATAPOINTS = 20;
-    private static final LinkedList<PongMessage> pongs = new LinkedList();
-    private static long averageLag = 0;
+public class ObjectStateRequestMessage extends BaseMessage implements ITargetServer {
     
-    long mark;
-    long lag = 0;
+    String name;
 
-    PongMessage(int sourceId, int clientId, long mark) {
-        super(sourceId, clientId);        
-        this.mark = mark;
-    }
-    
     @Override
     public void processMessage() {
-        long now = System.currentTimeMillis();
-        setLag(now - mark);
-        pongs.add(this);
-        
-        while(pongs.size() > MAX_DATAPOINTS) {
-            pongs.removeLast();
-        }
-        
-        long totalRoundTrip = 0;
-        for(PongMessage pong : pongs) {
-            totalRoundTrip += pong.getLag();
-        }
-        
-        if (pongs.size() > 0) {
-            averageLag = totalRoundTrip / pongs.size();
+        Spatial spatial = Application.getApplication().getStatefulObject(name);
+        if(null != spatial) {
+            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, ServerNetworkManager.SERVER_ID, 
+                    name, spatial.getLocalTranslation(), spatial.getLocalRotation());
+            ((ServerApp) Application.getApplication()).send(message, getSourceId());
         }
     }
 
     @Override
     public BaseMessage serverCloneMessage() {
         return null;
-    }
-    
-    public static long getAverageLag() {
-        return averageLag;
     }
 }

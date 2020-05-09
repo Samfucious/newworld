@@ -14,46 +14,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.object;
+package game.messages.object;
 
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
-import com.jme3.network.serializing.Serializable;
 import com.jme3.scene.Spatial;
 import game.application.Application;
-import game.networking.BaseMessage;
-import game.networking.ITargetClient;
+import game.application.ServerApp;
+import game.messages.BaseMessage;
+import game.messages.ITargetServer;
+import game.networking.ServerNetworkManager;
+import java.util.Queue;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-@Serializable
-@NoArgsConstructor
 @Getter
 @Setter
-public class ObjectStateMessage extends BaseMessage implements ITargetClient {
-    String name;
-    Vector3f position;
-    Quaternion rotation;
+public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITargetServer {
+    Queue<Spatial> spatials;
     
-    public ObjectStateMessage(int sourceId, int clientId, String name, Vector3f position, Quaternion rotation) {
+    public SendObjectsStateUpdatesMessage(int sourceId, int clientId, Queue<Spatial> spatials) {
         super(sourceId, clientId);
-        this.name = name;
-        this.position = position;
-        this.rotation = rotation;
+        this.spatials = spatials;
     }
 
     @Override
     public void processMessage() {
-        Spatial spatial = Application.getApplication().getStatefulObject(name);
-        if(null != spatial) {
-            spatial.setLocalTranslation(position);
-            spatial.setLocalRotation(rotation);
+        if (spatials.isEmpty()) return;
+        
+        for (int i = 0; i < 10 && !spatials.isEmpty(); i++) {
+            Spatial spatial = spatials.remove();
+            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, getClientId(),
+                    spatial.getName(), spatial.getLocalTranslation(), spatial.getLocalRotation());
+            ((ServerApp) Application.getApplication()).send(message, getClientId());
         }
+        
+        Application.getApplication().postMessage(this);
     }
 
     @Override

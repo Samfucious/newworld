@@ -16,6 +16,9 @@
  */
 package game.networking;
 
+import game.messages.PingMessage;
+import game.messages.IMessenger;
+import game.messages.BaseMessage;
 import game.application.Application;
 import com.jme3.network.Client;
 import com.jme3.network.ClientStateListener;

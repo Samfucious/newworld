@@ -14,12 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.avatar;
+package game.messages.avatar;
 
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
-import game.networking.BaseMessage;
-import game.networking.ITargetAny;
+import game.entities.Avatar;
+import game.messages.BaseMessage;
+import game.messages.ITargetClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,19 +35,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarJumpMessage extends BaseMessage implements ITargetAny {
-
-    public AvatarJumpMessage(int sourceId, int clientId) {
+public class AvatarCreatedMessage extends BaseMessage implements ITargetClient {
+    private int avatarId;
+    private Vector3f position;
+    private Quaternion rotation;
+    
+    public AvatarCreatedMessage(int sourceId, int clientId, int avatarId, Vector3f position, Quaternion rotation) {
         super(sourceId, clientId);
+        this.avatarId = avatarId;
+        this.position = position;
+        this.rotation = rotation;
+    }
+
+    @Override
+    public void processMessage() {
+        Application.getApplication().addAvatar(new Avatar(avatarId, position, rotation));
     }
     
     @Override
-    public void processMessage() {
-        Application.getApplication().getAvatar(this.getClientId()).jump();
-    }
-
-    @Override
     public BaseMessage serverCloneMessage() {
-        return this;
+        return null;
     }
 }

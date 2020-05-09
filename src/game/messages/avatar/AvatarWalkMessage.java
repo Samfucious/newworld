@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.avatar;
+package game.messages.avatar;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
-import game.networking.BaseMessage;
-import game.networking.ITargetClient;
+import game.messages.BaseMessage;
+import game.messages.ITargetAny;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,25 +35,39 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AvatarCreatedMessage extends BaseMessage implements ITargetClient {
-    private int avatarId;
+public class AvatarWalkMessage extends BaseMessage implements ITargetAny {
     private Vector3f position;
     private Quaternion rotation;
-    
-    public AvatarCreatedMessage(int sourceId, int clientId, int avatarId, Vector3f position, Quaternion rotation) {
+    private boolean isForward;
+    private boolean startMovement;
+
+    public AvatarWalkMessage(int sourceId, int clientId,
+            Vector3f position, Quaternion rotation,
+            boolean isForward, boolean startMovement) {
         super(sourceId, clientId);
-        this.avatarId = avatarId;
         this.position = position;
         this.rotation = rotation;
+        this.isForward = isForward;
+        this.startMovement = startMovement;
+    }
+    
+    @Override
+    public void processMessage() {
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        avatar.setLocalTranslation(position);
+        avatar.setLocalRotation(rotation);
+        
+        if(startMovement) {
+            avatar.addMovement(isForward ? Avatar.Movements.FORWARD : Avatar.Movements.BACKWARD);
+        } else {
+            avatar.removeMovement(isForward ? Avatar.Movements.FORWARD : Avatar.Movements.BACKWARD);
+        }
     }
 
     @Override
-    public void processMessage() {
-        Application.getApplication().addAvatar(new Avatar(avatarId, position, rotation));
-    }
-    
-    @Override
     public BaseMessage serverCloneMessage() {
-        return null;
+        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        if (null == avatar) return null;
+        return new AvatarWalkMessage(this.getSourceId(), this.getClientId(), avatar.getLocalTranslation(), avatar.getLocalRotation(), isForward, startMovement);
     }
 }

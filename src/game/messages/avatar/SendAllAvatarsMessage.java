@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.networking.messages.avatar;
+package game.messages.avatar;
 
 import game.application.Application;
 import game.application.ServerApp;
 import game.entities.Avatar;
-import game.networking.BaseMessage;
-import game.networking.ITargetServer;
+import game.messages.BaseMessage;
+import game.messages.ITargetServer;
 import game.networking.ServerNetworkManager;
 import java.util.Queue;
 
