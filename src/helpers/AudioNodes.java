@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package extensions;
+package helpers;
 
 import com.jme3.audio.AudioData.DataType;
 import com.jme3.audio.AudioNode;
@@ -24,7 +24,7 @@ import game.application.Application;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public class AudioNodeExtensions {
+public class AudioNodes {
     public static AudioNode newAudioNode() {
         AudioNode audioNode = new AudioNode(Application.getAssetManager(), "Sound/Environment/Ocean Waves.ogg", DataType.Stream);
         audioNode.setLooping(true);

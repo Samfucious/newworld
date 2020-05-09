@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package extensions;
+package helpers;
 
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -24,7 +24,7 @@ import com.jme3.scene.VertexBuffer;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public class GeometryExtensions {
+public class Geometries {
     public static Geometry setUVPlanaerProject(Geometry geometry, Vector3f projectionNormal) {
         VertexBuffer position = geometry.getMesh().getBuffer(VertexBuffer.Type.Position);
         VertexBuffer texcoord = geometry.getMesh().getBuffer(VertexBuffer.Type.TexCoord);

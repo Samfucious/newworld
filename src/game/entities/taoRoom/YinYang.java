@@ -29,9 +29,10 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.util.TangentBinormalGenerator;
-import extensions.GeometryExtensions;
-import extensions.NodeExtensions;
+import helpers.Geometries;
+import helpers.Nodes;
 import game.entities.UpdatingNode;
+import lombok.experimental.ExtensionMethod;
 import net.wcomohundro.jme3.csg.CSGGeonode;
 import net.wcomohundro.jme3.csg.CSGShape;
 
@@ -39,6 +40,7 @@ import net.wcomohundro.jme3.csg.CSGShape;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
+@ExtensionMethod({ Geometries.class })
 public class YinYang extends UpdatingNode {
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;
     private static final float THICKNESS = 1.0f;
@@ -82,7 +84,7 @@ public class YinYang extends UpdatingNode {
         
         this.attachChild(yinNode);
         this.attachChild(yangNode);
-        NodeExtensions.setRotation(this, rotationX);
+        Nodes.setRotation(this, rotationX);
     }
     
     private static Geometry createGeometry(String name, Mesh mesh, Material material) {        
@@ -101,7 +103,7 @@ public class YinYang extends UpdatingNode {
         geometry.setMaterial(material);
         geometry.setLocalTranslation(translation);
         TangentBinormalGenerator.generate(geometry);
-        GeometryExtensions.setUVPlanaerProject(geometry, Vector3f.UNIT_Z);
+        geometry.setUVPlanaerProject(Vector3f.UNIT_Z);
         return geometry;
     }
     
@@ -138,7 +140,7 @@ public class YinYang extends UpdatingNode {
     private static Mesh newTaoMesh(int radialSamples, float radius, float thickness) {
         Cylinder cylinder = new Cylinder(2, radialSamples, radius, thickness, true);
         Geometry geometry = new Geometry("remapuv", cylinder);
-        GeometryExtensions.setUVPlanaerProject(geometry, Vector3f.UNIT_Z);
+        Geometries.setUVPlanaerProject(geometry, Vector3f.UNIT_Z);
         return geometry.getMesh();
     }
     
@@ -146,6 +148,6 @@ public class YinYang extends UpdatingNode {
     public void update(float t) {
         rotation = (rotation + (ROTATION_RATE * t)) % (FastMath.PI * 2);
         Quaternion rotationZ = new Quaternion().fromAngleAxis(rotation, Vector3f.UNIT_Z);
-        NodeExtensions.setRotation(this, rotationX.mult(rotationZ));
+        Nodes.setRotation(this, rotationX.mult(rotationZ));
     }
 }

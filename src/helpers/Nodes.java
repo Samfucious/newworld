@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package extensions;
+package helpers;
 
 import com.jme3.audio.AudioNode;
 import com.jme3.math.Quaternion;
@@ -25,7 +25,7 @@ import com.jme3.scene.Node;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public class NodeExtensions {
+public class Nodes {
     public static Node setRotation(Node node, float radians, Vector3f axis) {
         Quaternion rotation = new Quaternion();
         rotation.fromAngleAxis(radians, axis);

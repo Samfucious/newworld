@@ -21,7 +21,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import extensions.NodeExtensions;
+import helpers.Nodes;
 import lombok.experimental.ExtensionMethod;
 import game.application.Application;
 import game.entities.UpdatingNode;
@@ -30,7 +30,7 @@ import game.entities.UpdatingNode;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-@ExtensionMethod({ NodeExtensions.class })
+@ExtensionMethod({ Nodes.class })
 public class TwoPolarities extends UpdatingNode {
     
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;

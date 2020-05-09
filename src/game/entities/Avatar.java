@@ -79,23 +79,15 @@ public class Avatar extends UpdatingNode {
         this.clientId = clientId;
         initGeometry();
         initCharacterControl(location);
-        this.setLocalRotation(rotation);
-    }
-    
-    private Mesh getMesh() {
-        return null != mesh ? mesh : (mesh = createMesh());
-    }
-    
-    private Mesh createMesh() {
-        return new Cylinder(2, 8, 0.5f, 2.0f, true);
+        setLocalRotation(rotation);
     }
     
     private void initGeometry() {
-        Geometry geometry = new Geometry("avatar", getMesh());
+        Geometry geometry = new Geometry("avatar", new Cylinder(2, 8, 0.5f, 2.0f, true));
         Material material = new Material(Application.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
         material.setColor("Color", ColorRGBA.Pink);
         geometry.setMaterial(material);
-        this.attachChild(geometry);
+        attachChild(geometry);
     }
     
     public Integer getAvatarId() {
@@ -123,7 +115,7 @@ public class Avatar extends UpdatingNode {
         characterControl.setGravity(30f);
         characterControl.setPhysicsLocation(location);
         
-        this.addControl(characterControl);
+        addControl(characterControl);
     }
     
     @Override
@@ -149,8 +141,8 @@ public class Avatar extends UpdatingNode {
     }
     
     public void setMovements(Movements[] m) {
-        this.movements.clear();
-        this.movements.addAll(Arrays.asList(m));
+        movements.clear();
+        movements.addAll(Arrays.asList(m));
         updateMovementVector();
     }
     

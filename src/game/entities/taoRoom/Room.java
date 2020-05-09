@@ -19,7 +19,7 @@ package game.entities.taoRoom;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import extensions.NodeExtensions;
+import helpers.Nodes;
 import lombok.experimental.ExtensionMethod;
 import game.entities.UpdatingNode;
 
@@ -27,7 +27,7 @@ import game.entities.UpdatingNode;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-@ExtensionMethod({ NodeExtensions.class })
+@ExtensionMethod({ Nodes.class })
 public class Room extends UpdatingNode {
     private static final float OUTRADIUS = 20.0f;
     

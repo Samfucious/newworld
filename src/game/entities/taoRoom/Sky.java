@@ -25,7 +25,7 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
-import extensions.GeometryExtensions;
+import helpers.Geometries;
 
 /**
  *
@@ -42,6 +42,6 @@ public class Sky extends Node {
         Mesh sphere = new Sphere(20, 20, 1.0f);
         Geometry geometry = new Geometry("sky", sphere);
         geometry.setMaterial(Materials.newMaterial(Textures.TexturePaths.Sky.getTexturePath()));
-        GeometryExtensions.setUVPlanaerProject(geometry, Vector3f.UNIT_Y.negate());
+        Geometries.setUVPlanaerProject(geometry, Vector3f.UNIT_Y.negate());
     }
 }

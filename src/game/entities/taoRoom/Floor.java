@@ -26,12 +26,14 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.util.TangentBinormalGenerator;
-import extensions.GeometryExtensions;
+import helpers.Geometries;
+import lombok.experimental.ExtensionMethod;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
+@ExtensionMethod({ Geometries.class })
 public class Floor extends Node { 
     private final float outradius;
     
@@ -50,7 +52,7 @@ public class Floor extends Node {
         geometry.setMaterial(material);
         TangentBinormalGenerator.generate(geometry);
         
-        GeometryExtensions.setUVPlanaerProject(geometry, Vector3f.UNIT_Z);
+        geometry.setUVPlanaerProject(Vector3f.UNIT_Z);
         mesh.scaleTextureCoordinates(Vector2f.UNIT_XY.mult(4.0f));
         
         this.attachChild(geometry);
