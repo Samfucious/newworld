@@ -16,8 +16,6 @@
  */
 package game.messages;
 
-import game.messages.ITargetClient;
-import game.messages.BaseMessage;
 import com.jme3.network.serializing.Serializable;
 import java.util.LinkedList;
 import lombok.Getter;

@@ -19,18 +19,34 @@ package game.entities.taoRoom;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import game.entities.IRadianRotator;
 import game.entities.UpdatingNode;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public class FiveElements extends UpdatingNode {
+public class FiveElements extends UpdatingNode implements IRadianRotator {
     private static final float POSITIONING_DELTA = 2.0f * FastMath.PI / 5.0f;
     private static final float DEFAULT_RADIUS = 3.0f;
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 300.0f;
     
     private float rotation = 0.0f;
+    
+    @Override
+    public float getRotation() {
+        return rotation;
+    }
+
+    @Override
+    public void setRotation(float radians) {
+        rotation = radians;
+    }
+    
+    @Override
+    public String getName() {
+        return "5835a706-1fb0-4b80-b41f-40fb5bb891d2";
+    }
     
     private final Element[] elements = {
         new Element(Elements.Element.WATER),

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
+ * Copyright (C) 2020 samfucious
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,36 +14,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.messages;
+package game.messages.object;
 
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
-import game.application.ServerApp;
-import game.networking.ServerNetworkManager;
+import game.entities.IRadianRotator;
+import game.messages.BaseMessage;
+import game.messages.ITargetClient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author samfucious
  */
 @Serializable
 @NoArgsConstructor
 @Getter
 @Setter
-public class PingMessage extends BaseMessage implements ITargetServer {
-    long mark;
+public class RadianRotatorStateMessage extends BaseMessage implements ITargetClient {
+    String name;
+    float rotation;
     
-    public PingMessage(int sourceId, int clientId, long mark) {
-        super(sourceId, clientId);
-        this.mark = mark;
+    public RadianRotatorStateMessage(int sourceId, int clientId, String name, float rotation) {
+        this.name = name;
+        this.rotation = rotation;
     }
-    
+
     @Override
     public void processMessage() {
-        PongMessage pongMessage = new PongMessage(ServerNetworkManager.SERVER_ID, getClientId(), getMark());
-        ((ServerApp) Application.getApplication()).send(pongMessage, getClientId());
+        IRadianRotator radianRotator = (IRadianRotator) Application.getApplication().getStatefulObject(name);
+        if(null != radianRotator) {
+            radianRotator.setRotation(rotation);
+        }
     }
 
     @Override

@@ -29,6 +29,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.util.TangentBinormalGenerator;
+import game.entities.IRadianRotator;
 import helpers.Geometries;
 import helpers.Nodes;
 import game.entities.UpdatingNode;
@@ -41,7 +42,7 @@ import net.wcomohundro.jme3.csg.CSGShape;
  * @author Sam Iredale (gyrepin@gmail.com)
  */
 @ExtensionMethod({ Geometries.class })
-public class YinYang extends UpdatingNode {
+public class YinYang extends UpdatingNode implements IRadianRotator {
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;
     private static final float THICKNESS = 1.0f;
     private static final int RADIAL_SAMPLES = 36;
@@ -55,6 +56,21 @@ public class YinYang extends UpdatingNode {
     Quaternion rotationX = new Quaternion().fromAngleAxis(FastMath.PI * 0.5f, Vector3f.UNIT_X);
     
     private float rotation = 0.0f;
+    
+    @Override
+    public float getRotation() {
+        return rotation;
+    }
+
+    @Override
+    public void setRotation(float radians) {
+        rotation = radians;
+    }
+    
+    @Override
+    public String getName() {
+        return "700c25d0-30e0-4b14-8661-acda71772d8e";
+    }
     
     public YinYang() {
         this(10.0f);

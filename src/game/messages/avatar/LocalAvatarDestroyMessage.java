@@ -14,36 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.messages;
+package game.messages.avatar;
 
-import com.jme3.network.serializing.Serializable;
 import game.application.Application;
-import game.application.ServerApp;
-import game.networking.ServerNetworkManager;
+import game.messages.BaseMessage;
+import game.messages.ITargetAny;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-@Serializable
-@NoArgsConstructor
 @Getter
 @Setter
-public class PingMessage extends BaseMessage implements ITargetServer {
-    long mark;
-    
-    public PingMessage(int sourceId, int clientId, long mark) {
-        super(sourceId, clientId);
-        this.mark = mark;
-    }
-    
+public class LocalAvatarDestroyMessage extends BaseMessage implements ITargetAny {
     @Override
     public void processMessage() {
-        PongMessage pongMessage = new PongMessage(ServerNetworkManager.SERVER_ID, getClientId(), getMark());
-        ((ServerApp) Application.getApplication()).send(pongMessage, getClientId());
+        Application.getApplication().removeAvatar(getClientId());
     }
 
     @Override

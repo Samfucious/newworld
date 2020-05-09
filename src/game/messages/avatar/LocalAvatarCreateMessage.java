@@ -25,10 +25,10 @@ import game.messages.ITargetAny;
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public class LocalAvatarCreatedMessage extends BaseMessage implements ITargetAny {
+public class LocalAvatarCreateMessage extends BaseMessage implements ITargetAny {
     Avatar avatar;
     
-    public LocalAvatarCreatedMessage(Avatar avatar) {
+    public LocalAvatarCreateMessage(Avatar avatar) {
         super(0, 0);
         this.avatar = avatar;
     }

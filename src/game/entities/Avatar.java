@@ -94,6 +94,11 @@ public class Avatar extends UpdatingNode {
         return clientId;
     }
     
+    @Override
+    public String getName() {
+        return "Avatar_" + clientId;
+    }
+    
     public void setMovementVectors(Vector3f lookat, Vector3f left) {
         this.lookat = lookat;
         this.left = left;

@@ -24,6 +24,7 @@ import com.jme3.math.Vector3f;
 import helpers.Nodes;
 import lombok.experimental.ExtensionMethod;
 import game.application.Application;
+import game.entities.IRadianRotator;
 import game.entities.UpdatingNode;
 
 /**
@@ -31,7 +32,7 @@ import game.entities.UpdatingNode;
  * @author Sam Iredale (gyrepin@gmail.com)
  */
 @ExtensionMethod({ Nodes.class })
-public class TwoPolarities extends UpdatingNode {
+public class TwoPolarities extends UpdatingNode implements IRadianRotator {
     
     private static final float ROTATION_RATE = (2.0f * FastMath.PI) / 60.0f;
     
@@ -43,6 +44,21 @@ public class TwoPolarities extends UpdatingNode {
         new Polarity(Polarities.Polarity.Yang)
     };
     private float rotation = 0.0f;
+    
+    @Override
+    public float getRotation() {
+        return rotation;
+    }
+
+    @Override
+    public void setRotation(float radians) {
+        rotation = radians;
+    }
+    
+    @Override
+    public String getName() {
+        return "0057028b-25e5-4a81-89b0-9ea0e868a232";
+    }
     
     public TwoPolarities() {
         this(5.0f);

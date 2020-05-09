@@ -81,6 +81,7 @@ public abstract class BaseApp extends SimpleApplication {
     
     public void removeAvatar(int avatarId) {
         Avatar avatar = getAvatar(avatarId);
+        avatar.deregisterAsStateful();
         getRootNode().detachChild(avatar);
         avatars.remove(avatarId);
     }

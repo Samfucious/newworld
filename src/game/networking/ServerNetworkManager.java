@@ -38,10 +38,11 @@ import game.messages.avatar.AvatarJumpMessage;
 import game.messages.avatar.AvatarPositionMessage;
 import game.messages.avatar.AvatarStrafeMessage;
 import game.messages.avatar.AvatarWalkMessage;
-import game.messages.avatar.LocalAvatarCreatedMessage;
+import game.messages.avatar.LocalAvatarCreateMessage;
 import game.messages.avatar.SendAllAvatarsMessage;
 import game.messages.object.ObjectStateMessage;
 import game.messages.object.ObjectStateRequestMessage;
+import game.messages.object.RadianRotatorStateMessage;
 import game.messages.object.SendObjectsStateUpdatesMessage;
 import java.io.IOException;
 import java.util.Collection;
@@ -96,11 +97,11 @@ public class ServerNetworkManager {
     public void checkKeepAlives() {
         Collection<HostedConnection> connections = server.getConnections();
         long currentTimeMillis = System.currentTimeMillis();
-        connections.forEach(client -> {
-            long lastHeartbeat = (long) client.getAttribute(KEEPALIVE_ATTRIBUTE);
+        connections.forEach(connection -> {
+            long lastHeartbeat = (long) connection.getAttribute(KEEPALIVE_ATTRIBUTE);
             if (currentTimeMillis - lastHeartbeat > KEEPALIVE_THRESHOLD)
             {
-                client.close("stale heartbeat");
+                connection.close("stale heartbeat");
             }
         });
     }
@@ -116,6 +117,7 @@ public class ServerNetworkManager {
         Serializer.registerClass(PongMessage.class);
         Serializer.registerClass(ObjectStateMessage.class);
         Serializer.registerClass(ObjectStateRequestMessage.class);
+        Serializer.registerClass(RadianRotatorStateMessage.class);
     }
     
     private static class KeepAliveTimerTask extends TimerTask {
@@ -153,19 +155,15 @@ public class ServerNetworkManager {
         @Override
         public void connectionAdded(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO, String.format("Client connected: %s", connection.getId()));
+            connection.setAttribute(KEEPALIVE_ATTRIBUTE, System.currentTimeMillis());
             sendAvatarCreatedMessage(server, connection.getId());
             sendObjectsStateUpdatesMessage(server, connection.getId());
-            sendAllAvatarsMessage(server, connection.getId());
         }
         
         private void sendAvatarCreatedMessage(Server server, int clientId) {
             // TODO: Consider spawn position variabilities.
             Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f);
-            
-            Application.getApplication().postMessage(
-                    new LocalAvatarCreatedMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY))
-            );
-            
+            Application.getApplication().postMessage(new LocalAvatarCreateMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY)));
             AvatarCreatedMessage message = new AvatarCreatedMessage(SERVER_ID, clientId, clientId, spawnPoint, Quaternion.IDENTITY);
             server.broadcast(message);
         }
@@ -175,16 +173,11 @@ public class ServerNetworkManager {
                     new LinkedList(Application.getApplication().getStatefulObjects()));
             Application.getApplication().postMessage(message);
         }
-        
-        private void sendAllAvatarsMessage(Server server, int clientId) {
-            SendAllAvatarsMessage message = new SendAllAvatarsMessage(SERVER_ID, clientId,
-                    new LinkedList(Application.getApplication().getAvatars()));
-            Application.getApplication().postMessage(message);
-        }
 
         @Override
         public void connectionRemoved(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO,  String.format("Client disconnected: %s", connection.getId()));
+            Application.getApplication().postMessage(new LocalAvatarCreateMessage(Application.getApplication().getAvatar(connection.getId())));
             AvatarDestroyedMessage message = new AvatarDestroyedMessage(SERVER_ID, connection.getId());
             Application.getApplication().postMessage(message);
             server.broadcast(message);
@@ -198,7 +191,6 @@ public class ServerNetworkManager {
             
             if(message instanceof BaseMessage) {
                 source.setAttribute(KEEPALIVE_ATTRIBUTE, System.currentTimeMillis());
-                
                 BaseMessage baseMessage = (BaseMessage) message;
                 BaseMessage clone = ((BaseMessage) baseMessage).serverCloneMessage();
                 Application.getApplication().postMessage(clone);

@@ -21,7 +21,7 @@ import com.jme3.math.Vector3f;
 import game.entities.Avatar;
 import game.messages.IMessenger;
 import game.networking.NoConnectionManager;
-import game.messages.avatar.LocalAvatarCreatedMessage;
+import game.messages.avatar.LocalAvatarCreateMessage;
 
 /**
  *
@@ -40,7 +40,7 @@ public class LocalApp extends ClientApp {
     }
     
     private void initLocalAvatar() {
-        postMessage(new LocalAvatarCreatedMessage(new Avatar(0, Vector3f.UNIT_Y.mult(10.0f), Quaternion.IDENTITY)));
+        postMessage(new LocalAvatarCreateMessage(new Avatar(0, Vector3f.UNIT_Y.mult(10.0f), Quaternion.IDENTITY)));
     }
     
     @Override

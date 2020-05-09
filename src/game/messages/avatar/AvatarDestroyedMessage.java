@@ -39,7 +39,7 @@ public class AvatarDestroyedMessage extends BaseMessage implements ITargetClient
     }
     
     @Override
-    public void processMessage() {
+    public void processMessage() {        
         Application.getApplication().removeAvatar(getClientId());
     }
 
