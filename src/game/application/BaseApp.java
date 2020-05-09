@@ -76,9 +76,12 @@ public abstract class BaseApp extends SimpleApplication {
     public void addAvatar(Avatar avatar) {
         bulletAppState.getPhysicsSpace().add(avatar.getCharacterControl());
         avatars.put(avatar.getAvatarId(), avatar);
+        getRootNode().attachChild(avatar);
     }
     
     public void removeAvatar(int avatarId) {
+        Avatar avatar = getAvatar(avatarId);
+        getRootNode().detachChild(avatar);
         avatars.remove(avatarId);
     }
     
