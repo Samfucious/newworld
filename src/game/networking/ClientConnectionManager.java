@@ -23,6 +23,8 @@ import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,9 +33,11 @@ import java.util.logging.Logger;
  * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ClientConnectionManager implements IMessenger {
+    private static final int PING_FREQUENCY = 5000; // 5 seconds (1/2 of ServerNetworkManager.KEEPALIVE_THRESHOLD)
     
     Client client;
     boolean roundTripMessages;
+    private final Timer pingTimer = new Timer();
     
     @Override
     public int getClientId() {
@@ -47,6 +51,7 @@ public class ClientConnectionManager implements IMessenger {
     public ClientConnectionManager(String address, int port, boolean roundTripMessages) {
         this.roundTripMessages = roundTripMessages;
         connectToServer(address, port);
+        pingTimer.schedule(new PingTask(client), PING_FREQUENCY);
     }
     
     private void connectToServer(String address, int port) {
@@ -60,6 +65,20 @@ public class ClientConnectionManager implements IMessenger {
         } catch (IOException ex) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(1);
+        }
+    }
+    
+    private static class PingTask extends TimerTask {
+        Client client;
+        
+        public PingTask(Client client) {
+            this.client = client;
+        }
+        
+        @Override
+        public void run() {
+            PingMessage message = new PingMessage(client.getId(), client.getId(), System.currentTimeMillis());
+            client.send(message);
         }
     }
     

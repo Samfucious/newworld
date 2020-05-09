@@ -35,7 +35,10 @@ import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.messages.avatar.AvatarWalkMessage;
 import game.networking.messages.object.SendObjectsStateUpdatesMessage;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,11 +48,15 @@ import java.util.logging.Logger;
  */
 public class ServerNetworkManager {
     public static final int SERVER_ID = Integer.MIN_VALUE;
+    public static final long KEEPALIVE_THRESHOLD = 10000; // 10 seconds
+    public static final String KEEPALIVE_ATTRIBUTE = "lastHeartbeat";
     
     private Server server = null;
+    private final Timer keepAliveTimer = new Timer();
     
     public ServerNetworkManager(int port) {
         startServer(port);
+        keepAliveTimer.schedule(new KeepAliveTimerTask(this), KEEPALIVE_THRESHOLD / 2);
     }
         
     private void startServer(int port) {
@@ -73,6 +80,18 @@ public class ServerNetworkManager {
         connection.send(message);
     }
     
+    public void checkKeepAlives() {
+        Collection<HostedConnection> connections = server.getConnections();
+        long currentTimeMillis = System.currentTimeMillis();
+        connections.forEach(client -> {
+            long lastHeartbeat = (long) client.getAttribute(KEEPALIVE_ATTRIBUTE);
+            if (currentTimeMillis - lastHeartbeat > KEEPALIVE_THRESHOLD)
+            {
+                client.close("stale heartbeat");
+            }
+        });
+    }
+    
     private void initializeSerializables() {
         Serializer.registerClass(AvatarCreatedMessage.class);
         Serializer.registerClass(AvatarJumpMessage.class);
@@ -80,6 +99,37 @@ public class ServerNetworkManager {
         Serializer.registerClass(AvatarStrafeMessage.class);
         Serializer.registerClass(AvatarWalkMessage.class);
         Serializer.registerClass(AvatarDestroyedMessage.class);
+    }
+    
+    private static class KeepAliveTimerTask extends TimerTask {
+        ServerNetworkManager networkManager;
+        
+        public KeepAliveTimerTask(ServerNetworkManager networkManager) {
+            this.networkManager = networkManager;
+        }
+        
+        @Override
+        public void run() {
+            Application.getApplication().postMessage(new KeepAliveMessage(networkManager));
+        }
+    }
+    
+    private static class KeepAliveMessage extends BaseMessage implements ITargetServer {
+        ServerNetworkManager networkManager;
+        
+        public KeepAliveMessage(ServerNetworkManager networkManager) {
+            this.networkManager = networkManager;
+        }
+        
+        @Override
+        public void processMessage() {
+            networkManager.checkKeepAlives();
+        }
+
+        @Override
+        public BaseMessage serverCloneMessage() {
+            return null;
+        }
     }
     
     private static class ServerSideConnectionListener implements ConnectionListener {
@@ -92,6 +142,7 @@ public class ServerNetworkManager {
         }
         
         private void sendAvatarCreatedMessage(Server server, int clientId) {
+            // TODO: Consider spawn position variabilities.
             AvatarCreatedMessage message = new AvatarCreatedMessage(
                     SERVER_ID,
                     clientId,
@@ -121,6 +172,8 @@ public class ServerNetworkManager {
         @Override
         public void messageReceived(HostedConnection source, Message message) {
             if(message instanceof BaseMessage) {
+                source.setAttribute(KEEPALIVE_ATTRIBUTE, System.currentTimeMillis());
+                
                 BaseMessage baseMessage = (BaseMessage) message;
                 BaseMessage clone = ((BaseMessage) baseMessage).serverCloneMessage();
                 Application.getApplication().postMessage(clone);

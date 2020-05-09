@@ -54,7 +54,7 @@ public class ClientApp extends BaseApp implements ActionListener {
     }
     
     @Override
-    public void simpleInitApp() {    
+    public void simpleInitApp() {
         super.simpleInitApp();
         initBloomFilter();
         initSky();
