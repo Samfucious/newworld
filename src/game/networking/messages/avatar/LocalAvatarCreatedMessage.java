@@ -19,13 +19,13 @@ package game.networking.messages.avatar;
 import game.application.Application;
 import game.entities.Avatar;
 import game.networking.BaseMessage;
-import game.networking.ITargetClient;
+import game.networking.ITargetAny;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
-public class LocalAvatarCreatedMessage extends BaseMessage implements ITargetClient {
+public class LocalAvatarCreatedMessage extends BaseMessage implements ITargetAny {
     Avatar avatar;
     
     public LocalAvatarCreatedMessage(Avatar avatar) {

@@ -16,17 +16,25 @@
  */
 package game.networking.messages.object;
 
+import com.jme3.network.serializing.Serializable;
 import com.jme3.scene.Spatial;
 import game.application.Application;
 import game.application.ServerApp;
 import game.networking.BaseMessage;
 import game.networking.ITargetServer;
 import game.networking.ServerNetworkManager;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
+@Serializable
+@NoArgsConstructor
+@Getter
+@Setter
 public class ObjectStateRequestMessage extends BaseMessage implements ITargetServer {
     
     String name;

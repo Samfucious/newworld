@@ -27,12 +27,16 @@ import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.network.serializing.Serializer;
 import game.application.Application;
+import game.entities.Avatar;
 import game.networking.messages.avatar.AvatarCreatedMessage;
 import game.networking.messages.avatar.AvatarDestroyedMessage;
 import game.networking.messages.avatar.AvatarJumpMessage;
 import game.networking.messages.avatar.AvatarPositionMessage;
 import game.networking.messages.avatar.AvatarStrafeMessage;
 import game.networking.messages.avatar.AvatarWalkMessage;
+import game.networking.messages.avatar.LocalAvatarCreatedMessage;
+import game.networking.messages.object.ObjectStateMessage;
+import game.networking.messages.object.ObjectStateRequestMessage;
 import game.networking.messages.object.SendObjectsStateUpdatesMessage;
 import java.io.IOException;
 import java.util.Collection;
@@ -64,6 +68,7 @@ public class ServerNetworkManager {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO, String.format("Listening on port %d.", port));
             server = Network.createServer(port);
             server.addConnectionListener(new ServerSideConnectionListener());
+            server.addMessageListener(new ServerSideMessageListener());
             initializeSerializables();
             server.start();
         } catch (IOException ex) {
@@ -77,7 +82,9 @@ public class ServerNetworkManager {
     
     public void send(BaseMessage message, int clientId) {
         HostedConnection connection = server.getConnection(clientId);
-        connection.send(message);
+        if(null != connection) {
+            connection.send(message);
+        }
     }
     
     public void checkKeepAlives() {
@@ -99,6 +106,10 @@ public class ServerNetworkManager {
         Serializer.registerClass(AvatarStrafeMessage.class);
         Serializer.registerClass(AvatarWalkMessage.class);
         Serializer.registerClass(AvatarDestroyedMessage.class);
+        Serializer.registerClass(PingMessage.class);
+        Serializer.registerClass(PongMessage.class);
+        Serializer.registerClass(ObjectStateMessage.class);
+        Serializer.registerClass(ObjectStateRequestMessage.class);
     }
     
     private static class KeepAliveTimerTask extends TimerTask {
@@ -136,20 +147,19 @@ public class ServerNetworkManager {
         @Override
         public void connectionAdded(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO, String.format("Client connected: %s", connection.getId()));
-            
             sendAvatarCreatedMessage(server, connection.getId());
             sendObjectsStateUpdatesMessage(server, connection.getId());
         }
         
         private void sendAvatarCreatedMessage(Server server, int clientId) {
             // TODO: Consider spawn position variabilities.
-            AvatarCreatedMessage message = new AvatarCreatedMessage(
-                    SERVER_ID,
-                    clientId,
-                    Vector3f.UNIT_Y.mult(10.0f),
-                    Quaternion.IDENTITY
+            Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f);
+            
+            Application.getApplication().postMessage(
+                    new LocalAvatarCreatedMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY))
             );
-            Application.getApplication().postMessage(message);
+            
+            AvatarCreatedMessage message = new AvatarCreatedMessage(SERVER_ID, clientId, spawnPoint, Quaternion.IDENTITY);
             server.broadcast(message);
         }
         
@@ -171,6 +181,8 @@ public class ServerNetworkManager {
     private class ServerSideMessageListener implements MessageListener<HostedConnection> {
         @Override
         public void messageReceived(HostedConnection source, Message message) {
+            Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO,  String.format("Client message from %d", source.getId()));
+            
             if(message instanceof BaseMessage) {
                 source.setAttribute(KEEPALIVE_ATTRIBUTE, System.currentTimeMillis());
                 

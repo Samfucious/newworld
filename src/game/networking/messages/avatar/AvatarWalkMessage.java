@@ -67,6 +67,7 @@ public class AvatarWalkMessage extends BaseMessage implements ITargetAny {
     @Override
     public BaseMessage serverCloneMessage() {
         Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        if (null == avatar) return null;
         return new AvatarWalkMessage(this.getSourceId(), this.getClientId(), avatar.getLocalTranslation(), avatar.getLocalRotation(), isForward, startMovement);
     }
 }

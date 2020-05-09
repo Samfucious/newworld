@@ -66,6 +66,7 @@ public class AvatarStrafeMessage extends BaseMessage implements ITargetAny {
     @Override
     public BaseMessage serverCloneMessage() {
         Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+        if (null == avatar) return null;
         return new AvatarStrafeMessage(this.getSourceId(), this.getClientId(), avatar.getLocalTranslation(), rotation, isLeft, startMovement);
     }
 }
