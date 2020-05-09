@@ -24,6 +24,8 @@ import java.util.Map;
  * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Configuration {    
+    public static final String DEFAULT_PORT = "6560";
+    
     public enum Configurations {
         SERVER("server"),
         CONNECT("connect"),

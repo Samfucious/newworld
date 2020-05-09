@@ -28,7 +28,6 @@ import game.networking.ServerNetworkManager;
  * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class ServerApp extends BaseApp {
-    private static final String DEFAULT_PORT = "6143";
     ServerNetworkManager network;
     
     @Override
@@ -39,7 +38,7 @@ public class ServerApp extends BaseApp {
     @Override
     public void simpleInitApp() {
         super.simpleInitApp();
-        int port = Integer.parseInt(Configuration.getConfigurationValue(Configuration.Configurations.PORT, DEFAULT_PORT));
+        int port = Integer.parseInt(Configuration.getConfigurationValue(Configuration.Configurations.PORT, Configuration.DEFAULT_PORT));
         network = new ServerNetworkManager(port);
     }
     

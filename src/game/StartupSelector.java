@@ -129,7 +129,7 @@ public class StartupSelector extends JFrame {
         public void actionPerformed(ActionEvent ae) {
             String address = (String) JOptionPane.showInputDialog(selector, "Server address and port:", 
                     "Connect to server", JOptionPane.PLAIN_MESSAGE, 
-                    null, null, "localhost:6560");
+                    null, null, "localhost:" + Configuration.DEFAULT_PORT);
             
             String[] addressAndPort = address.split(":");
             Configuration.setConfigurationValue(Configuration.Configurations.CONNECT, addressAndPort[0]);
@@ -148,7 +148,7 @@ public class StartupSelector extends JFrame {
         public void actionPerformed(ActionEvent ae) {
             String port = (String) JOptionPane.showInputDialog(selector, "Listen on port:", 
                     "Start server", JOptionPane.PLAIN_MESSAGE, 
-                    null, null, "6560");
+                    null, null, Configuration.DEFAULT_PORT);
             
             Configuration.setConfigurationValue(Configuration.Configurations.SERVER, "true");
             Configuration.setConfigurationValue(Configuration.Configurations.PORT, port);
