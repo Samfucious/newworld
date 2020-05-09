@@ -57,8 +57,6 @@ public class ClientConnectionManager implements IMessenger {
         this.address = address;
         this.port = port;
         this.roundTripMessages = roundTripMessages;
-        connectToServer(address, port);
-        pingTimer.schedule(new PingTask(client), PING_FREQUENCY, PING_FREQUENCY);
     }
     
     private void connectToServer(String address, int port) {
