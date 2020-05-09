@@ -39,7 +39,6 @@ import game.messages.avatar.AvatarPositionMessage;
 import game.messages.avatar.AvatarStrafeMessage;
 import game.messages.avatar.AvatarWalkMessage;
 import game.messages.avatar.LocalAvatarCreateMessage;
-import game.messages.avatar.SendAllAvatarsMessage;
 import game.messages.object.ObjectStateMessage;
 import game.messages.object.ObjectStateRequestMessage;
 import game.messages.object.RadianRotatorStateMessage;
