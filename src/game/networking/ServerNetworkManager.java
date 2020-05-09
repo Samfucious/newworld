@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 samfucious
+ * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ import java.util.logging.Logger;
 public class ServerNetworkManager {
     public static final int SERVER_ID = Integer.MIN_VALUE;
     public static final long KEEPALIVE_THRESHOLD = 10000; // 10 seconds
+    public static final long KEEPALIVE_FREQUENCY = 5000; // 5 seconds
     public static final String KEEPALIVE_ATTRIBUTE = "lastHeartbeat";
     
     private Server server = null;
@@ -61,7 +62,7 @@ public class ServerNetworkManager {
     
     public ServerNetworkManager(int port) {
         startServer(port);
-        keepAliveTimer.schedule(new KeepAliveTimerTask(this), KEEPALIVE_THRESHOLD / 2);
+        keepAliveTimer.schedule(new KeepAliveTimerTask(this), KEEPALIVE_FREQUENCY, KEEPALIVE_FREQUENCY);
     }
         
     private void startServer(int port) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 samfucious
+ * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

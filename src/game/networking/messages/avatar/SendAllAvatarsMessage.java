@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 samfucious
+ * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ public class SendAllAvatarsMessage extends BaseMessage implements ITargetServer 
 
     @Override
     public BaseMessage serverCloneMessage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
     
 }

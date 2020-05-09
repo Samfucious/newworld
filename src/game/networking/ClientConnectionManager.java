@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 samfucious
+ * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ public class ClientConnectionManager implements IMessenger {
     public ClientConnectionManager(String address, int port, boolean roundTripMessages) {
         this.roundTripMessages = roundTripMessages;
         connectToServer(address, port);
-        pingTimer.schedule(new PingTask(client), PING_FREQUENCY);
+        pingTimer.schedule(new PingTask(client), PING_FREQUENCY, PING_FREQUENCY);
     }
     
     private void connectToServer(String address, int port) {
