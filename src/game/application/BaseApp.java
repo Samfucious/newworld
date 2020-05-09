@@ -68,7 +68,7 @@ public abstract class BaseApp extends SimpleApplication {
     }
     
     public void postMessage(BaseMessage message) {
-        this.enqueue(() -> {
+        enqueue(() -> {
             message.processMessage();
         });
     }

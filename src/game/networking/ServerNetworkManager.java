@@ -118,6 +118,10 @@ public class ServerNetworkManager {
         Serializer.registerClass(ObjectStateRequestMessage.class);
         Serializer.registerClass(RadianRotatorStateMessage.class);
     }
+
+    public void stop() {
+        keepAliveTimer.cancel();
+    }
     
     private static class KeepAliveTimerTask extends TimerTask {
         ServerNetworkManager networkManager;

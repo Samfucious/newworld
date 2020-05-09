@@ -35,4 +35,12 @@ public class NoConnectionManager implements IMessenger {
     public void send(BaseMessage message) {
         Application.getApplication().postMessage(message);
     }
+
+    @Override
+    public void start() {
+    }
+
+    @Override
+    public void stop() {
+    }
 }

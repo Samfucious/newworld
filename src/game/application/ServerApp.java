@@ -66,4 +66,10 @@ public class ServerApp extends BaseApp {
     public void send(BaseMessage message, int clientId) {
         network.send(message, clientId);
     }
+    
+    @Override
+    public void stop() {
+        network.stop();
+        super.stop();
+    }
 }

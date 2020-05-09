@@ -60,7 +60,9 @@ public class ClientApp extends BaseApp implements ActionListener {
         initBloomFilter();
         initSky();
         setUpKeys();
+        
         messenger = initMessageManager();
+        messenger.start();
         
         ScreenshotAppState screenShotState = new ScreenshotAppState();
         this.stateManager.attach(screenShotState);
@@ -170,5 +172,11 @@ public class ClientApp extends BaseApp implements ActionListener {
     
     public long getPing() {
         return PongMessage.getAverageLag();
+    }
+    
+    @Override
+    public void stop() {
+        messenger.stop();
+        super.stop();
     }
 }

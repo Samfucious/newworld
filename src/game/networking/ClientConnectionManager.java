@@ -41,6 +41,8 @@ public class ClientConnectionManager implements IMessenger {
     Client client;
     boolean roundTripMessages;
     private final Timer pingTimer = new Timer();
+    String address;
+    int port;
     
     @Override
     public int getClientId() {
@@ -52,6 +54,8 @@ public class ClientConnectionManager implements IMessenger {
     }
     
     public ClientConnectionManager(String address, int port, boolean roundTripMessages) {
+        this.address = address;
+        this.port = port;
         this.roundTripMessages = roundTripMessages;
         connectToServer(address, port);
         pingTimer.schedule(new PingTask(client), PING_FREQUENCY, PING_FREQUENCY);
@@ -69,6 +73,17 @@ public class ClientConnectionManager implements IMessenger {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(1);
         }
+    }
+
+    @Override
+    public void start() {
+        connectToServer(address, port);
+        pingTimer.schedule(new PingTask(client), PING_FREQUENCY, PING_FREQUENCY);
+    }
+
+    @Override
+    public void stop() {
+        pingTimer.cancel();
     }
     
     private static class PingTask extends TimerTask {
@@ -104,7 +119,7 @@ public class ClientConnectionManager implements IMessenger {
                 BaseMessage baseMessage = (BaseMessage) message;
                 
                 /* 
-                    Post if we're making all messages go round trip to the server and back before processing.
+                    Post if we're making all messages go round trip to the server and back before processing (the default).
                     Otherwise, post the message only if it's from a remote source.
                 */
                 if(roundTripMessages || client.getId() != baseMessage.getSourceId()) {

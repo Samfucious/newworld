@@ -23,4 +23,6 @@ package game.messages;
 public interface IMessenger {
     int getClientId();
     void send(BaseMessage message);
+    void start();
+    void stop();
 }
