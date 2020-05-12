@@ -14,50 +14,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.messages.object;
+package game.messages.avatar.actions;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
-import com.jme3.scene.Spatial;
 import game.application.Application;
+import game.entities.Avatar;
 import game.messages.BaseMessage;
-import game.messages.ITargetClient;
+import game.messages.ITargetServer;
+import game.networking.ServerNetworkManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 @Serializable
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjectStateMessage extends BaseMessage implements ITargetClient {
-    String name;
-    Vector3f position;
+public class UpdateRotationMessage extends BaseMessage implements ITargetServer {
+
     Quaternion rotation;
+    Vector3f lookat;
+    Vector3f left;
     
-    public ObjectStateMessage(int sourceId, int clientId, String name, Vector3f position, Quaternion rotation) {
+    public UpdateRotationMessage(int sourceId, int clientId, Quaternion rotation, Vector3f lookat, Vector3f left) {
         super(sourceId, clientId);
-        this.name = name;
-        this.position = position;
         this.rotation = rotation;
+        this.lookat = lookat;
+        this.left = left;
     }
 
     @Override
     public void processMessage() {
-        Spatial spatial = Application.getApplication().getStatefulObject(name);
-        if(null != spatial) {
-            spatial.setLocalTranslation(position);
-            spatial.setLocalRotation(rotation);
-        }
+        Avatar avatar = Application.getApplication().getAvatar(getClientId());
+        avatar.getClientActionsState().setRotation(rotation);
     }
 
     @Override
     public BaseMessage createResponse() {
-        return null;
+        return new RotationUpdatedMessage(ServerNetworkManager.SERVER_ID, getClientId(), rotation);
     }
 }

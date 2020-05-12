@@ -19,6 +19,8 @@ package game.networking;
 import game.messages.IMessenger;
 import game.messages.BaseMessage;
 import game.application.Application;
+import game.messages.ITargetAny;
+import java.util.Collection;
 
 /**
  *
@@ -32,8 +34,13 @@ public class NoConnectionManager implements IMessenger {
     }
 
     @Override
-    public void send(BaseMessage message) {
-        Application.getApplication().postMessage(message);
+    public void send(BaseMessage message) {        
+        Application.getApplication().postMessage(new InternalMessageWrapper(message.getClientId(), message));
+    }
+    
+    @Override
+    public void send(Collection<BaseMessage> messages) {
+        messages.forEach(message -> { send(message); });
     }
 
     @Override
@@ -42,5 +49,30 @@ public class NoConnectionManager implements IMessenger {
 
     @Override
     public void stop() {
+    }
+    
+    private static class InternalMessageWrapper extends BaseMessage implements ITargetAny {
+        
+        BaseMessage message;
+        
+        public InternalMessageWrapper(int clientId, BaseMessage message) {
+            super(clientId, clientId);
+            this.message = message;
+        }
+
+        @Override
+        public void processMessage() {
+            if (null != message) {
+                message.processMessage();
+                Application.getApplication().postMessage(message.createResponse());
+            }
+        }
+
+        @Override
+        public BaseMessage createResponse() {
+            return null != message ?
+                message.createResponse() :
+                null;
+        }
     }
 }

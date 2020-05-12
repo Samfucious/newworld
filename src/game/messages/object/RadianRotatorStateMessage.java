@@ -51,7 +51,7 @@ public class RadianRotatorStateMessage extends BaseMessage implements ITargetCli
     }
 
     @Override
-    public BaseMessage serverCloneMessage() {
+    public BaseMessage createResponse() {
         return null;
     }
 }

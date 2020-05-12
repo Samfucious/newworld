@@ -47,7 +47,7 @@ public class PingMessage extends BaseMessage implements ITargetServer {
     }
 
     @Override
-    public BaseMessage serverCloneMessage() {
+    public BaseMessage createResponse() {
         return null;
     }
 }

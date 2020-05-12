@@ -29,9 +29,8 @@ import com.jme3.util.SkyFactory;
 import game.Configuration;
 import game.networking.ClientConnectionManager;
 import game.entities.Avatar;
-import game.messages.avatar.AvatarJumpMessage;
-import game.messages.avatar.AvatarWalkMessage;
-import game.messages.avatar.AvatarStrafeMessage;
+import game.entities.AvatarActionsState;
+import game.entities.AvatarInputStateManager;
 import game.messages.BaseMessage;
 import game.messages.IMessenger;
 import game.messages.ITargetClient;
@@ -44,6 +43,7 @@ import game.messages.PongMessage;
 public class ClientApp extends BaseApp implements ActionListener {
     
     protected IMessenger messenger;
+    private AvatarInputStateManager inputState;
     
     protected Avatar getLocalAvatar() {
         return getAvatar(messenger.getClientId());
@@ -60,6 +60,7 @@ public class ClientApp extends BaseApp implements ActionListener {
         initBloomFilter();
         initSky();
         setUpKeys();
+        inputState = new AvatarInputStateManager(this.cam);
         
         messenger = initMessageManager();
         messenger.start();
@@ -114,11 +115,16 @@ public class ClientApp extends BaseApp implements ActionListener {
     
     @Override
     public void simpleUpdate(float tpf) {
-        Avatar avatar = getLocalAvatar();
+        Avatar avatar = getLocalAvatar();  
         
         if (avatar != null) {
-            avatar.setLocalRotation(cam.getRotation());
-            avatar.setMovementVectors(cam.getDirection(), cam.getLeft());
+            // Get the diffs between the AvatarActionsStates, and send messages.
+            AvatarActionsState serverState = avatar.getServerActionsState();
+            AvatarActionsState clientState = avatar.getClientActionsState();
+            clientState.applyInputState(inputState); // Translate user input to actions states.
+            messenger.send(AvatarActionsState.createMessagesForDifferences(serverState, clientState));
+            
+            // Do base simulation update and position camera.
             super.simpleUpdate(tpf);
             cam.setLocation(avatar.getCharacterControl().getPhysicsLocation());
         }
@@ -129,37 +135,29 @@ public class ClientApp extends BaseApp implements ActionListener {
     
     @Override
     public void onAction(String binding, boolean isPressed, float tpf) {
-        Avatar avatar = getLocalAvatar();
-        int clientId = getClientId();
-        int sourceId = clientId;
-        
-        BaseMessage message = null;
         switch (binding) {
             case "Left":
-                message = new AvatarStrafeMessage(sourceId, clientId, avatar.getLocalTranslation(), avatar.getLocalRotation(), true, isPressed);
+                inputState.updateMovement(AvatarInputStateManager.Movements.LEFT, isPressed);
                 break;
             case "Right":
-                message = new AvatarStrafeMessage(sourceId, clientId, avatar.getLocalTranslation(), avatar.getLocalRotation(), false, isPressed);
+                inputState.updateMovement(AvatarInputStateManager.Movements.RIGHT, isPressed);
                 break;
             case "Up":
-                message = new AvatarWalkMessage(sourceId, clientId, avatar.getLocalTranslation(), avatar.getLocalRotation(), true, isPressed);
+                inputState.updateMovement(AvatarInputStateManager.Movements.FORWARD, isPressed);
                 break;
             case "Down":
-                message = new AvatarWalkMessage(sourceId, clientId, avatar.getLocalTranslation(), avatar.getLocalRotation(), false, isPressed);
+                inputState.updateMovement(AvatarInputStateManager.Movements.BACKWARD, isPressed);
                 break;
             case "Jump":
-                message = new AvatarJumpMessage(sourceId, clientId);
-                break;
+                if (isPressed) {
+                    inputState.setLastJump(System.currentTimeMillis());
+                }
+                break;            
             default:
                 break;
         }
-        
-        if (message != null)
-        {
-            messenger.send(message);
-        }
     }
-    
+        
     @Override
     public int getClientId() {
         return messenger.getClientId();

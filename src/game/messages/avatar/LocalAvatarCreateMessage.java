@@ -39,7 +39,7 @@ public class LocalAvatarCreateMessage extends BaseMessage implements ITargetAny 
     }
 
     @Override
-    public BaseMessage serverCloneMessage() {
+    public BaseMessage createResponse() {
         return null;
     }
 }

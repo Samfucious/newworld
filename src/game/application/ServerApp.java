@@ -59,6 +59,25 @@ public class ServerApp extends BaseApp {
         }
     }
     
+    @Override
+    protected void postProcessMessage(BaseMessage message) {
+        trySendResponse(message.createResponse());
+    }
+    
+    @Override
+    public void simpleUpdate(float tpf) {
+        getAvatars().forEach(avatar -> {
+            avatar.getClientActionsState().copyTo(avatar.getServerActionsState());
+        });
+        super.simpleUpdate(tpf);
+    }
+    
+    private void trySendResponse(BaseMessage response) {
+        if(null != response) {
+            network.send(response);
+        }
+    }
+        
     public void send(BaseMessage message) {
         network.send(message);
     }

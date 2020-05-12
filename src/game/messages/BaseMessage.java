@@ -31,6 +31,7 @@ import lombok.Setter;
 public abstract class BaseMessage extends AbstractMessage {
     private int sourceId;
     private int clientId;
+    private long timestamp = -1; // only measure ping if this is positive.
     
     public BaseMessage(int sourceId, int clientId) {
         this.sourceId = sourceId;
@@ -42,5 +43,13 @@ public abstract class BaseMessage extends AbstractMessage {
     /**
      * @return A copy of the message, with any server values, such as object positioning, replacing the original values. 
      */
-    public abstract BaseMessage serverCloneMessage();
+    public abstract BaseMessage createResponse();
+    
+    public boolean hasPing() {
+        return timestamp > 0;
+    }
+    
+    public long getPing() {
+        return System.currentTimeMillis() - timestamp;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
+ * Copyright (C) 2020 samfucious
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,24 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.messages.avatar;
+package game.messages.avatar.actions;
 
 import game.application.Application;
+import game.entities.Avatar;
 import game.messages.BaseMessage;
-import game.messages.ITargetAny;
-import lombok.Getter;
-import lombok.Setter;
+import game.messages.ITargetClient;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author samfucious
  */
-@Getter
-@Setter
-public class LocalAvatarDestroyMessage extends BaseMessage implements ITargetAny {
+public class JumpedMessage extends BaseMessage implements ITargetClient {
+
+    long timestamp;
+    
+    public JumpedMessage(int clientId, long timestamp) {
+        super(clientId, clientId);
+        this.timestamp = timestamp;
+    }
+
     @Override
     public void processMessage() {
-        Application.getApplication().removeAvatar(getClientId());
+        Avatar avatar = Application.getApplication().getAvatar(getClientId());
+        avatar.getServerActionsState().setLastJump(timestamp);
+        avatar.jump();
     }
 
     @Override

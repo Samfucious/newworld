@@ -64,7 +64,7 @@ public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITarg
     }
 
     @Override
-    public BaseMessage serverCloneMessage() {
+    public BaseMessage createResponse() {
         return null;
     }
 }

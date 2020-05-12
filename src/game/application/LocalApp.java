@@ -57,4 +57,9 @@ public class LocalApp extends ClientApp {
     protected IMessenger initMessageManager() {
         return new NoConnectionManager();
     }
+    
+    @Override
+    public void simpleUpdate(float tpf) {
+        super.simpleUpdate(tpf);
+    }
 }

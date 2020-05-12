@@ -64,13 +64,19 @@ public abstract class BaseApp extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) {  
         updateables.forEach((updatingNode) -> { updatingNode.update(tpf); });
-        avatars.values().forEach((avatar) -> { avatar.update(tpf); });
+        avatars.values().forEach((avatar) -> {
+            avatar.update(tpf); 
+        });
     }
     
     public void postMessage(BaseMessage message) {
         enqueue(() -> {
             message.processMessage();
+            postProcessMessage(message);
         });
+    }
+    
+    protected void postProcessMessage(BaseMessage message) {
     }
     
     public void addAvatar(Avatar avatar) {

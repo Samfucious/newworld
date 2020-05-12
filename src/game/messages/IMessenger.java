@@ -16,6 +16,8 @@
  */
 package game.messages;
 
+import java.util.Collection;
+
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
@@ -23,6 +25,7 @@ package game.messages;
 public interface IMessenger {
     int getClientId();
     void send(BaseMessage message);
+    void send(Collection<BaseMessage> messages);
     void start();
     void stop();
 }

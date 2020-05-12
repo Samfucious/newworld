@@ -26,6 +26,7 @@ import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -39,7 +40,6 @@ public class ClientConnectionManager implements IMessenger {
     private static final int PING_FREQUENCY = 5000; // 5 seconds (1/2 of ServerNetworkManager.KEEPALIVE_THRESHOLD)
     
     Client client;
-    boolean roundTripMessages;
     private final Timer pingTimer = new Timer();
     String address;
     int port;
@@ -50,13 +50,8 @@ public class ClientConnectionManager implements IMessenger {
     }
     
     public ClientConnectionManager(String address, int port) {
-        this(address, port, true);
-    }
-    
-    public ClientConnectionManager(String address, int port, boolean roundTripMessages) {
         this.address = address;
         this.port = port;
-        this.roundTripMessages = roundTripMessages;
     }
     
     private void connectToServer(String address, int port) {
@@ -115,23 +110,23 @@ public class ClientConnectionManager implements IMessenger {
         public void messageReceived(Client source, Message message) {
             if (message instanceof BaseMessage) {
                 BaseMessage baseMessage = (BaseMessage) message;
-                
-                /* 
-                    Post if we're making all messages go round trip to the server and back before processing (the default).
-                    Otherwise, post the message only if it's from a remote source.
-                */
-                if(roundTripMessages || client.getId() != baseMessage.getSourceId()) {
-                    Application.getApplication().postMessage(baseMessage);
+                if (baseMessage.hasPing()) {
+                    long ping = baseMessage.getPing();
+                    // TODO: Add post(new AddPingValueMessage(ping));
                 }
+                Application.getApplication().postMessage(baseMessage);
             }
         }
     }
     
     @Override
     public void send(BaseMessage message) {
+        message.setTimestamp(System.currentTimeMillis());
         client.send(message);
-        if(!roundTripMessages) {
-            Application.getApplication().postMessage(message);
-        }
+    }
+    
+    @Override
+    public void send(Collection<BaseMessage> messages) {
+        messages.forEach(message -> { send(message); });
     }
 }

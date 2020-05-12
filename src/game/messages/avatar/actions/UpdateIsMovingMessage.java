@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
+ * Copyright (C) 2020 samfucious
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,50 +14,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.messages.object;
+package game.messages.avatar.actions;
 
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
-import com.jme3.scene.Spatial;
 import game.application.Application;
+import game.entities.Avatar;
 import game.messages.BaseMessage;
-import game.messages.ITargetClient;
+import game.messages.ITargetServer;
+import game.networking.ServerNetworkManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author samfucious
  */
 @Serializable
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjectStateMessage extends BaseMessage implements ITargetClient {
-    String name;
-    Vector3f position;
-    Quaternion rotation;
+public class UpdateIsMovingMessage extends BaseMessage implements ITargetServer {
     
-    public ObjectStateMessage(int sourceId, int clientId, String name, Vector3f position, Quaternion rotation) {
+    Vector3f direction;
+    boolean isMoving;
+
+    public UpdateIsMovingMessage(int sourceId, int clientId, Vector3f direction, boolean isMoving) {
         super(sourceId, clientId);
-        this.name = name;
-        this.position = position;
-        this.rotation = rotation;
+        this.direction = direction;
+        this.isMoving = isMoving;
     }
 
     @Override
     public void processMessage() {
-        Spatial spatial = Application.getApplication().getStatefulObject(name);
-        if(null != spatial) {
-            spatial.setLocalTranslation(position);
-            spatial.setLocalRotation(rotation);
-        }
+        Avatar avatar = Application.getApplication().getAvatar(getClientId());
+        avatar.getClientActionsState().setMoving(isMoving);
+        avatar.getClientActionsState().setMovementDirection(isMoving ? direction : Vector3f.ZERO);
     }
 
     @Override
     public BaseMessage createResponse() {
-        return null;
+        Avatar avatar = Application.getApplication().getAvatar(getClientId());
+        Vector3f position = avatar.getLocalTranslation();
+        return new IsMovingUpdatedMessage(ServerNetworkManager.SERVER_ID, getClientId(), position, direction, isMoving);
     }
 }

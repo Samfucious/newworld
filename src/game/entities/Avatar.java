@@ -26,54 +26,24 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Cylinder;
 import game.application.Application;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
  * @author Sam Iredale (gyrepin@gmail.com)
  */
 public class Avatar extends UpdatingNode {
-    
-    public enum Movements {
-        FORWARD("forward"),
-        BACKWARD("backward"),
-        LEFT("left"),
-        RIGHT("right");
-        
-        private final String movement;
-        
-        Movements(String movement) {
-            this.movement = movement;
-        }
-        
-        public String getMovement() {
-            return this.movement;
-        }
-    }
-    
+    private static final float MOVEMENT_SPEED = 0.1f;
     private static Mesh mesh;
     
-    int clientId;
-    CharacterControl characterControl = new CharacterControl();
-    CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.5f, 2f, 1);
+    private final int clientId;
+    private CharacterControl characterControl = new CharacterControl();
+    private final CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.5f, 2f, 1);
     
-    Vector3f lookat = Vector3f.UNIT_Z;
-    Vector3f left = Vector3f.UNIT_X.negate();
+    private Vector3f lookat = Vector3f.UNIT_Z;
+    private Vector3f left = Vector3f.UNIT_X.negate();
     
-    Vector3f movementDirection = new Vector3f();
-    float movementSpeed = 0.1f;
-    
-    Set<Movements> movements = new HashSet();
-    static final HashMap<Movements, Vector3f> movementVectors = new HashMap();
-    static {
-        movementVectors.put(Movements.LEFT, Vector3f.UNIT_X.negate());
-        movementVectors.put(Movements.RIGHT, Vector3f.UNIT_X);
-        movementVectors.put(Movements.FORWARD, Vector3f.UNIT_Z.negate());
-        movementVectors.put(Movements.BACKWARD, Vector3f.UNIT_Z);
-    }
+    private final AvatarActionsState clientActionsState = new AvatarActionsState(); // Represents the intentions of the client.
+    private final AvatarActionsState serverActionsState = new AvatarActionsState(); // Represents the understand of the server.
     
     public Avatar(int clientId, Vector3f location, Quaternion rotation) {
         this.clientId = clientId;
@@ -104,22 +74,24 @@ public class Avatar extends UpdatingNode {
         this.left = left;
     }
     
-    public boolean isMoving() {
-        return !movements.isEmpty();
+    public AvatarActionsState getClientActionsState() {
+        return clientActionsState;
     }
     
+    public AvatarActionsState getServerActionsState() {
+        return serverActionsState;
+    }
+        
     public CharacterControl getCharacterControl() {
         return characterControl;
     }
     
     private void initCharacterControl(Vector3f location) {
         characterControl = new CharacterControl(capsuleShape, 0.5f);
-        
         characterControl.setJumpSpeed(10);
         characterControl.setFallSpeed(30);
         characterControl.setGravity(30f);
         characterControl.setPhysicsLocation(location);
-        
         addControl(characterControl);
     }
     
@@ -129,39 +101,11 @@ public class Avatar extends UpdatingNode {
     }
     
     private void doMovementUpdate(float t) {
-        if (isMoving()) {
-            Vector3f movement = lookat.mult(-movementDirection.z)
-                    .add(left.mult(-movementDirection.x)).normalize();
-            characterControl.setWalkDirection(movement.mult(movementSpeed));
-            characterControl.update(t);
-        }
-        else {
-            characterControl.setWalkDirection(Vector3f.ZERO);
-        }
-    }
-    
-    public void addMovement(Movements movement) {
-        movements.add(movement);
-        updateMovementVector();
-    }
-    
-    public void setMovements(Movements[] m) {
-        movements.clear();
-        movements.addAll(Arrays.asList(m));
-        updateMovementVector();
-    }
-    
-    public void removeMovement(Movements movement) {
-        movements.remove(movement);
-        updateMovementVector();
-    }
-    
-    private void updateMovementVector() {
-        movementDirection.set(0,0,0);
-        movements.forEach((movement) -> {
-            movementDirection.addLocal(movementVectors.get(movement));
-        });
-        movementDirection.normalizeLocal();
+        float speed = serverActionsState.isMoving() ? MOVEMENT_SPEED : 0.0f;
+        Vector3f movement = serverActionsState.getRotation()
+                .mult(serverActionsState.getMovementDirection().normalize());
+        characterControl.setWalkDirection(movement.mult(speed));
+        characterControl.update(t);
     }
     
     public void jump() {

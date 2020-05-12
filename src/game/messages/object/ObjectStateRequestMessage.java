@@ -50,7 +50,7 @@ public class ObjectStateRequestMessage extends BaseMessage implements ITargetSer
     }
 
     @Override
-    public BaseMessage serverCloneMessage() {
+    public BaseMessage createResponse() {
         return null;
     }
 }

@@ -53,7 +53,7 @@ public class AvatarCreatedMessage extends BaseMessage implements ITargetClient {
     }
     
     @Override
-    public BaseMessage serverCloneMessage() {
+    public BaseMessage createResponse() {
         return null;
     }
 }

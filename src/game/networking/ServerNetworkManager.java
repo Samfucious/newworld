@@ -23,7 +23,6 @@ import game.messages.BaseMessage;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.ConnectionListener;
-import com.jme3.network.Filters;
 import com.jme3.network.HostedConnection;
 import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
@@ -34,10 +33,7 @@ import game.application.Application;
 import game.entities.Avatar;
 import game.messages.avatar.AvatarCreatedMessage;
 import game.messages.avatar.AvatarDestroyedMessage;
-import game.messages.avatar.AvatarJumpMessage;
-import game.messages.avatar.AvatarPositionMessage;
-import game.messages.avatar.AvatarStrafeMessage;
-import game.messages.avatar.AvatarWalkMessage;
+import game.messages.avatar.actions.JumpMessage;
 import game.messages.avatar.LocalAvatarCreateMessage;
 import game.messages.object.ObjectStateMessage;
 import game.messages.object.ObjectStateRequestMessage;
@@ -107,10 +103,7 @@ public class ServerNetworkManager {
     
     private void initializeSerializables() {
         Serializer.registerClass(AvatarCreatedMessage.class);
-        Serializer.registerClass(AvatarJumpMessage.class);
-        Serializer.registerClass(AvatarPositionMessage.class);
-        Serializer.registerClass(AvatarStrafeMessage.class);
-        Serializer.registerClass(AvatarWalkMessage.class);
+        Serializer.registerClass(JumpMessage.class);
         Serializer.registerClass(AvatarDestroyedMessage.class);
         Serializer.registerClass(PingMessage.class);
         Serializer.registerClass(PongMessage.class);
@@ -149,7 +142,7 @@ public class ServerNetworkManager {
         }
 
         @Override
-        public BaseMessage serverCloneMessage() {
+        public BaseMessage createResponse() {
             return null;
         }
     }
@@ -164,8 +157,7 @@ public class ServerNetworkManager {
         }
         
         private void sendAvatarCreatedMessage(Server server, int clientId) {
-            // TODO: Consider spawn position variabilities.
-            Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f);
+            Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f); // TODO: Consider spawn position variabilities.
             Application.getApplication().postMessage(new LocalAvatarCreateMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY)));
             AvatarCreatedMessage message = new AvatarCreatedMessage(SERVER_ID, clientId, clientId, spawnPoint, Quaternion.IDENTITY);
             server.broadcast(message);
@@ -195,11 +187,8 @@ public class ServerNetworkManager {
             if(message instanceof BaseMessage) {
                 source.setAttribute(KEEPALIVE_ATTRIBUTE, System.currentTimeMillis());
                 BaseMessage baseMessage = (BaseMessage) message;
-                BaseMessage clone = ((BaseMessage) baseMessage).serverCloneMessage();
-                Application.getApplication().postMessage(clone);
-                if(null != clone) {
-                    server.broadcast(Filters.notEqualTo(source.getId()), clone);
-                }
+                baseMessage.setSourceId(source.getId());
+                Application.getApplication().postMessage(baseMessage);
             }
         }
     }
