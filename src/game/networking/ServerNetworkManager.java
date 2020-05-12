@@ -179,7 +179,7 @@ public class ServerNetworkManager {
         private void sendAvatarCreatedMessage(Server server, int clientId) {
             Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f); // TODO: Consider spawn position variabilities.
             Application.getApplication().postMessage(new LocalAvatarCreateMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY)));
-            AvatarCreatedMessage message = new AvatarCreatedMessage(clientId, clientId, spawnPoint, Quaternion.IDENTITY);
+            AvatarCreatedMessage message = new AvatarCreatedMessage(clientId, spawnPoint, Quaternion.IDENTITY);
             server.broadcast(message);
         }
         

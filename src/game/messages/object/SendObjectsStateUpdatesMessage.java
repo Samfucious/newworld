@@ -16,12 +16,16 @@
  */
 package game.messages.object;
 
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import game.application.Application;
 import game.application.ServerApp;
+import game.entities.Avatar;
 import game.entities.IRadianRotator;
 import game.messages.BaseMessage;
 import game.messages.ITargetAny;
+import game.messages.avatar.AvatarCreatedMessage;
 import java.util.Queue;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,7 +59,14 @@ public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITarg
                 message = new ObjectStateMessage(spatial.getName(), spatial.getLocalTranslation(), spatial.getLocalRotation());
             }
             ((ServerApp) Application.getApplication()).send(message, getClientId());
-        }        
+        }
+        
+        for (Avatar avatar : Application.getApplication().getAvatars()) {
+            if(getClientId() != avatar.getAvatarId()) {
+                BaseMessage message = new AvatarCreatedMessage(avatar.getAvatarId(), avatar.getLocalTranslation(), avatar.getLocalRotation());
+                ((ServerApp) Application.getApplication()).send(message, getClientId());
+            }
+        }
     }
 
     @Override
