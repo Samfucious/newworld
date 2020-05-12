@@ -26,6 +26,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Cylinder;
 import game.application.Application;
+import helpers.Materials;
 
 /**
  *
@@ -49,12 +50,13 @@ public class Avatar extends UpdatingNode {
         this.clientId = clientId;
         initGeometry();
         initCharacterControl(location);
+        setLocalTranslation(location);
         setLocalRotation(rotation);
     }
     
     private void initGeometry() {
         Geometry geometry = new Geometry("avatar", new Cylinder(2, 8, 0.5f, 2.0f, true));
-        Material material = new Material(Application.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+        Material material = new Material(Application.getAssetManager(), Materials.MatDefs.Unshaded.getMatDef());
         material.setColor("Color", ColorRGBA.Pink);
         geometry.setMaterial(material);
         attachChild(geometry);
