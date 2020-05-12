@@ -52,14 +52,10 @@ public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITarg
                 message = new RadianRotatorStateMessage(getClientId(),
                         spatial.getName(), ((IRadianRotator)spatial).getRotation());
             } else {
-                message = new ObjectStateMessage(getClientId(),
-                        spatial.getName(), spatial.getLocalTranslation(), spatial.getLocalRotation());
+                message = new ObjectStateMessage(spatial.getName(), spatial.getLocalTranslation(), spatial.getLocalRotation());
             }
-            
             ((ServerApp) Application.getApplication()).send(message, getClientId());
-        }
-        
-        Application.getApplication().postMessage(this);
+        }        
     }
 
     @Override

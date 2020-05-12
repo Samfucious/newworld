@@ -59,7 +59,6 @@ import java.util.logging.Logger;
  * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class ServerNetworkManager {
-    public static final int SERVER_ID = Integer.MIN_VALUE;
     public static final long KEEPALIVE_THRESHOLD = 10000; // 10 seconds
     public static final long KEEPALIVE_FREQUENCY = 5000; // 5 seconds
     public static final String KEEPALIVE_ATTRIBUTE = "lastHeartbeat";
@@ -203,8 +202,6 @@ public class ServerNetworkManager {
     private class ServerSideMessageListener implements MessageListener<HostedConnection> {
         @Override
         public void messageReceived(HostedConnection source, Message message) {
-            Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO,  String.format("Client message from %d", source.getId()));
-            
             if(message instanceof BaseMessage) {
                 source.setAttribute(KEEPALIVE_ATTRIBUTE, System.currentTimeMillis());
                 BaseMessage baseMessage = (BaseMessage) message;

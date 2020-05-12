@@ -44,7 +44,7 @@ public class ServerApp extends BaseApp {
     
     @Override
     public int getClientId() {
-        return ServerNetworkManager.SERVER_ID;
+        throw new UnsupportedOperationException();
     }
 
     @Override

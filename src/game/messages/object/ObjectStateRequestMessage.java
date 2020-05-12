@@ -22,7 +22,6 @@ import game.application.Application;
 import game.application.ServerApp;
 import game.messages.BaseMessage;
 import game.messages.ITargetServer;
-import game.networking.ServerNetworkManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,8 +42,7 @@ public class ObjectStateRequestMessage extends BaseMessage implements ITargetSer
     public void processMessage() {
         Spatial spatial = Application.getApplication().getStatefulObject(name);
         if(null != spatial) {
-            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, 
-                    name, spatial.getLocalTranslation(), spatial.getLocalRotation());
+            ObjectStateMessage message = new ObjectStateMessage(name, spatial.getLocalTranslation(), spatial.getLocalRotation());
             ((ServerApp) Application.getApplication()).send(message, getSourceId());
         }
     }

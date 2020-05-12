@@ -77,6 +77,7 @@ public class ClientConnectionManager implements IMessenger {
     @Override
     public void stop() {
         pingTimer.cancel();
+        client.close();
     }
     
     private static class PingTask extends TimerTask {
@@ -110,10 +111,6 @@ public class ClientConnectionManager implements IMessenger {
         public void messageReceived(Client source, Message message) {
             if (message instanceof BaseMessage) {
                 BaseMessage baseMessage = (BaseMessage) message;
-                if (baseMessage.hasPing()) {
-                    long ping = baseMessage.getPing();
-                    // TODO: Add post(new AddPingValueMessage(ping));
-                }
                 Application.getApplication().postMessage(baseMessage);
             }
         }
@@ -121,7 +118,6 @@ public class ClientConnectionManager implements IMessenger {
     
     @Override
     public void send(BaseMessage message) {
-        message.setTimestamp(System.currentTimeMillis());
         client.send(message);
     }
     
