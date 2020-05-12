@@ -51,7 +51,7 @@ public class JumpMessage extends BaseMessage implements ITargetServer {
             AvatarActionsState serverState = avatar.getServerActionsState();
             
             if (serverState.getLastJump() != clientState.getLastJump()) {
-                serverState.setLastJump(clientState.getLastJump());
+                clientState.setLastJump(timestamp);
                 avatar.jump();
             }
         }

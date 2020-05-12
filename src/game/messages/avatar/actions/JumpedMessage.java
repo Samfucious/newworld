@@ -19,6 +19,7 @@ package game.messages.avatar.actions;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
+import game.entities.AvatarActionsState;
 import game.messages.BaseMessage;
 import game.messages.ITargetClient;
 import lombok.Getter;
@@ -43,10 +44,15 @@ public class JumpedMessage extends BaseMessage implements ITargetClient {
     }
 
     @Override
-    public void processMessage() {
+    public void processMessage() {        
         Avatar avatar = Application.getApplication().getAvatar(getClientId());
-        avatar.getServerActionsState().setLastJump(timestamp);
-        avatar.jump();
+        AvatarActionsState clientState = avatar.getClientActionsState();
+        AvatarActionsState serverState = avatar.getServerActionsState();
+        
+        if (serverState.getLastJump() != clientState.getLastJump()) {
+            serverState.setLastJump(timestamp);
+            avatar.jump();
+        }
     }
 
     @Override
