@@ -23,7 +23,6 @@ import game.application.Application;
 import game.entities.Avatar;
 import game.messages.BaseMessage;
 import game.messages.ITargetServer;
-import game.networking.ServerNetworkManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,8 +41,8 @@ public class UpdateRotationMessage extends BaseMessage implements ITargetServer 
     Vector3f lookat;
     Vector3f left;
     
-    public UpdateRotationMessage(int sourceId, int clientId, Quaternion rotation, Vector3f lookat, Vector3f left) {
-        super(sourceId, clientId);
+    public UpdateRotationMessage(int clientId, Quaternion rotation, Vector3f lookat, Vector3f left) {
+        super(clientId);
         this.rotation = rotation;
         this.lookat = lookat;
         this.left = left;
@@ -51,12 +50,14 @@ public class UpdateRotationMessage extends BaseMessage implements ITargetServer 
 
     @Override
     public void processMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(getClientId());
-        avatar.getClientActionsState().setRotation(rotation);
+        if(getSourceId() == getClientId()) {
+            Avatar avatar = Application.getApplication().getAvatar(getClientId());
+            avatar.getClientActionsState().setRotation(rotation);
+        }
     }
 
     @Override
     public BaseMessage createResponse() {
-        return new RotationUpdatedMessage(ServerNetworkManager.SERVER_ID, getClientId(), rotation);
+        return new RotationUpdatedMessage(getClientId(), rotation);
     }
 }

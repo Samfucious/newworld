@@ -39,8 +39,8 @@ public class MovementDirectionUpdatedMessage extends BaseMessage implements ITar
     Vector3f position;
     Vector3f direction;
     
-    MovementDirectionUpdatedMessage(int sourceId, int clientId, Vector3f position, Vector3f direction) {
-        super(sourceId, clientId);
+    MovementDirectionUpdatedMessage(int clientId, Vector3f position, Vector3f direction) {
+        super(clientId);
         this.position = position;
         this.direction = direction;
     }

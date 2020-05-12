@@ -38,7 +38,7 @@ public class JumpedMessage extends BaseMessage implements ITargetClient {
     long timestamp;
     
     public JumpedMessage(int clientId, long timestamp) {
-        super(clientId, clientId);
+        super(clientId);
         this.timestamp = timestamp;
     }
 

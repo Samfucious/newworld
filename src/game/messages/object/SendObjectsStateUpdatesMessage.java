@@ -22,7 +22,6 @@ import game.application.ServerApp;
 import game.entities.IRadianRotator;
 import game.messages.BaseMessage;
 import game.messages.ITargetAny;
-import game.networking.ServerNetworkManager;
 import java.util.Queue;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,8 +35,8 @@ import lombok.Setter;
 public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITargetAny {
     Queue<Spatial> spatials;
     
-    public SendObjectsStateUpdatesMessage(int sourceId, int clientId, Queue<Spatial> spatials) {
-        super(sourceId, clientId);
+    public SendObjectsStateUpdatesMessage(int clientId, Queue<Spatial> spatials) {
+        super(clientId);
         this.spatials = spatials;
     }
 
@@ -50,10 +49,10 @@ public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITarg
             BaseMessage message;
             
             if(spatial instanceof IRadianRotator) {
-                message = new RadianRotatorStateMessage(ServerNetworkManager.SERVER_ID, getClientId(),
+                message = new RadianRotatorStateMessage(getClientId(),
                         spatial.getName(), ((IRadianRotator)spatial).getRotation());
             } else {
-                message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, getClientId(),
+                message = new ObjectStateMessage(getClientId(),
                         spatial.getName(), spatial.getLocalTranslation(), spatial.getLocalRotation());
             }
             

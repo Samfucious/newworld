@@ -19,6 +19,7 @@ package game.messages.avatar.actions;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
+import game.entities.AvatarActionsState;
 import game.messages.BaseMessage;
 import game.messages.ITargetServer;
 import lombok.Getter;
@@ -37,15 +38,23 @@ public class JumpMessage extends BaseMessage implements ITargetServer {
     
     long timestamp;
     
-    public JumpMessage(int sourceId, int clientId, long timestamp) {
-        super(sourceId, clientId);
+    public JumpMessage(int clientId, long timestamp) {
+        super(clientId);
         this.timestamp = timestamp;
     }
     
     @Override
     public void processMessage() {
-        Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
-        avatar.getClientActionsState().setLastJump(timestamp);
+        if (getSourceId() == getClientId()) {
+            Avatar avatar = Application.getApplication().getAvatar(this.getClientId());
+            AvatarActionsState clientState = avatar.getClientActionsState();
+            AvatarActionsState serverState = avatar.getServerActionsState();
+            
+            if (serverState.getLastJump() != clientState.getLastJump()) {
+                serverState.setLastJump(clientState.getLastJump());
+                avatar.jump();
+            }
+        }
     }
 
     @Override

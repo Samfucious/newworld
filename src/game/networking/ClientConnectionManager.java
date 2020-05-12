@@ -88,7 +88,7 @@ public class ClientConnectionManager implements IMessenger {
         
         @Override
         public void run() {
-            PingMessage message = new PingMessage(client.getId(), client.getId(), System.currentTimeMillis());
+            PingMessage message = new PingMessage(client.getId(), System.currentTimeMillis());
             client.send(message);
         }
     }

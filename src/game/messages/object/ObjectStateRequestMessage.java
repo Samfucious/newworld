@@ -43,7 +43,7 @@ public class ObjectStateRequestMessage extends BaseMessage implements ITargetSer
     public void processMessage() {
         Spatial spatial = Application.getApplication().getStatefulObject(name);
         if(null != spatial) {
-            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, ServerNetworkManager.SERVER_ID, 
+            ObjectStateMessage message = new ObjectStateMessage(ServerNetworkManager.SERVER_ID, 
                     name, spatial.getLocalTranslation(), spatial.getLocalRotation());
             ((ServerApp) Application.getApplication()).send(message, getSourceId());
         }

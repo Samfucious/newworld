@@ -38,8 +38,8 @@ public class PongMessage extends BaseMessage implements ITargetClient {
     long mark;
     long lag = 0;
 
-    PongMessage(int sourceId, int clientId, long mark) {
-        super(sourceId, clientId);        
+    PongMessage(int clientId, long mark) {
+        super(clientId);
         this.mark = mark;
     }
     

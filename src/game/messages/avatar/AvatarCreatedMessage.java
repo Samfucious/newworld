@@ -40,8 +40,8 @@ public class AvatarCreatedMessage extends BaseMessage implements ITargetClient {
     private Vector3f position;
     private Quaternion rotation;
     
-    public AvatarCreatedMessage(int sourceId, int clientId, int avatarId, Vector3f position, Quaternion rotation) {
-        super(sourceId, clientId);
+    public AvatarCreatedMessage(int clientId, int avatarId, Vector3f position, Quaternion rotation) {
+        super(clientId);
         this.avatarId = avatarId;
         this.position = position;
         this.rotation = rotation;

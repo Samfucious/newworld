@@ -40,8 +40,8 @@ public class ObjectStateMessage extends BaseMessage implements ITargetClient {
     Vector3f position;
     Quaternion rotation;
     
-    public ObjectStateMessage(int sourceId, int clientId, String name, Vector3f position, Quaternion rotation) {
-        super(sourceId, clientId);
+    public ObjectStateMessage(int clientId, String name, Vector3f position, Quaternion rotation) {
+        super(clientId);
         this.name = name;
         this.position = position;
         this.rotation = rotation;

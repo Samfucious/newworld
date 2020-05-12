@@ -19,7 +19,6 @@ package game.messages;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.application.ServerApp;
-import game.networking.ServerNetworkManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,14 +34,14 @@ import lombok.Setter;
 public class PingMessage extends BaseMessage implements ITargetServer {
     long mark;
     
-    public PingMessage(int sourceId, int clientId, long mark) {
-        super(sourceId, clientId);
+    public PingMessage(int clientId, long mark) {
+        super(clientId);
         this.mark = mark;
     }
     
     @Override
     public void processMessage() {
-        PongMessage pongMessage = new PongMessage(ServerNetworkManager.SERVER_ID, getClientId(), getMark());
+        PongMessage pongMessage = new PongMessage(getClientId(), getMark());
         ((ServerApp) Application.getApplication()).send(pongMessage, getClientId());
     }
 

@@ -29,7 +29,7 @@ public class LocalAvatarCreateMessage extends BaseMessage implements ITargetAny 
     Avatar avatar;
     
     public LocalAvatarCreateMessage(Avatar avatar) {
-        super(0, 0);
+        super(0);
         this.avatar = avatar;
     }
 

@@ -37,7 +37,7 @@ public class RadianRotatorStateMessage extends BaseMessage implements ITargetCli
     String name;
     float rotation;
     
-    public RadianRotatorStateMessage(int sourceId, int clientId, String name, float rotation) {
+    public RadianRotatorStateMessage(int clientId, String name, float rotation) {
         this.name = name;
         this.rotation = rotation;
     }

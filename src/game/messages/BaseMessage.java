@@ -29,15 +29,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class BaseMessage extends AbstractMessage {
-    private int sourceId;
+    private int sourceId = -1; // used by server
     private int clientId;
     private long timestamp = -1; // only measure ping if this is positive.
     
-    public BaseMessage(int sourceId, int clientId) {
-        this.sourceId = sourceId;
+    public BaseMessage(int clientId) {
         this.clientId = clientId;
     }
-        
+    
     public abstract void processMessage();
     
     /**

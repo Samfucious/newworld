@@ -41,8 +41,8 @@ public class IsMovingUpdatedMessage extends BaseMessage implements ITargetClient
     Vector3f direction;
     boolean isMoving;
 
-    IsMovingUpdatedMessage(int sourceId, int clientId, Vector3f position, Vector3f direction, boolean isMoving) {
-        super(sourceId, clientId);
+    IsMovingUpdatedMessage(int clientId, Vector3f position, Vector3f direction, boolean isMoving) {
+        super(clientId);
         this.position = position;
         this.isMoving = isMoving;
         this.direction = direction;

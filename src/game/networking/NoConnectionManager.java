@@ -56,7 +56,7 @@ public class NoConnectionManager implements IMessenger {
         BaseMessage message;
         
         public InternalMessageWrapper(int clientId, BaseMessage message) {
-            super(clientId, clientId);
+            super(clientId);
             this.message = message;
         }
 

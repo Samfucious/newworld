@@ -52,17 +52,17 @@ public class AvatarActionsState {
         int clientId = Application.getApplication().getClientId();
         
         if (!remoteState.movementDirection.equals(localState.movementDirection)) {
-            messages.add(new UpdateMovementDirectionMessage(0, clientId, localState.getMovementDirection()));
+            messages.add(new UpdateMovementDirectionMessage(clientId, localState.getMovementDirection()));
         }
         if (!remoteState.rotation.equals(localState.rotation)) {
             Camera camera = Application.getApplication().getCamera();
-            messages.add(new UpdateRotationMessage(0, clientId, localState.getRotation(), camera.getDirection(), camera.getLeft()));
+            messages.add(new UpdateRotationMessage(clientId, localState.getRotation(), camera.getDirection(), camera.getLeft()));
         }
         if (remoteState.isMoving != localState.isMoving) {
-            messages.add(new UpdateIsMovingMessage(0, clientId, localState.getMovementDirection(), localState.isMoving()));
+            messages.add(new UpdateIsMovingMessage(clientId, localState.getMovementDirection(), localState.isMoving()));
         }
         if (remoteState.lastJump != localState.lastJump) {
-            messages.add(new JumpMessage(0, clientId, localState.lastJump));
+            messages.add(new JumpMessage(clientId, localState.lastJump));
         }
         
         return messages;

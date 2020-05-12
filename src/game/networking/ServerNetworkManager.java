@@ -180,12 +180,12 @@ public class ServerNetworkManager {
         private void sendAvatarCreatedMessage(Server server, int clientId) {
             Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f); // TODO: Consider spawn position variabilities.
             Application.getApplication().postMessage(new LocalAvatarCreateMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY)));
-            AvatarCreatedMessage message = new AvatarCreatedMessage(SERVER_ID, clientId, clientId, spawnPoint, Quaternion.IDENTITY);
+            AvatarCreatedMessage message = new AvatarCreatedMessage(clientId, clientId, spawnPoint, Quaternion.IDENTITY);
             server.broadcast(message);
         }
         
         private void sendObjectsStateUpdatesMessage(Server server, int clientId) {
-            SendObjectsStateUpdatesMessage message = new SendObjectsStateUpdatesMessage(SERVER_ID, clientId,
+            SendObjectsStateUpdatesMessage message = new SendObjectsStateUpdatesMessage(clientId,
                     new LinkedList(Application.getApplication().getStatefulObjects()));
             Application.getApplication().postMessage(message);
         }
@@ -194,7 +194,7 @@ public class ServerNetworkManager {
         public void connectionRemoved(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO,  String.format("Client disconnected: %s", connection.getId()));
             Application.getApplication().postMessage(new LocalAvatarCreateMessage(Application.getApplication().getAvatar(connection.getId())));
-            AvatarDestroyedMessage message = new AvatarDestroyedMessage(SERVER_ID, connection.getId());
+            AvatarDestroyedMessage message = new AvatarDestroyedMessage(connection.getId());
             Application.getApplication().postMessage(message);
             server.broadcast(message);
         }

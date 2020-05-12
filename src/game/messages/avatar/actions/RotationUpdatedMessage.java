@@ -38,8 +38,8 @@ public class RotationUpdatedMessage extends BaseMessage implements ITargetClient
 
     Quaternion rotation;
     
-    public RotationUpdatedMessage(int sourceId, int clientId, Quaternion rotation) {
-        super(sourceId, clientId);
+    public RotationUpdatedMessage(int clientId, Quaternion rotation) {
+        super(clientId);
         this.rotation = rotation;
     }
 

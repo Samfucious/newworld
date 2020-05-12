@@ -34,8 +34,8 @@ import lombok.Setter;
 @Setter
 public class AvatarDestroyedMessage extends BaseMessage implements ITargetClient {
 
-    public AvatarDestroyedMessage(int sourceId, int clientId) {
-        super(sourceId, clientId);
+    public AvatarDestroyedMessage(int clientId) {
+        super(clientId);
     }
     
     @Override
