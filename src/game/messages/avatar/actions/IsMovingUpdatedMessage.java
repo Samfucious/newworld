@@ -18,15 +18,23 @@ package game.messages.avatar.actions;
 
 import game.entities.AvatarActionsState;
 import com.jme3.math.Vector3f;
+import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
 import game.messages.BaseMessage;
 import game.messages.ITargetClient;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
+@Serializable
+@NoArgsConstructor
+@Getter
+@Setter
 public class IsMovingUpdatedMessage extends BaseMessage implements ITargetClient {
     
     Vector3f position;

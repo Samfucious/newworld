@@ -35,6 +35,13 @@ import game.messages.avatar.AvatarCreatedMessage;
 import game.messages.avatar.AvatarDestroyedMessage;
 import game.messages.avatar.actions.JumpMessage;
 import game.messages.avatar.LocalAvatarCreateMessage;
+import game.messages.avatar.actions.IsMovingUpdatedMessage;
+import game.messages.avatar.actions.JumpedMessage;
+import game.messages.avatar.actions.MovementDirectionUpdatedMessage;
+import game.messages.avatar.actions.RotationUpdatedMessage;
+import game.messages.avatar.actions.UpdateIsMovingMessage;
+import game.messages.avatar.actions.UpdateMovementDirectionMessage;
+import game.messages.avatar.actions.UpdateRotationMessage;
 import game.messages.object.ObjectStateMessage;
 import game.messages.object.ObjectStateRequestMessage;
 import game.messages.object.RadianRotatorStateMessage;
@@ -102,14 +109,28 @@ public class ServerNetworkManager {
     }
     
     private void initializeSerializables() {
+        // Avatar existence
         Serializer.registerClass(AvatarCreatedMessage.class);
-        Serializer.registerClass(JumpMessage.class);
         Serializer.registerClass(AvatarDestroyedMessage.class);
+        
+        // Latency and keepalives
         Serializer.registerClass(PingMessage.class);
         Serializer.registerClass(PongMessage.class);
+        
+        // Steady state change object initialization
         Serializer.registerClass(ObjectStateMessage.class);
         Serializer.registerClass(ObjectStateRequestMessage.class);
         Serializer.registerClass(RadianRotatorStateMessage.class);
+        
+        // Avatar control messages
+        Serializer.registerClass(UpdateIsMovingMessage.class);
+        Serializer.registerClass(IsMovingUpdatedMessage.class);
+        Serializer.registerClass(UpdateMovementDirectionMessage.class);
+        Serializer.registerClass(MovementDirectionUpdatedMessage.class);
+        Serializer.registerClass(UpdateRotationMessage.class);
+        Serializer.registerClass(RotationUpdatedMessage.class);
+        Serializer.registerClass(JumpMessage.class);
+        Serializer.registerClass(JumpedMessage.class);
     }
 
     public void stop() {

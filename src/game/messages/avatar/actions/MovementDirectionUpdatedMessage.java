@@ -34,7 +34,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-class MovementDirectionUpdatedMessage extends BaseMessage implements ITargetClient {
+public class MovementDirectionUpdatedMessage extends BaseMessage implements ITargetClient {
 
     Vector3f position;
     Vector3f direction;
