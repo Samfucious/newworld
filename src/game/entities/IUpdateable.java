@@ -18,7 +18,7 @@ package game.entities;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public interface IUpdateable {
     public void registerAsStateful();

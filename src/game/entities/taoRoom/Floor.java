@@ -31,7 +31,7 @@ import lombok.experimental.ExtensionMethod;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 @ExtensionMethod({ Geometries.class })
 public class Floor extends Node { 

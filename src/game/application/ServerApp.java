@@ -25,7 +25,7 @@ import game.networking.ServerNetworkManager;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class ServerApp extends BaseApp {
     ServerNetworkManager network;

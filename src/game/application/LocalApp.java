@@ -25,7 +25,7 @@ import game.messages.avatar.LocalAvatarCreateMessage;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class LocalApp extends ClientApp {
     @Override

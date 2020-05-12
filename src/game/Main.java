@@ -23,7 +23,7 @@ import game.application.ServerApp;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Main {
     public static void main(String[] args) {

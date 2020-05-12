@@ -32,7 +32,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class StartupSelector extends JFrame {
     public void start() {

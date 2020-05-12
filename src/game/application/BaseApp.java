@@ -35,7 +35,7 @@ import java.util.HashMap;
 
 /**
  * 
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public abstract class BaseApp extends SimpleApplication {
     

@@ -21,7 +21,7 @@ import game.application.Application;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public abstract class UpdatingNode extends Node implements IUpdateable {
     

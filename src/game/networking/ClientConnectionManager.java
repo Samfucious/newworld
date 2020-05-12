@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class ClientConnectionManager implements IMessenger {
     private static final int PING_FREQUENCY = 5000; // 5 seconds (1/2 of ServerNetworkManager.KEEPALIVE_THRESHOLD)

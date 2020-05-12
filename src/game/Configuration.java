@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Configuration {    
     public static final String DEFAULT_PORT = "6560";

@@ -39,7 +39,7 @@ import net.wcomohundro.jme3.csg.CSGShape;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 @ExtensionMethod({ Geometries.class })
 public class YinYang extends UpdatingNode implements IRadianRotator {

@@ -20,7 +20,7 @@ import com.jme3.scene.Node;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Trigram extends Node {
     

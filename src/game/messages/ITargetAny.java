@@ -18,7 +18,7 @@ package game.messages;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public interface ITargetAny extends ITargetClient, ITargetServer {
 }

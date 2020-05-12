@@ -22,7 +22,7 @@ import com.jme3.scene.VertexBuffer;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Geometries {
     public static Geometry setUVPlanaerProject(Geometry geometry, Vector3f projectionNormal) {

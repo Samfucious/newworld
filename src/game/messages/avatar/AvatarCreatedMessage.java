@@ -29,7 +29,7 @@ import lombok.Setter;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 @Serializable
 @NoArgsConstructor

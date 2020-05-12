@@ -38,7 +38,7 @@ import game.messages.PongMessage;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class ClientApp extends BaseApp implements ActionListener {
     

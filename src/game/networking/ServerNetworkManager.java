@@ -49,7 +49,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class ServerNetworkManager {
     public static final int SERVER_ID = Integer.MIN_VALUE;

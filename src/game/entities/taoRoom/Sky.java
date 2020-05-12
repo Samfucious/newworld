@@ -29,7 +29,7 @@ import helpers.Geometries;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Sky extends Node {
     public Sky() {

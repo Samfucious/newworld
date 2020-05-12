@@ -23,7 +23,7 @@ import game.messages.ITargetAny;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class LocalAvatarCreateMessage extends BaseMessage implements ITargetAny {
     Avatar avatar;

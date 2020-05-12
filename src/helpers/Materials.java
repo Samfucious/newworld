@@ -23,7 +23,7 @@ import game.application.Application;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Materials {
     public enum MatDefs {

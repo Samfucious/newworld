@@ -29,7 +29,7 @@ import game.entities.UpdatingNode;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 @ExtensionMethod({ Nodes.class })
 public class TwoPolarities extends UpdatingNode implements IRadianRotator {

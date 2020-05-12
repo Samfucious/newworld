@@ -23,7 +23,7 @@ import com.jme3.scene.Node;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Nodes {
     public static Node setRotation(Node node, float radians, Vector3f axis) {

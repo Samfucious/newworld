@@ -24,7 +24,7 @@ import java.util.Collection;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class NoConnectionManager implements IMessenger {
 

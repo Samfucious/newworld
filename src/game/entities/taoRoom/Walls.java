@@ -32,7 +32,7 @@ import net.wcomohundro.jme3.csg.CSGShape;
 
 /**
  *
- * @author Sam Iredale (gyrepin@gmail.com)
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class Walls extends Node {
     
