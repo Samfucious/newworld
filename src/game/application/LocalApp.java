@@ -27,12 +27,7 @@ import game.messages.avatar.LocalAvatarCreateMessage;
  *
  * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
-public class LocalApp extends ClientApp {
-    @Override
-    public void run() {
-        this.start();
-    }
-    
+public class LocalApp extends ClientApp {    
     @Override
     public void simpleInitApp() {
         super.simpleInitApp();
@@ -40,7 +35,7 @@ public class LocalApp extends ClientApp {
     }
     
     private void initLocalAvatar() {
-        postMessage(new LocalAvatarCreateMessage(new Avatar(0, Vector3f.UNIT_Y.mult(10.0f), Quaternion.IDENTITY)));
+        postMessage(new LocalAvatarCreateMessage(new Avatar(0, Vector3f.UNIT_Y.mult(10.0f), Vector3f.UNIT_Z)));
     }
     
     @Override

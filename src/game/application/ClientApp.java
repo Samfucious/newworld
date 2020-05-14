@@ -51,7 +51,7 @@ public class ClientApp extends BaseApp implements ActionListener {
     
     @Override
     public void run() {
-        this.start(JmeContext.Type.Display);
+        this.start();
     }
     
     @Override

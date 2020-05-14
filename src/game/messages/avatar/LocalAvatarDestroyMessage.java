@@ -17,6 +17,7 @@
 package game.messages.avatar;
 
 import game.application.Application;
+import game.entities.Avatar;
 import game.messages.BaseMessage;
 import game.messages.ITargetAny;
 import lombok.Getter;
@@ -28,10 +29,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class LocalAvatarDestroyMessage extends BaseMessage implements ITargetAny {
+public class LocalAvatarDestroyMessage extends BaseMessage implements ITargetAny {  
+    private Avatar avatar;
+    
+    public LocalAvatarDestroyMessage(Avatar avatar) {
+        this.avatar = avatar;
+    }
+    
     @Override
     public void processMessage() {
-        Application.getApplication().removeAvatar(getClientId());
+        Application.getApplication().removeAvatar(avatar.getAvatarId());
     }
 
     @Override

@@ -16,8 +16,6 @@
  */
 package game.messages.object;
 
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import game.application.Application;
 import game.application.ServerApp;
@@ -63,7 +61,7 @@ public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITarg
         
         for (Avatar avatar : Application.getApplication().getAvatars()) {
             if(getClientId() != avatar.getAvatarId()) {
-                BaseMessage message = new AvatarCreatedMessage(avatar.getAvatarId(), avatar.getLocalTranslation(), avatar.getLocalRotation());
+                BaseMessage message = new AvatarCreatedMessage(avatar.getAvatarId(), avatar.getLocalTranslation(), avatar.getViewDirection());
                 ((ServerApp) Application.getApplication()).send(message, getClientId());
             }
         }

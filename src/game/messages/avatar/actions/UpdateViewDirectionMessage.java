@@ -35,29 +35,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateRotationMessage extends BaseMessage implements ITargetServer {
+public class UpdateViewDirectionMessage extends BaseMessage implements ITargetServer {
 
-    Quaternion rotation;
-    Vector3f lookat;
-    Vector3f left;
+    Vector3f viewDirection;
     
-    public UpdateRotationMessage(int clientId, Quaternion rotation, Vector3f lookat, Vector3f left) {
+    public UpdateViewDirectionMessage(int clientId, Vector3f viewDirection) {
         super(clientId);
-        this.rotation = rotation;
-        this.lookat = lookat;
-        this.left = left;
+        this.viewDirection = viewDirection;
     }
 
     @Override
     public void processMessage() {
         if(getSourceId() == getClientId()) {
             Avatar avatar = Application.getApplication().getAvatar(getClientId());
-            avatar.getClientActionsState().setRotation(rotation);
+            avatar.getClientActionsState().setViewDirection(viewDirection);
         }
     }
 
     @Override
     public BaseMessage createResponse() {
-        return new RotationUpdatedMessage(getClientId(), rotation);
+        return new ViewDirectionUpdatedMessage(getClientId(), viewDirection);
     }
 }

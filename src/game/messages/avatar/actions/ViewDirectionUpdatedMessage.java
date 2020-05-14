@@ -17,6 +17,7 @@
 package game.messages.avatar.actions;
 
 import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 import game.application.Application;
 import game.entities.Avatar;
@@ -34,19 +35,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RotationUpdatedMessage extends BaseMessage implements ITargetClient {
+public class ViewDirectionUpdatedMessage extends BaseMessage implements ITargetClient {
 
-    Quaternion rotation;
+    Vector3f viewDirection;
     
-    public RotationUpdatedMessage(int clientId, Quaternion rotation) {
+    public ViewDirectionUpdatedMessage(int clientId, Vector3f viewDirection) {
         super(clientId);
-        this.rotation = rotation;
+        this.viewDirection = viewDirection;
     }
 
     @Override
     public void processMessage() {
         Avatar avatar = Application.getApplication().getAvatar(getClientId());
-        avatar.getServerActionsState().setRotation(rotation);
+        avatar.getServerActionsState().setViewDirection(viewDirection);
     }
 
     @Override

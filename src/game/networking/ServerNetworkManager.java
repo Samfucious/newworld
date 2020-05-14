@@ -35,13 +35,14 @@ import game.messages.avatar.AvatarCreatedMessage;
 import game.messages.avatar.AvatarDestroyedMessage;
 import game.messages.avatar.actions.JumpMessage;
 import game.messages.avatar.LocalAvatarCreateMessage;
+import game.messages.avatar.LocalAvatarDestroyMessage;
 import game.messages.avatar.actions.IsMovingUpdatedMessage;
 import game.messages.avatar.actions.JumpedMessage;
 import game.messages.avatar.actions.MovementDirectionUpdatedMessage;
-import game.messages.avatar.actions.RotationUpdatedMessage;
+import game.messages.avatar.actions.ViewDirectionUpdatedMessage;
 import game.messages.avatar.actions.UpdateIsMovingMessage;
 import game.messages.avatar.actions.UpdateMovementDirectionMessage;
-import game.messages.avatar.actions.UpdateRotationMessage;
+import game.messages.avatar.actions.UpdateViewDirectionMessage;
 import game.messages.object.ObjectStateMessage;
 import game.messages.object.ObjectStateRequestMessage;
 import game.messages.object.RadianRotatorStateMessage;
@@ -126,8 +127,8 @@ public class ServerNetworkManager {
         Serializer.registerClass(IsMovingUpdatedMessage.class);
         Serializer.registerClass(UpdateMovementDirectionMessage.class);
         Serializer.registerClass(MovementDirectionUpdatedMessage.class);
-        Serializer.registerClass(UpdateRotationMessage.class);
-        Serializer.registerClass(RotationUpdatedMessage.class);
+        Serializer.registerClass(UpdateViewDirectionMessage.class);
+        Serializer.registerClass(ViewDirectionUpdatedMessage.class);
         Serializer.registerClass(JumpMessage.class);
         Serializer.registerClass(JumpedMessage.class);
     }
@@ -178,8 +179,8 @@ public class ServerNetworkManager {
         
         private void sendAvatarCreatedMessage(Server server, int clientId) {
             Vector3f spawnPoint = Vector3f.UNIT_Y.mult(10.0f); // TODO: Consider spawn position variabilities.
-            Application.getApplication().postMessage(new LocalAvatarCreateMessage(new Avatar(clientId, spawnPoint, Quaternion.IDENTITY)));
-            AvatarCreatedMessage message = new AvatarCreatedMessage(clientId, spawnPoint, Quaternion.IDENTITY);
+            Application.getApplication().postMessage(new LocalAvatarCreateMessage(new Avatar(clientId, spawnPoint, Vector3f.UNIT_Z)));
+            AvatarCreatedMessage message = new AvatarCreatedMessage(clientId, spawnPoint, Vector3f.UNIT_Z);
             server.broadcast(message);
         }
         
@@ -192,7 +193,7 @@ public class ServerNetworkManager {
         @Override
         public void connectionRemoved(Server server, HostedConnection connection) {
             Logger.getLogger(ClientConnectionManager.class.getName()).log(Level.INFO,  String.format("Client disconnected: %s", connection.getId()));
-            Application.getApplication().postMessage(new LocalAvatarCreateMessage(Application.getApplication().getAvatar(connection.getId())));
+            Application.getApplication().postMessage(new LocalAvatarDestroyMessage(Application.getApplication().getAvatar(connection.getId())));
             AvatarDestroyedMessage message = new AvatarDestroyedMessage(connection.getId());
             Application.getApplication().postMessage(message);
             server.broadcast(message);

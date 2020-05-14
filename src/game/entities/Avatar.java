@@ -20,7 +20,6 @@ import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
@@ -40,18 +39,15 @@ public class Avatar extends UpdatingNode {
     private CharacterControl characterControl = new CharacterControl();
     private final CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(0.5f, 2f, 1);
     
-    private Vector3f lookat = Vector3f.UNIT_Z;
-    private Vector3f left = Vector3f.UNIT_X.negate();
-    
     private final AvatarActionsState clientActionsState = new AvatarActionsState(); // Represents the intentions of the client.
     private final AvatarActionsState serverActionsState = new AvatarActionsState(); // Represents the understand of the server.
     
-    public Avatar(int clientId, Vector3f location, Quaternion rotation) {
+    public Avatar(int clientId, Vector3f location, Vector3f viewDirection) {
         this.clientId = clientId;
         initGeometry();
         initCharacterControl(location);
         setLocalTranslation(location);
-        setLocalRotation(rotation);
+        characterControl.setViewDirection(viewDirection);
     }
     
     private void initGeometry() {
@@ -69,11 +65,6 @@ public class Avatar extends UpdatingNode {
     @Override
     public String getName() {
         return "Avatar_" + clientId;
-    }
-    
-    public void setMovementVectors(Vector3f lookat, Vector3f left) {
-        this.lookat = lookat;
-        this.left = left;
     }
     
     public AvatarActionsState getClientActionsState() {
@@ -94,20 +85,37 @@ public class Avatar extends UpdatingNode {
         characterControl.setFallSpeed(30);
         characterControl.setGravity(30f);
         characterControl.setPhysicsLocation(location);
+        characterControl.setUseViewDirection(true);
+        characterControl.setSpatial(this);
         addControl(characterControl);
     }
     
     @Override
-    public void update(float t) {
-        doMovementUpdate(t);
+    public void setLocalTranslation(Vector3f translation) {
+        characterControl.setPhysicsLocation(translation);
     }
     
-    private void doMovementUpdate(float t) {
+    @Override
+    public void update(float t) {
         float speed = serverActionsState.isMoving() ? MOVEMENT_SPEED : 0.0f;
-        Vector3f movement = serverActionsState.getRotation()
-                .mult(serverActionsState.getMovementDirection().normalize());
+        Vector3f viewDiectionNormal = serverActionsState.getViewDirection().normalize();
+        Vector3f movementz = viewDiectionNormal
+                .mult(serverActionsState.getMovementDirection().z);
+        Vector3f movementx = viewDiectionNormal
+                .cross(Vector3f.UNIT_Y)
+                .normalize()
+                .mult(serverActionsState.getMovementDirection().x);
+        Vector3f movement = movementz.add(movementx);
         characterControl.setWalkDirection(movement.mult(speed));
         characterControl.update(t);
+    }
+    
+    public void setViewDirection(Vector3f viewDirection) {
+        characterControl.setViewDirection(viewDirection);
+    }
+    
+    public Vector3f getViewDirection() {
+        return characterControl.getViewDirection();
     }
     
     public void jump() {

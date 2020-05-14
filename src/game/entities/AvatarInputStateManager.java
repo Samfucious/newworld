@@ -50,8 +50,8 @@ public class AvatarInputStateManager {
     
     static final HashMap<Movements, Vector3f> movementVectors = new HashMap();
     static {
-        movementVectors.put(Movements.LEFT, Vector3f.UNIT_X);
-        movementVectors.put(Movements.RIGHT, Vector3f.UNIT_X.negate());
+        movementVectors.put(Movements.LEFT, Vector3f.UNIT_X.negate());
+        movementVectors.put(Movements.RIGHT, Vector3f.UNIT_X);
         movementVectors.put(Movements.FORWARD, Vector3f.UNIT_Z);
         movementVectors.put(Movements.BACKWARD, Vector3f.UNIT_Z.negate());
     }
@@ -65,16 +65,8 @@ public class AvatarInputStateManager {
         this.camera = camera;
     }
     
-    public Vector3f getLookat() {
+    public Vector3f getLookAt() {
         return camera.getDirection();
-    }
-    
-    public Vector3f getLeft() {
-        return camera.getLeft();
-    }
-    
-    public Quaternion getRotation() {
-        return camera.getRotation();
     }
     
     public boolean hasMovements() {
