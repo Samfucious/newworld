@@ -116,6 +116,10 @@ public class Avatar extends UpdatingNode {
     
     public void setViewDirection(Vector3f viewDirection) {
         characterControl.setViewDirection(viewDirection);
+        Quaternion rotation = new Quaternion();
+        Vector3f xaxis = viewDirection.cross(Vector3f.UNIT_Y);
+        Vector3f yaxis = viewDirection.cross(xaxis);
+        this.setLocalRotation(rotation.fromAxes(xaxis, yaxis, viewDirection));
     }
     
     public Vector3f getViewDirection() {

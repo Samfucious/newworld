@@ -59,7 +59,6 @@ public class Room extends UpdatingNode {
         xrot.fromAngleAxis(FastMath.PI * 0.5f, Vector3f.UNIT_X);
         Quaternion zrot = new Quaternion();
         zrot.fromAngleAxis(FastMath.PI / 8.0f, Vector3f.UNIT_Z);
-        
         Quaternion trot = xrot.mult(zrot);
         
         floor.setPosition(new Vector3f(0.0f, -2.0f, 0.0f)).setRotation(trot);
