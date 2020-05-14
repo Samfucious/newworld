@@ -20,6 +20,8 @@ import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
@@ -51,7 +53,9 @@ public class Avatar extends UpdatingNode {
     }
     
     private void initGeometry() {
-        Geometry geometry = new Geometry("avatar", new Cylinder(2, 8, 0.5f, 2.0f, true));
+        Geometry geometry = new Geometry("avatar_geo" + this.clientId, new Cylinder(2, 8, 0.5f, 2.0f, true));
+        Quaternion georot = new Quaternion();
+        geometry.setLocalRotation(georot.fromAngleAxis(FastMath.PI * 0.5f, Vector3f.UNIT_Z));
         Material material = new Material(Application.getAssetManager(), Materials.MatDefs.Unshaded.getMatDef());
         material.setColor("Color", ColorRGBA.Pink);
         geometry.setMaterial(material);
