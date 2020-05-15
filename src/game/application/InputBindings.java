@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 gyrep
+ * Copyright (C) 2020 Sam Iredale "Samfucious" (gyrepin@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ import com.jme3.input.KeyInput;
 
 /**
  *
- * @author gyrep
+ * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class InputBindings {
     public enum Binding {

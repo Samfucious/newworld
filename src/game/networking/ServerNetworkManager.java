@@ -20,7 +20,6 @@ import game.messages.PongMessage;
 import game.messages.PingMessage;
 import game.messages.ITargetServer;
 import game.messages.BaseMessage;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.ConnectionListener;
 import com.jme3.network.HostedConnection;
