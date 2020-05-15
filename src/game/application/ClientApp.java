@@ -19,14 +19,14 @@ package game.application;
 import helpers.Textures;
 import com.jme3.app.state.ScreenshotAppState;
 import com.jme3.audio.AudioNode;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
-import com.jme3.system.JmeContext;
 import com.jme3.util.SkyFactory;
 import game.Configuration;
+import game.application.InputBindings.Binding;
+import game.application.InputBindings.Trigger;
 import game.networking.ClientConnectionManager;
 import game.entities.Avatar;
 import game.entities.AvatarActionsState;
@@ -88,23 +88,16 @@ public class ClientApp extends BaseApp implements ActionListener {
     }
     
     private void initSky() {
-        getRootNode().attachChild(SkyFactory.createSky(getAssetManager(), Textures.TexturePaths.Sky.getTexturePath(), SkyFactory.EnvMapType.CubeMap));
+        getRootNode().attachChild(SkyFactory.createSky(getAssetManager(),
+                Textures.TexturePaths.Sky.getTexturePath(), SkyFactory.EnvMapType.CubeMap));
     }
     
-    /** We over-write some navigational key mappings here, so we can
-     * add physics-controlled walking and jumping:
-     */
-    private void setUpKeys() {
-        inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
-        inputManager.addListener(this, "Left");
-        inputManager.addListener(this, "Right");
-        inputManager.addListener(this, "Up");
-        inputManager.addListener(this, "Down");
-        inputManager.addListener(this, "Jump");
+    private void setUpKeys() {        
+        for(Binding binding : InputBindings.Binding.values()) {
+            int key = Trigger.valueOf(binding.name()).getKey();
+            inputManager.addMapping(binding.getCommand(), new KeyTrigger(key));
+            inputManager.addListener(this, binding.name());
+        }
     }
     
     protected IMessenger initMessageManager() {
@@ -135,27 +128,7 @@ public class ClientApp extends BaseApp implements ActionListener {
     
     @Override
     public void onAction(String binding, boolean isPressed, float tpf) {
-        switch (binding) {
-            case "Left":
-                inputState.updateMovement(AvatarInputStateManager.Movements.LEFT, isPressed);
-                break;
-            case "Right":
-                inputState.updateMovement(AvatarInputStateManager.Movements.RIGHT, isPressed);
-                break;
-            case "Up":
-                inputState.updateMovement(AvatarInputStateManager.Movements.FORWARD, isPressed);
-                break;
-            case "Down":
-                inputState.updateMovement(AvatarInputStateManager.Movements.BACKWARD, isPressed);
-                break;
-            case "Jump":
-                if (isPressed) {
-                    inputState.setLastJump(System.currentTimeMillis());
-                }
-                break;            
-            default:
-                break;
-        }
+        inputState.updateMovement(Binding.valueOf(binding), isPressed);
     }
         
     @Override

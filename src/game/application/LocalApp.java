@@ -16,7 +16,6 @@
  */
 package game.application;
 
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import game.entities.Avatar;
 import game.messages.IMessenger;

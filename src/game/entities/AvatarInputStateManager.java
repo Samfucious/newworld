@@ -16,9 +16,9 @@
  */
 package game.entities;
 
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import game.application.InputBindings.Binding;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,36 +30,18 @@ import lombok.Getter;
  */
 @Getter
 public class AvatarInputStateManager {
-    
-    public enum Movements {
-        FORWARD("forward"),
-        BACKWARD("backward"),
-        LEFT("left"),
-        RIGHT("right");
-        
-        private final String movement;
-        
-        Movements(String movement) {
-            this.movement = movement;
-        }
-        
-        public String getMovement() {
-            return this.movement;
-        }
-    }
-    
-    static final HashMap<Movements, Vector3f> movementVectors = new HashMap();
+    static final HashMap<Binding, Vector3f> movementVectors = new HashMap();
     static {
-        movementVectors.put(Movements.LEFT, Vector3f.UNIT_X.negate());
-        movementVectors.put(Movements.RIGHT, Vector3f.UNIT_X);
-        movementVectors.put(Movements.FORWARD, Vector3f.UNIT_Z);
-        movementVectors.put(Movements.BACKWARD, Vector3f.UNIT_Z.negate());
+        movementVectors.put(Binding.Left, Vector3f.UNIT_X.negate());
+        movementVectors.put(Binding.Right, Vector3f.UNIT_X);
+        movementVectors.put(Binding.Forward, Vector3f.UNIT_Z);
+        movementVectors.put(Binding.Backward, Vector3f.UNIT_Z.negate());
     }
     
     private final Vector3f direction = new Vector3f();
     private long lastJump;
     private final Camera camera;
-    private final Set<Movements> movements = new HashSet();
+    private final Set<Binding> movements = new HashSet();
     
     public AvatarInputStateManager(Camera camera) {
         this.camera = camera;
@@ -73,27 +55,32 @@ public class AvatarInputStateManager {
         return movements.size() > 0;
     }
     
-    public void updateMovement(Movements movement, boolean activate) {
+    public void updateMovement(Binding binding, boolean activate) {
         if (activate) { 
-            addMovement(movement);
+            addMovement(binding);
         }
         else { 
-            removeMovement(movement);
+            removeMovement(binding);
         }
     }
     
-    public void addMovement(Movements movement) {
-        movements.add(movement);
+    private void addMovement(Binding binding) {
+        if (Binding.Jump == binding) {
+            updateJumpTimestamp();
+        }
+        else {
+            movements.add(binding);
+            updateMovementVector();
+        }
+    }
+    
+    private void removeMovement(Binding binding) {
+        movements.remove(binding);
         updateMovementVector();
     }
     
-    public void removeMovement(Movements movement) {
-        movements.remove(movement);
-        updateMovementVector();
-    }
-    
-    public void setLastJump(long timestamp) {
-        this.lastJump = timestamp;
+    private void updateJumpTimestamp() {
+        this.lastJump = System.currentTimeMillis();
     }
     
     private void updateMovementVector() {

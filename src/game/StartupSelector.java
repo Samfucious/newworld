@@ -31,7 +31,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
- *
+ * A built in launcher that starts the game in client, server, or standalone mode.
+ * 
  * @author Sam Iredale "Samfucious" (gyrepin@gmail.com)
  */
 public class StartupSelector extends JFrame {
