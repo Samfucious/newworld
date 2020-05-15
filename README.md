@@ -10,3 +10,6 @@ External libraries referenced by and included are:
 - lombok.jar (https://projectlombok.org/)
 - WCOmoCSG321-b20191021-j17.jar (http://jmonkeycsg.sourceforge.net/)
 - WCOmoCSGjme321-b20191021-j17.jar (http://jmonkeycsg.sourceforge.net/)
+
+For information on how to run the program after building:
+> java -jar game.jar --help
