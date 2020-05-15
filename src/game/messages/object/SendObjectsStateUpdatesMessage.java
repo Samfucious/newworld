@@ -61,7 +61,8 @@ public class SendObjectsStateUpdatesMessage extends BaseMessage implements ITarg
         
         for (Avatar avatar : Application.getApplication().getAvatars()) {
             if(getClientId() != avatar.getAvatarId()) {
-                BaseMessage message = new AvatarCreatedMessage(avatar.getAvatarId(), avatar.getLocalTranslation(), avatar.getViewDirection());
+                BaseMessage message = new AvatarCreatedMessage(avatar.getAvatarId(), avatar.getLocalTranslation(),
+                        avatar.getServerActionsState().getViewDirection());
                 ((ServerApp) Application.getApplication()).send(message, getClientId());
             }
         }
