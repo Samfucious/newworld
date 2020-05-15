@@ -49,7 +49,7 @@ public class ServerApp extends BaseApp {
 
     @Override
     public void playAudio(AudioNode audioNode) {
-        // Do nothing
+        // Do nothing (to prevent crash on headless server)
     }
     
     @Override
@@ -64,18 +64,18 @@ public class ServerApp extends BaseApp {
         trySendResponse(message.createResponse());
     }
     
+    private void trySendResponse(BaseMessage response) {
+        if(null != response) {
+            network.send(response);
+        }
+    }
+    
     @Override
     public void simpleUpdate(float tpf) {
         getAvatars().forEach(avatar -> {
             avatar.getClientActionsState().copyTo(avatar.getServerActionsState());
         });
         super.simpleUpdate(tpf);
-    }
-    
-    private void trySendResponse(BaseMessage response) {
-        if(null != response) {
-            network.send(response);
-        }
     }
         
     public void send(BaseMessage message) {

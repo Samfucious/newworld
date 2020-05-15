@@ -21,6 +21,7 @@ import com.jme3.bullet.control.CharacterControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
+import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -116,6 +117,7 @@ public class Avatar extends UpdatingNode {
     
     public void setViewDirection(Vector3f viewDirection) {
         characterControl.setViewDirection(viewDirection);
+
         Quaternion rotation = new Quaternion();
         Vector3f xaxis = viewDirection.cross(Vector3f.UNIT_Y);
         Vector3f yaxis = viewDirection.cross(xaxis);
