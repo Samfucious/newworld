@@ -107,7 +107,7 @@ public class Console {
     public static class EchoCommand implements ICommand {
         @Override
         public void run(String[] args) {
-            System.out.println(Arrays.toString(args));
+            System.out.println(String.join(" ", args));
         }
     }
     
