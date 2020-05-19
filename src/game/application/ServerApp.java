@@ -19,6 +19,7 @@ package game.application;
 import com.jme3.audio.AudioNode;
 import com.jme3.system.JmeContext;
 import game.Configuration;
+import game.console.Console;
 import game.messages.BaseMessage;
 import game.messages.ITargetServer;
 import game.networking.ServerNetworkManager;
@@ -40,6 +41,7 @@ public class ServerApp extends BaseApp {
         super.simpleInitApp();
         int port = Integer.parseInt(Configuration.getConfigurationValue(Configuration.Configurations.PORT, Configuration.DEFAULT_PORT));
         network = new ServerNetworkManager(port);
+        Console.start();
     }
     
     @Override
